@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Peris &amp; David — Wedding RSVP &amp; Gift Registry</title>
+<title>Peris &amp; David — Wedding RSVP, Gift Registry &amp; M-Pesa</title>
 <meta name="description" content="RSVP for Peris and David’s wedding on 5 August 2026 at Leilani Gardens, Kikuyu, and explore their optional gift registry.">
 <link rel="canonical" href="https://wainainadave-cloud.github.io/peris-david-wedding-static/">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -340,7 +340,7 @@
     <div class="choice-stack" id="newGuestActions">
       <button class="btn choice-btn cash" onclick="openCashGift()">
         <span class="choice-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="2"></rect><circle cx="12" cy="12" r="2.8"></circle><path d="M6 10h.01M18 14h.01"></path></svg></span>
-        <span class="choice-copy"><strong>Give a cash gift</strong><span>M-Pesa prompt will be connected through Daraja.</span></span>
+        <span class="choice-copy"><strong>Give a cash gift</strong><span>Receive a secure M-Pesa prompt on your phone.</span></span>
       </button>
       <button class="btn choice-btn registry" onclick="goGifts()">
         <span class="choice-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="1.5"></rect><line x1="12" y1="9" x2="12" y2="21"></line><path d="M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2"></path></svg></span>
@@ -368,13 +368,13 @@
   </div>
 </div>
 
-<!-- ============ MODAL: cash gift placeholder ============ -->
+<!-- ============ MODAL: cash gift / M-Pesa STK Push ============ -->
 <div class="modal-overlay sheet-overlay" id="modalCashGift">
   <div class="sheet-card">
     <button class="close-x" onclick="closeCashGift()">&times;</button>
     <div class="sheet-handle"></div>
     <h2>Give a cash gift</h2>
-    <p>Enter the amount you would like to give and confirm the phone number that should receive the future STK Push.</p>
+    <p>Enter the amount you would like to give and confirm the Safaricom number that should receive the M-Pesa prompt.</p>
     <div class="field">
       <label>Cash gift amount (KSh)</label>
       <input id="cashGiftAmount" type="number" min="1" inputmode="numeric" placeholder="e.g. 2,000">
@@ -382,10 +382,19 @@
     <div class="field">
       <label>Phone number for STK Push</label>
       <input id="cashGiftPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="e.g. 07XX XXX XXX">
-      <div class="field-error" id="err-cashGiftPhone">Please confirm a valid phone number.</div>
+      <div class="field-error" id="err-cashGiftPhone">Please confirm a valid Safaricom phone number.</div>
     </div>
-    <div class="cash-coming" id="cashGiftMessage">M-Pesa STK Push is not active yet. Once the Daraja connection is added, the payment prompt will open from this button.</div>
-    <button class="btn btn-gold" style="width:100%" onclick="previewCashGiftPrompt()">Continue to M-Pesa prompt</button>
+    <div class="cash-coming" id="cashGiftMessage">After you continue, check your phone and enter your M-Pesa PIN on the Safaricom prompt. Never enter your PIN on this website.</div>
+    <button class="btn btn-gold" id="cashGiftPayBtn" style="width:100%" onclick="previewCashGiftPrompt()">Send M-Pesa Prompt</button>
+    <div class="loading" id="cashGiftLoading"><span class="spinner"></span><span id="cashGiftLoadingText">Sending M-Pesa prompt…</span></div>
+    <div class="toast" id="cashGiftSuccess">
+      <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 12.5 10 16.5 18 8"></polyline></svg></div>
+      <div class="toast-msg" id="cashGiftSuccessMsg">Payment received. Thank you!</div>
+    </div>
+    <div class="toast error" id="cashGiftError">
+      <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="8" x2="12" y2="13"></line><circle cx="12" cy="16.2" r="0.4" fill="currentColor"></circle></svg></div>
+      <div class="toast-msg" id="cashGiftErrorMsg">The payment was not completed.</div>
+    </div>
     <div class="btn-row" style="margin-top:12px">
       <button class="btn btn-outline-green" onclick="cashToRegistry()">Browse registry</button>
       <button class="btn btn-light" onclick="cashToInvite()">Get RSVP card</button>
@@ -407,38 +416,38 @@
   </div>
 </div>
 
-<!-- ============ MODAL: Checkout / Till number ============ -->
+<!-- ============ MODAL: Gift checkout / M-Pesa STK Push ============ -->
 <div class="modal-overlay sheet-overlay" id="modalCheckout">
   <div class="sheet-card">
     <button class="close-x" onclick="closeCheckout()">&times;</button>
     <div class="sheet-handle"></div>
     <h2>Contribute to this gift</h2>
-    <p style="font-size:13.5px;margin-bottom:14px">You selected <b id="ckGiftName" style="color:var(--primary-dark)"></b>. Confirm your details, then send payment to the Till Number below.</p>
+    <p style="font-size:13.5px;margin-bottom:14px">You selected <b id="ckGiftName" style="color:var(--primary-dark)"></b>. Confirm your details and we will send an M-Pesa prompt to your phone.</p>
     <div class="pay-summary">
       <b id="ckGiftName2"></b><br>
       <span class="amt" id="ckAmountDisplay">KSh 0</span> contribution
     </div>
     <div class="sheet-grid">
-      <div class="field"><label>Your Name</label><input id="payName"><div class="field-error" id="err-payName">Required</div></div>
-      <div class="field"><label>Phone Number</label><input id="payPhone"><div class="field-error" id="err-payPhone">Required</div></div>
+      <div class="field"><label>Your Name</label><input id="payName" autocomplete="name"><div class="field-error" id="err-payName">Required</div></div>
+      <div class="field"><label>Phone Number for STK Push</label><input id="payPhone" autocomplete="tel" inputmode="tel"><div class="field-error" id="err-payPhone">Enter a valid Safaricom number</div></div>
     </div>
     <div class="field" style="margin-top:12px"><label>Note (optional)</label><input id="payNote" placeholder="Any message for Peris &amp; David"></div>
 
     <div class="till-box">
-      <div class="till-label">M-Pesa Buy Goods / Till Number</div>
-      <div class="till-number" id="tillNumberDisplay">—</div>
-      <div class="till-hint">Go to M-Pesa &rarr; Lipa na M-Pesa &rarr; Buy Goods and Services &rarr; enter the Till Number above and the amount, then confirm below.</div>
+      <div class="till-label">Secure M-Pesa payment</div>
+      <div class="till-number" style="font-size:24px">STK Push</div>
+      <div class="till-hint">Check your phone after tapping the button below. Enter your M-Pesa PIN only on the Safaricom prompt—not on this website.</div>
     </div>
 
-    <button class="btn btn-gold" style="width:100%" id="pledgeBtn" onclick="confirmContribution()">I've sent it — Confirm Contribution</button>
-    <div class="loading" id="ckLoading"><span class="spinner"></span> Recording your contribution…</div>
+    <button class="btn btn-gold" style="width:100%" id="pledgeBtn" onclick="confirmContribution()">Send M-Pesa Prompt</button>
+    <div class="loading" id="ckLoading"><span class="spinner"></span><span id="ckLoadingText">Sending M-Pesa prompt…</span></div>
     <div class="toast" id="ckSuccess">
       <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 12.5 10 16.5 18 8"></polyline></svg></div>
-      <div class="toast-msg">Contribution recorded. Thank you — preparing your invite card…</div>
+      <div class="toast-msg" id="ckSuccessMsg">Payment received and contribution recorded. Preparing your invite card…</div>
     </div>
     <div class="toast error" id="ckError">
       <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="8" x2="12" y2="13"></line><circle cx="12" cy="16.2" r="0.4" fill="currentColor"></circle></svg></div>
-      <div class="toast-msg" id="ckErrorMsg">Something went wrong. Please try again.</div>
+      <div class="toast-msg" id="ckErrorMsg">The payment was not completed. Please try again.</div>
     </div>
   </div>
 </div>
@@ -459,7 +468,7 @@
 /* ============================================================
    Static-site API configuration
    ============================================================ */
-const API_BASE_URL = 'https://script.google.com/macros/s/AKfycbxKkdU2VPZMelO1fBDjeYBrj6dkvr39e0otjISuCsbAXWrkydEoBufcMbMTiViXVe5pbA/exec';
+const API_BASE_URL = 'https://script.google.com/macros/s/AKfycbzYwoRVKULvK21e_Nd0msPZcy4ZnZi_HtczX7gWgLUdamiezNAVVVd6Lb-5WowIRWOOvw/exec';
 const HERO_IMAGE_URL = 'hero.jpg';
 const GUEST_STORAGE_KEY = 'perisDavidWeddingGuestV2';
 const LEGACY_GUEST_STORAGE_KEY = 'perisDavidWeddingGuestV1';
@@ -470,7 +479,6 @@ const DEVICE_STORAGE_KEY = 'perisDavidWeddingDeviceV1';
    ============================================================ */
 var GIFTS = [];
 var selectedGift = null;
-var TILL_NUMBER = '—';
 var isBackendConnected = false;
 var existingGuest = null;
 var savedGuest = null;
@@ -584,6 +592,49 @@ async function apiPost(action, payload){
     body: JSON.stringify(Object.assign({ action: action }, payload || {}))
   });
   return parseApiResponse(response);
+}
+
+/* ============================================================
+   Daraja M-Pesa STK Push client
+   ============================================================ */
+async function startStkPushPayment(details){
+  var response = await apiPost('stkPush', {
+    name: details.name || 'Guest',
+    giftId: details.giftId || 'cash-gift',
+    phone: details.phone,
+    amount: details.amount
+  });
+  var payment = response && response.payment ? response.payment : response;
+  if(!payment || !payment.checkoutRequestId){
+    throw new Error('M-Pesa accepted no checkout reference. Please try again.');
+  }
+  return payment;
+}
+
+async function getMpesaPaymentStatus(checkoutRequestId){
+  var response = await apiGet('paymentStatus', {
+    checkoutRequestId: checkoutRequestId,
+    _: Date.now()
+  });
+  return response && response.payment ? response.payment : response;
+}
+
+async function waitForMpesaPayment(checkoutRequestId, maximumAttempts){
+  var attempts = Number(maximumAttempts || 40);
+  for(var attempt = 0; attempt < attempts; attempt++){
+    var payment = await getMpesaPaymentStatus(checkoutRequestId);
+    if(payment && (payment.status === 'PAID' || payment.status === 'FAILED')) return payment;
+    await new Promise(function(resolve){ window.setTimeout(resolve, 3000); });
+  }
+  return {
+    status: 'PENDING',
+    resultDesc: 'Payment confirmation is taking longer than expected. Check your M-Pesa messages before trying again.'
+  };
+}
+
+function mpesaFailureMessage(payment){
+  if(payment && payment.resultDesc) return payment.resultDesc;
+  return 'The M-Pesa payment was not completed. Please try again.';
 }
 
 /* ============================================================
@@ -727,12 +778,10 @@ async function initBackend(){
   try {
     var results = await Promise.all([
       apiGet('getGiftRegistry'),
-      apiGet('getTillNumber'),
       apiGet('getRecentActivity', { limit: 8 })
     ]);
     GIFTS = Array.isArray(results[0]) ? results[0] : [];
-    TILL_NUMBER = results[1] == null ? '—' : String(results[1]);
-    renderActivity(Array.isArray(results[2]) ? results[2] : []);
+    renderActivity(Array.isArray(results[1]) ? results[1] : []);
     renderGiftGrid();
     isBackendConnected = true;
     setConn('ok', 'Connected to registry');
@@ -942,17 +991,23 @@ function openCashGift(){
   hydrateGuestFields(savedGuest || { name: $('guestName').value, phone: $('guestPhone').value });
   $('cashGiftPhone').value = ($('guestPhone').value || (savedGuest && savedGuest.phone) || '').trim();
   $('cashGiftPhone').classList.remove('invalid');
-  if ($('err-cashGiftPhone')) $('err-cashGiftPhone').classList.remove('show');
-  $('cashGiftMessage').textContent = 'M-Pesa STK Push is not active yet. No payment will be initiated until the Daraja connection is added.';
+  if($('err-cashGiftPhone')) $('err-cashGiftPhone').classList.remove('show');
+  $('cashGiftMessage').textContent = 'After you continue, check your phone and enter your M-Pesa PIN on the Safaricom prompt. Never enter your PIN on this website.';
+  $('cashGiftLoading').classList.remove('show');
+  $('cashGiftSuccess').classList.remove('show');
+  $('cashGiftError').classList.remove('show');
+  $('cashGiftPayBtn').disabled = false;
+  $('cashGiftPayBtn').textContent = 'Send M-Pesa Prompt';
   $('modalCashGift').classList.add('show');
 }
 function closeCashGift(){ $('modalCashGift').classList.remove('show'); }
 function openCashGiftFromNoGift(){ $('modalNoGift').classList.remove('show'); openCashGift(); }
 function cashToRegistry(){ closeCashGift(); goGifts(); }
 function cashToInvite(){ closeCashGift(); confirmNoGift(); }
-function previewCashGiftPrompt(){
+async function previewCashGiftPrompt(){
   var amount = Number($('cashGiftAmount').value || 0);
   var phone = $('cashGiftPhone').value.trim();
+  var name = $('guestName').value.trim() || (savedGuest && savedGuest.name) || 'Guest';
   if(!amount || amount < 1){
     $('cashGiftAmount').classList.add('invalid');
     $('cashGiftAmount').focus();
@@ -963,9 +1018,73 @@ function previewCashGiftPrompt(){
     $('cashGiftPhone').focus();
     return;
   }
+
+  var button = $('cashGiftPayBtn');
+  button.disabled = true;
+  button.textContent = 'Sending prompt…';
+  $('cashGiftLoadingText').textContent = 'Sending M-Pesa prompt…';
+  $('cashGiftLoading').classList.add('show');
+  $('cashGiftSuccess').classList.remove('show');
+  $('cashGiftError').classList.remove('show');
+  $('cashGiftMessage').textContent = 'Contacting M-Pesa. Keep this page open.';
+  setConn('pending', 'Starting M-Pesa…');
+
   $('guestPhone').value = phone;
-  saveGuest({ cashDraftAmount: amount, name: $('guestName').value.trim(), phone: phone });
-  $('cashGiftMessage').textContent = 'Cash gift draft saved: ' + fmt(amount) + ' for phone ' + phone + '. Daraja is not connected yet, so no M-Pesa request has been sent.';
+  saveGuest({ cashDraftAmount: amount, name: name, phone: phone, flowInProgress: true });
+
+  try {
+    var request = await startStkPushPayment({
+      name: name,
+      giftId: 'cash-gift',
+      phone: phone,
+      amount: amount
+    });
+
+    $('cashGiftMessage').textContent = request.customerMessage || 'Check your phone and enter your M-Pesa PIN.';
+    $('cashGiftLoadingText').textContent = 'Waiting for M-Pesa confirmation…';
+    button.textContent = 'Waiting for payment…';
+
+    var payment = await waitForMpesaPayment(request.checkoutRequestId, 40);
+    if(!payment || payment.status !== 'PAID') throw new Error(mpesaFailureMessage(payment));
+
+    selectedGift = {
+      kind: 'cash',
+      name: 'cash gift',
+      amount: Number(payment.amount || amount),
+      receipt: payment.receipt || ''
+    };
+
+    try {
+      if(!(existingGuest && existingGuest.exists)) await apiPost('submitRSVPOnly', { name: name, phone: phone });
+    } catch(rsvpError){
+      console.warn('Cash payment succeeded, but RSVP activity could not be updated.', rsvpError);
+    }
+
+    markFlowSaved({
+      name: name,
+      phone: phone,
+      rsvpConfirmed: true,
+      cashGiftAmount: selectedGift.amount,
+      mpesaReceipt: selectedGift.receipt
+    });
+
+    $('cashGiftLoading').classList.remove('show');
+    $('cashGiftSuccessMsg').textContent = 'Payment received' + (selectedGift.receipt ? ' — receipt ' + selectedGift.receipt : '') + '. Thank you!';
+    $('cashGiftSuccess').classList.add('show');
+    button.textContent = 'Payment received ✓';
+    setConn('ok', 'M-Pesa payment received');
+    refreshActivity();
+    setTimeout(function(){ showInvite(true); }, 1100);
+  } catch(error){
+    $('cashGiftLoading').classList.remove('show');
+    $('cashGiftErrorMsg').textContent = getErrorMessage(error, 'The M-Pesa payment was not completed. Please try again.');
+    $('cashGiftError').classList.add('show');
+    $('cashGiftMessage').textContent = 'No gift has been recorded. You may safely try again.';
+    button.disabled = false;
+    button.textContent = 'Try M-Pesa Again';
+    setConn('err', 'M-Pesa not completed');
+    console.error(error);
+  }
 }
 function confirmNoGift(){
   $('modalGiftPrompt').classList.remove('show');
@@ -1005,19 +1124,20 @@ function openCheckout(rowIndex, amount){
   if(!gift) return;
   var maxAmount = gift.target > 0 ? Math.max(0, gift.remaining) : null;
   if(maxAmount !== null && amount > maxAmount) amount = maxAmount;
-  selectedGift = { rowIndex: rowIndex, name: gift.name, amount: amount, maxAmt: maxAmount };
+  selectedGift = { rowIndex: rowIndex, name: gift.name, amount: amount, maxAmt: maxAmount, kind: 'registry' };
 
   $('ckGiftName').textContent = gift.name;
   $('ckGiftName2').textContent = gift.name;
   $('ckAmountDisplay').textContent = fmt(amount);
-  $('tillNumberDisplay').textContent = TILL_NUMBER || '—';
   $('payName').value = $('guestName').value || $('payName').value;
   $('payPhone').value = $('guestPhone').value || $('payPhone').value;
   $('payNote').value = '';
+  $('ckLoadingText').textContent = 'Sending M-Pesa prompt…';
   $('ckLoading').classList.remove('show');
   $('ckSuccess').classList.remove('show');
   $('ckError').classList.remove('show');
   $('pledgeBtn').disabled = false;
+  $('pledgeBtn').textContent = 'Send M-Pesa Prompt';
   $('modalCheckout').classList.add('show');
 }
 function closeCheckout(){ $('modalCheckout').classList.remove('show'); }
@@ -1028,10 +1148,14 @@ async function confirmContribution(){
   var phoneOk = markField('payPhone', 'err-payPhone', Boolean(phone) && validatePhone(phone));
   if(!nameOk || !phoneOk || !selectedGift) return;
 
-  $('pledgeBtn').disabled = true;
+  var button = $('pledgeBtn');
+  button.disabled = true;
+  button.textContent = 'Sending prompt…';
+  $('ckLoadingText').textContent = 'Sending M-Pesa prompt…';
   $('ckLoading').classList.add('show');
   $('ckSuccess').classList.remove('show');
   $('ckError').classList.remove('show');
+  setConn('pending', 'Starting M-Pesa…');
 
   var payload = {
     name: name,
@@ -1043,35 +1167,62 @@ async function confirmContribution(){
   };
 
   try {
+    var request = await startStkPushPayment({
+      name: name,
+      giftId: 'gift-' + selectedGift.rowIndex,
+      phone: phone,
+      amount: selectedGift.amount
+    });
+
+    $('ckLoadingText').textContent = 'Waiting for M-Pesa confirmation…';
+    button.textContent = 'Waiting for payment…';
+
+    var payment = await waitForMpesaPayment(request.checkoutRequestId, 40);
+    if(!payment || payment.status !== 'PAID') throw new Error(mpesaFailureMessage(payment));
+
+    payload.mpesaReceipt = payment.receipt || '';
+    payload.checkoutRequestId = request.checkoutRequestId;
+    payload.paymentStatus = 'Confirmed';
+
+    $('ckLoadingText').textContent = 'Recording your contribution…';
     var result = await apiPost('submitContribution', payload);
     result = result || {};
+
     $('ckLoading').classList.remove('show');
+    $('ckSuccessMsg').textContent = 'Payment received' + (payment.receipt ? ' — receipt ' + payment.receipt : '') + '. Preparing your invite card…';
     $('ckSuccess').classList.add('show');
-    $('pledgeBtn').disabled = false;
+    button.textContent = 'Payment received ✓';
+
     if(typeof result.amount === 'number') selectedGift.amount = result.amount;
+    selectedGift.receipt = payment.receipt || '';
     var gift = GIFTS.find(function(item){ return Number(item.rowIndex) === Number(selectedGift.rowIndex); });
     if(gift && typeof result.newRaised === 'number'){
       gift.raised = result.newRaised;
       gift.remaining = Math.max(0, gift.target - gift.raised);
       gift.fullyFunded = gift.target > 0 && gift.remaining <= 0;
     }
+
+    $('guestName').value = name;
+    $('guestPhone').value = phone;
     markFlowSaved({
       name: name,
       phone: phone,
       rsvpConfirmed: true,
       giftRowIndex: selectedGift.rowIndex,
       giftName: selectedGift.name,
-      amount: selectedGift.amount
+      amount: selectedGift.amount,
+      mpesaReceipt: selectedGift.receipt
     });
-    setConn('ok', 'Contribution saved');
+    setConn('ok', 'M-Pesa payment received');
     refreshActivity();
-    setTimeout(function(){ showInvite(true); }, 900);
+    setTimeout(function(){ showInvite(true); }, 1100);
   } catch(error){
     $('ckLoading').classList.remove('show');
-    $('ckErrorMsg').textContent = getErrorMessage(error, 'Something went wrong saving your contribution. Please try again.');
+    $('ckErrorMsg').textContent = getErrorMessage(error, 'The M-Pesa payment was not completed. No contribution has been recorded.');
     $('ckError').classList.add('show');
-    $('pledgeBtn').disabled = false;
-    setConn('err', 'Contribution not saved');
+    button.disabled = false;
+    button.textContent = 'Try M-Pesa Again';
+    setConn('err', 'M-Pesa not completed');
     console.error(error);
   }
 }
@@ -1088,7 +1239,11 @@ function showInvite(withGift){
   var name = ($('guestName').value || $('payName').value || 'Guest').trim();
   $('inviteName').textContent = name || 'Guest';
   if(withGift && selectedGift){
-    $('giftThanks').innerHTML = 'Thank you for your thoughtful gift toward <b style="color:var(--secondary-dark)">' + escapeHtml(selectedGift.name) + '</b> — ' + fmt(selectedGift.amount) + '. Your love and support mean so much to us.';
+    if(selectedGift.kind === 'cash'){
+      $('giftThanks').innerHTML = 'Thank you for your generous cash gift of <b style="color:var(--secondary-dark)">' + fmt(selectedGift.amount) + '</b>' + (selectedGift.receipt ? ' (M-Pesa receipt ' + escapeHtml(selectedGift.receipt) + ')' : '') + '. Your love and support mean so much to us.';
+    } else {
+      $('giftThanks').innerHTML = 'Thank you for your thoughtful gift toward <b style="color:var(--secondary-dark)">' + escapeHtml(selectedGift.name) + '</b> — ' + fmt(selectedGift.amount) + (selectedGift.receipt ? ' (M-Pesa receipt ' + escapeHtml(selectedGift.receipt) + ')' : '') + '. Your love and support mean so much to us.';
+    }
   } else {
     $('giftThanks').textContent = 'We look forward to celebrating with you.';
   }
