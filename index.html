@@ -13,9 +13,10 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Peris &amp; David&#39;s Wedding Guest Registration">
 <meta property="og:description" content="Kindly register below to receive your personal digital invitation.">
-<meta property="og:image" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/whatsapp-preview-exact.png?v=6">
-<meta property="og:image:secure_url" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/whatsapp-preview-exact.png?v=6">
-<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/whatsapp-preview.png">
+<meta property="og:image:url" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/whatsapp-preview.png">
+<meta property="og:image:secure_url" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/whatsapp-preview.png">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1024">
 <meta property="og:image:height" content="1536">
 <meta property="og:image:alt" content="Peris and David wedding guest registration">
@@ -25,7 +26,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Peris &amp; David&#39;s Wedding Guest Registration">
 <meta name="twitter:description" content="Kindly register below to receive your personal digital invitation.">
-<meta name="twitter:image" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/whatsapp-preview-exact.png?v=6">
+<meta name="twitter:image" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/whatsapp-preview.png">
+<meta name="twitter:image:alt" content="Peris and David wedding guest registration">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -646,6 +648,19 @@
    Static-site API configuration
    ============================================================ */
 const API_BASE_URL = 'https://script.google.com/macros/s/AKfycbzYwoRVKULvK21e_Nd0msPZcy4ZnZi_HtczX7gWgLUdamiezNAVVVd6Lb-5WowIRWOOvw/exec';
+
+/*
+ * Remote Apps Script requests run only on the published GitHub Pages site.
+ * This prevents ChatGPT/Preview from repeatedly asking for network access.
+ * Add ?api=1 only when you deliberately want to test the live backend elsewhere.
+ */
+const IS_PUBLISHED_SITE =
+  window.location.hostname === 'wainainadave-cloud.github.io';
+
+const ALLOW_REMOTE_API =
+  IS_PUBLISHED_SITE ||
+  new URLSearchParams(window.location.search).get('api') === '1';
+
 const HERO_IMAGE_URL = 'hero.jpg';
 const GUEST_STORAGE_KEY = 'perisDavidWeddingGuestV2';
 const LEGACY_GUEST_STORAGE_KEY = 'perisDavidWeddingGuestV1';
@@ -717,7 +732,8 @@ function getErrorMessage(error, fallback){
    Apps Script JSON API client
    ============================================================ */
 function apiIsConfigured(){
-  return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/i.test(API_BASE_URL.trim());
+  return ALLOW_REMOTE_API &&
+    /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/i.test(API_BASE_URL.trim());
 }
 function unwrapApiPayload(payload){
   if(payload && typeof payload === 'object'){
@@ -946,8 +962,18 @@ setInterval(tickCountdown, 1000);
 async function initBackend(){
   if(!apiIsConfigured()){
     isBackendConnected = false;
+
+    if(!ALLOW_REMOTE_API){
+      setConn('ok', 'Preview mode');
+      $('giftGrid').innerHTML =
+        '<div class="activity-empty">Preview mode is active. The live registry and M-Pesa connection will load automatically on the published GitHub Pages site.</div>';
+      renderActivity([]);
+      return;
+    }
+
     setConn('err', 'API URL required');
-    $('giftGrid').innerHTML = '<div class="activity-empty">The registry connection is not configured.</div>';
+    $('giftGrid').innerHTML =
+      '<div class="activity-empty">The registry connection is not configured.</div>';
     return;
   }
 
