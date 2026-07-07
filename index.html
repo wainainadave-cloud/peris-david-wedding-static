@@ -330,6 +330,65 @@
     .rsvp-guide{transition:none}
   }
 
+
+  .guide-launcher{
+    position:fixed;
+    left:10px;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:125;
+    width:54px;
+    min-height:72px;
+    padding:8px 6px;
+    border:1px solid rgba(255,255,255,.8);
+    border-radius:0 18px 18px 0;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(16px) saturate(160%);
+    box-shadow:0 14px 34px rgba(74,20,36,.24);
+    color:var(--primary-dark);
+    cursor:pointer;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+  }
+  .guide-launcher.show{display:flex}
+  .guide-launcher-hand{
+    font-size:31px;
+    line-height:1;
+    animation:guideFloat 1.05s ease-in-out infinite;
+  }
+  .guide-launcher-label{
+    font-size:9px;
+    line-height:1.1;
+    font-weight:800;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    writing-mode:vertical-rl;
+    transform:rotate(180deg);
+    color:var(--primary);
+  }
+  .rsvp-guide{
+    max-width:calc(100vw - 24px);
+  }
+  @media (max-width:520px){
+    .rsvp-guide{
+      width:calc(100vw - 20px);
+      max-width:calc(100vw - 20px);
+    }
+    .guide-bubble{
+      padding:12px 40px 12px 14px;
+    }
+    .guide-hand{font-size:36px}
+    .guide-launcher{
+      left:4px;
+      width:48px;
+      min-height:66px;
+    }
+    .guide-launcher-hand{font-size:27px}
+  }
+
 </style>
 </head>
 <body>
@@ -353,6 +412,12 @@
   </div>
   <div class="guide-hand" id="guideHand" aria-hidden="true">👇🏽</div>
 </div>
+
+
+<button class="guide-launcher" id="guideLauncher" type="button" aria-label="Open RSVP guide">
+  <span class="guide-launcher-hand" aria-hidden="true">👉🏽</span>
+  <span class="guide-launcher-label">Guide</span>
+</button>
 
 <!-- ============ HOME / RSVP PAGE ============ -->
 <div class="page active" id="page-home">
@@ -1459,7 +1524,8 @@ function applyHeroPhoto(){
    Animated RSVP guide
    ============================================================ */
 const RSVP_GUIDE_STORAGE_KEY = 'perisDavidWeddingRsvpGuideV1';
-var rsvpGuideActive = false;
+var rsvpGuideActive = true;
+var rsvpGuideCollapsed = false;
 var rsvpGuideTarget = null;
 var rsvpGuideTimer = null;
 var rsvpGuideLastKey = '';
@@ -1494,15 +1560,31 @@ function hideRsvpGuide(){
     if(!guide.classList.contains('show')) guide.hidden = true;
   }, 220);
 }
-function dismissRsvpGuide(){
-  rsvpGuideActive = false;
-  guideStorageSet('dismissed');
+function showGuideLauncher(){
+  var launcher = $('guideLauncher');
+  if(launcher) launcher.classList.add('show');
+}
+function hideGuideLauncher(){
+  var launcher = $('guideLauncher');
+  if(launcher) launcher.classList.remove('show');
+}
+function collapseRsvpGuide(){
+  rsvpGuideCollapsed = true;
+  guideStorageSet('collapsed');
   hideRsvpGuide();
+  showGuideLauncher();
+}
+function expandRsvpGuide(){
+  rsvpGuideCollapsed = false;
+  guideStorageSet('expanded');
+  hideGuideLauncher();
+  scheduleRsvpGuideRefresh(20);
+}
+function dismissRsvpGuide(){
+  collapseRsvpGuide();
 }
 function completeRsvpGuide(){
-  rsvpGuideActive = false;
-  guideStorageSet('completed');
-  hideRsvpGuide();
+  collapseRsvpGuide();
 }
 function scheduleRsvpGuideRefresh(delay){
   if(!rsvpGuideActive) return;
@@ -1510,21 +1592,32 @@ function scheduleRsvpGuideRefresh(delay){
   rsvpGuideTimer = window.setTimeout(refreshRsvpGuide, typeof delay === 'number' ? delay : 120);
 }
 function positionRsvpGuide(){
-  if(!rsvpGuideActive || !rsvpGuideTarget || !isElementVisible(rsvpGuideTarget)) return;
+  if(!rsvpGuideActive || rsvpGuideCollapsed || !rsvpGuideTarget || !isElementVisible(rsvpGuideTarget)) return;
   var guide = $('rsvpGuide');
   if(!guide || guide.hidden) return;
 
   var rect = rsvpGuideTarget.getBoundingClientRect();
   var guideRect = guide.getBoundingClientRect();
-  var margin = 14;
-  var canPlaceAbove = rect.top > guideRect.height + 28;
-  var top = canPlaceAbove
-    ? rect.top - guideRect.height - margin
-    : rect.bottom + margin;
-  var left = rect.left + (rect.width / 2) - (guideRect.width / 2);
+  var margin = 12;
+  var safeTop = 10;
+  var safeLeft = 10;
+  var maxLeft = Math.max(safeLeft, window.innerWidth - guideRect.width - safeLeft);
+  var maxTop = Math.max(safeTop, window.innerHeight - guideRect.height - safeTop);
+  var canPlaceAbove = rect.top >= guideRect.height + margin + safeTop;
+  var canPlaceBelow = (window.innerHeight - rect.bottom) >= guideRect.height + margin;
 
-  left = Math.max(12, Math.min(left, window.innerWidth - guideRect.width - 12));
-  top = Math.max(10, Math.min(top, window.innerHeight - guideRect.height - 10));
+  var top;
+  if(canPlaceAbove){
+    top = rect.top - guideRect.height - margin;
+  } else if(canPlaceBelow){
+    top = rect.bottom + margin;
+  } else {
+    top = Math.max(safeTop, Math.min(rect.top - (guideRect.height / 2), maxTop));
+  }
+
+  var left = rect.left + (rect.width / 2) - (guideRect.width / 2);
+  left = Math.max(safeLeft, Math.min(left, maxLeft));
+  top = Math.max(safeTop, Math.min(top, maxTop));
 
   guide.classList.toggle('below', !canPlaceAbove);
   $('guideHand').textContent = canPlaceAbove ? '👇🏽' : '👆🏽';
@@ -1569,6 +1662,12 @@ function showRsvpGuideStep(config){
 }
 function refreshRsvpGuide(){
   if(!rsvpGuideActive) return;
+  if(rsvpGuideCollapsed){
+    hideRsvpGuide();
+    showGuideLauncher();
+    return;
+  }
+  hideGuideLauncher();
 
   if($('modalDeviceRecognition') && $('modalDeviceRecognition').classList.contains('show')){
     hideRsvpGuide();
@@ -1676,7 +1775,13 @@ function refreshRsvpGuide(){
         text:'Adjust the amount above, then tap “Contribute to this”.'
       });
     } else {
-      hideRsvpGuide();
+      showRsvpGuideStep({
+        key:'registry-loading',
+        target:'#giftGrid',
+        step:'Gift registry',
+        title:'Choose a gift',
+        text:'The registry is loading. Once the gifts appear, choose one and enter your contribution amount.'
+      });
     }
     return;
   }
@@ -1731,9 +1836,15 @@ function refreshRsvpGuide(){
   });
 }
 function startRsvpGuide(){
-  if(guideStorageGet() || savedGuest) return;
   rsvpGuideActive = true;
-  refreshRsvpGuide();
+  rsvpGuideCollapsed = guideStorageGet() === 'collapsed';
+  if(rsvpGuideCollapsed){
+    hideRsvpGuide();
+    showGuideLauncher();
+  } else {
+    hideGuideLauncher();
+    refreshRsvpGuide();
+  }
 }
 
 
@@ -1762,11 +1873,13 @@ $('cashGiftPhone').addEventListener('input', function(){
 });
 initBackend();
 
-$('guideClose').addEventListener('click', dismissRsvpGuide);
+$('guideClose').addEventListener('click', collapseRsvpGuide);
+$('guideLauncher').addEventListener('click', expandRsvpGuide);
 document.addEventListener('input', function(event){
   if(event.target && event.target.matches('input')) scheduleRsvpGuideRefresh(80);
 });
-document.addEventListener('click', function(){
+document.addEventListener('click', function(event){
+  if(event.target && (event.target.closest('#guideClose') || event.target.closest('#guideLauncher'))) return;
   scheduleRsvpGuideRefresh(260);
 });
 window.addEventListener('resize', positionRsvpGuide);
@@ -1789,7 +1902,10 @@ window.addEventListener('scroll', positionRsvpGuide, true);
 });
 
 $('downloadJpgBtn').addEventListener('click', function(){
-  window.setTimeout(completeRsvpGuide, 600);
+  window.setTimeout(function(){
+    if(rsvpGuideCollapsed) showGuideLauncher();
+    else scheduleRsvpGuideRefresh(120);
+  }, 600);
 });
 
 window.setTimeout(startRsvpGuide, 1100);
