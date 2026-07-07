@@ -230,6 +230,106 @@
   @media print{
     .conn-pill,.activity-widget,.modal-overlay{display:none!important}
   }
+
+  /* ============================================================
+     Animated RSVP guide
+     ============================================================ */
+  @keyframes guideFloat{
+    0%,100%{transform:translateY(0) rotate(-4deg)}
+    50%{transform:translateY(-9px) rotate(3deg)}
+  }
+  @keyframes guideTargetPulse{
+    0%,100%{box-shadow:0 0 0 4px rgba(107,24,48,.16),0 0 0 9px rgba(107,24,48,.06)}
+    50%{box-shadow:0 0 0 5px rgba(107,24,48,.30),0 0 0 13px rgba(107,24,48,.08)}
+  }
+  @keyframes guideBubbleIn{
+    from{opacity:0;transform:translateY(8px) scale(.96)}
+    to{opacity:1;transform:translateY(0) scale(1)}
+  }
+  .rsvp-guide{
+    position:fixed;
+    z-index:120;
+    width:min(300px,calc(100vw - 24px));
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+    pointer-events:none;
+    opacity:0;
+    transform:translateY(8px);
+    transition:opacity .2s ease,transform .2s ease,left .28s ease,top .28s ease;
+  }
+  .rsvp-guide.show{opacity:1;transform:translateY(0)}
+  .rsvp-guide.below{flex-direction:column-reverse}
+  .guide-hand{
+    font-size:42px;
+    line-height:1;
+    filter:drop-shadow(0 8px 10px rgba(46,15,28,.22));
+    animation:guideFloat 1.05s ease-in-out infinite;
+    user-select:none;
+  }
+  .guide-bubble{
+    position:relative;
+    width:100%;
+    padding:14px 42px 14px 16px;
+    border:1px solid rgba(255,255,255,.75);
+    border-radius:17px;
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(18px) saturate(160%);
+    box-shadow:0 16px 42px rgba(74,20,36,.24);
+    color:var(--ink);
+    animation:guideBubbleIn .25s ease both;
+    pointer-events:auto;
+  }
+  .guide-step{
+    display:block;
+    margin-bottom:4px;
+    color:var(--primary);
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+  }
+  .guide-title{
+    display:block;
+    margin-bottom:3px;
+    color:var(--primary-dark);
+    font-family:'Bodoni Moda',serif;
+    font-size:18px;
+    line-height:1.15;
+  }
+  .guide-text{
+    display:block;
+    color:var(--muted);
+    font-size:12.5px;
+    line-height:1.45;
+  }
+  .guide-close{
+    position:absolute;
+    top:8px;
+    right:8px;
+    width:28px;
+    height:28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:0;
+    border-radius:999px;
+    background:rgba(107,24,48,.09);
+    color:var(--primary-dark);
+    font-size:18px;
+    cursor:pointer;
+  }
+  .guide-close:hover{background:rgba(107,24,48,.17)}
+  .guide-target-active{
+    animation:guideTargetPulse 1.35s ease-in-out infinite!important;
+    border-color:rgba(107,24,48,.55)!important;
+  }
+  @media (prefers-reduced-motion:reduce){
+    .guide-hand,.guide-target-active{animation:none!important}
+    .rsvp-guide{transition:none}
+  }
+
 </style>
 </head>
 <body>
@@ -240,6 +340,18 @@
 <div class="conn-pill" id="connPill">
   <span class="conn-dot pending" id="connDot"></span>
   <span id="connLabel">Connecting…</span>
+</div>
+
+
+<!-- ============ Animated RSVP guide ============ -->
+<div class="rsvp-guide" id="rsvpGuide" hidden aria-live="polite">
+  <div class="guide-bubble">
+    <button class="guide-close" id="guideClose" type="button" aria-label="Dismiss guide">&times;</button>
+    <span class="guide-step" id="guideStep">Step 1</span>
+    <strong class="guide-title" id="guideTitle">Let’s begin</strong>
+    <span class="guide-text" id="guideText">Enter your name to start your RSVP.</span>
+  </div>
+  <div class="guide-hand" id="guideHand" aria-hidden="true">👇🏽</div>
 </div>
 
 <!-- ============ HOME / RSVP PAGE ============ -->
@@ -1342,6 +1454,289 @@ function applyHeroPhoto(){
   $('inviteBg').style.backgroundImage = "url('" + HERO_IMAGE_URL + "')";
 }
 
+
+/* ============================================================
+   Animated RSVP guide
+   ============================================================ */
+const RSVP_GUIDE_STORAGE_KEY = 'perisDavidWeddingRsvpGuideV1';
+var rsvpGuideActive = false;
+var rsvpGuideTarget = null;
+var rsvpGuideTimer = null;
+var rsvpGuideLastKey = '';
+
+function guideStorageGet(){
+  try { return localStorage.getItem(RSVP_GUIDE_STORAGE_KEY); }
+  catch(error){ return null; }
+}
+function guideStorageSet(value){
+  try { localStorage.setItem(RSVP_GUIDE_STORAGE_KEY, value); }
+  catch(error){}
+}
+function isElementVisible(element){
+  if(!element) return false;
+  var style = window.getComputedStyle(element);
+  var rect = element.getBoundingClientRect();
+  return style.display !== 'none' &&
+    style.visibility !== 'hidden' &&
+    rect.width > 0 &&
+    rect.height > 0;
+}
+function clearGuideTarget(){
+  if(rsvpGuideTarget) rsvpGuideTarget.classList.remove('guide-target-active');
+  rsvpGuideTarget = null;
+}
+function hideRsvpGuide(){
+  var guide = $('rsvpGuide');
+  if(!guide) return;
+  guide.classList.remove('show');
+  clearGuideTarget();
+  window.setTimeout(function(){
+    if(!guide.classList.contains('show')) guide.hidden = true;
+  }, 220);
+}
+function dismissRsvpGuide(){
+  rsvpGuideActive = false;
+  guideStorageSet('dismissed');
+  hideRsvpGuide();
+}
+function completeRsvpGuide(){
+  rsvpGuideActive = false;
+  guideStorageSet('completed');
+  hideRsvpGuide();
+}
+function scheduleRsvpGuideRefresh(delay){
+  if(!rsvpGuideActive) return;
+  window.clearTimeout(rsvpGuideTimer);
+  rsvpGuideTimer = window.setTimeout(refreshRsvpGuide, typeof delay === 'number' ? delay : 120);
+}
+function positionRsvpGuide(){
+  if(!rsvpGuideActive || !rsvpGuideTarget || !isElementVisible(rsvpGuideTarget)) return;
+  var guide = $('rsvpGuide');
+  if(!guide || guide.hidden) return;
+
+  var rect = rsvpGuideTarget.getBoundingClientRect();
+  var guideRect = guide.getBoundingClientRect();
+  var margin = 14;
+  var canPlaceAbove = rect.top > guideRect.height + 28;
+  var top = canPlaceAbove
+    ? rect.top - guideRect.height - margin
+    : rect.bottom + margin;
+  var left = rect.left + (rect.width / 2) - (guideRect.width / 2);
+
+  left = Math.max(12, Math.min(left, window.innerWidth - guideRect.width - 12));
+  top = Math.max(10, Math.min(top, window.innerHeight - guideRect.height - 10));
+
+  guide.classList.toggle('below', !canPlaceAbove);
+  $('guideHand').textContent = canPlaceAbove ? '👇🏽' : '👆🏽';
+  guide.style.left = Math.round(left) + 'px';
+  guide.style.top = Math.round(top) + 'px';
+}
+function showRsvpGuideStep(config){
+  var target = typeof config.target === 'string'
+    ? document.querySelector(config.target)
+    : config.target;
+
+  if(!isElementVisible(target)){
+    hideRsvpGuide();
+    return;
+  }
+
+  var key = config.key || config.target;
+  var guide = $('rsvpGuide');
+  if(!guide) return;
+
+  if(rsvpGuideTarget !== target){
+    clearGuideTarget();
+    rsvpGuideTarget = target;
+    rsvpGuideTarget.classList.add('guide-target-active');
+  }
+
+  $('guideStep').textContent = config.step || 'Next';
+  $('guideTitle').textContent = config.title || 'Continue';
+  $('guideText').textContent = config.text || '';
+
+  guide.hidden = false;
+  guide.classList.add('show');
+  rsvpGuideLastKey = key;
+
+  var rect = target.getBoundingClientRect();
+  if(rect.top < 6 || rect.bottom > window.innerHeight - 6){
+    target.scrollIntoView({ behavior:'smooth', block:'center' });
+    window.setTimeout(positionRsvpGuide, 380);
+  } else {
+    window.requestAnimationFrame(positionRsvpGuide);
+  }
+}
+function refreshRsvpGuide(){
+  if(!rsvpGuideActive) return;
+
+  if($('modalDeviceRecognition') && $('modalDeviceRecognition').classList.contains('show')){
+    hideRsvpGuide();
+    return;
+  }
+
+  if($('modalCashGift') && $('modalCashGift').classList.contains('show')){
+    var cashAmount = Number($('cashGiftAmount').value || 0);
+    var cashPhone = $('cashGiftPhone').value.trim();
+
+    if(cashAmount < 1){
+      showRsvpGuideStep({
+        key:'cash-amount',
+        target:'#cashGiftAmount',
+        step:'Cash gift',
+        title:'Choose an amount',
+        text:'Enter the amount you would like to give.'
+      });
+      return;
+    }
+    if(!validatePhone(cashPhone)){
+      showRsvpGuideStep({
+        key:'cash-phone',
+        target:'#cashGiftPhone',
+        step:'M-Pesa number',
+        title:'Confirm your phone',
+        text:'Enter the Safaricom number that should receive the M-Pesa prompt.'
+      });
+      return;
+    }
+    showRsvpGuideStep({
+      key:'cash-pay',
+      target:'#cashGiftPayBtn',
+      step:'Send prompt',
+      title:'Continue to M-Pesa',
+      text:'Tap here, then enter your PIN only on the secure M-Pesa prompt on your phone.'
+    });
+    return;
+  }
+
+  if($('modalCheckout') && $('modalCheckout').classList.contains('show')){
+    var payName = $('payName').value.trim();
+    var payPhone = $('payPhone').value.trim();
+
+    if(!payName){
+      showRsvpGuideStep({
+        key:'checkout-name',
+        target:'#payName',
+        step:'Confirm details',
+        title:'Confirm your name',
+        text:'Check that your name is correct before continuing.'
+      });
+      return;
+    }
+    if(!validatePhone(payPhone)){
+      showRsvpGuideStep({
+        key:'checkout-phone',
+        target:'#payPhone',
+        step:'M-Pesa number',
+        title:'Confirm your phone',
+        text:'Use the Safaricom number that should receive the payment prompt.'
+      });
+      return;
+    }
+    showRsvpGuideStep({
+      key:'checkout-pay',
+      target:'#pledgeBtn',
+      step:'Make payment',
+      title:'Send the M-Pesa prompt',
+      text:'Tap here and complete the request on your phone.'
+    });
+    return;
+  }
+
+  if($('modalNoGift') && $('modalNoGift').classList.contains('show')){
+    showRsvpGuideStep({
+      key:'no-gift',
+      target:'#modalNoGift .modal-card > .btn-light',
+      step:'Final choice',
+      title:'Create your RSVP card',
+      text:'Tap here to confirm attendance without choosing a gift.'
+    });
+    return;
+  }
+
+  if($('modalGiftPrompt') && $('modalGiftPrompt').classList.contains('show')){
+    showRsvpGuideStep({
+      key:'choices',
+      target:'#newGuestActions',
+      step:'Choose the next step',
+      title:'How would you like to continue?',
+      text:'Choose a cash gift, browse the registry, or go directly to your RSVP card.'
+    });
+    return;
+  }
+
+  if($('page-gifts') && $('page-gifts').classList.contains('active')){
+    var giftButton = document.querySelector('.gift-btn:not(:disabled)');
+    if(giftButton){
+      showRsvpGuideStep({
+        key:'registry',
+        target:giftButton,
+        step:'Gift registry',
+        title:'Choose a gift',
+        text:'Adjust the amount above, then tap “Contribute to this”.'
+      });
+    } else {
+      hideRsvpGuide();
+    }
+    return;
+  }
+
+  if($('page-invite') && $('page-invite').classList.contains('active')){
+    showRsvpGuideStep({
+      key:'download',
+      target:'#downloadJpgBtn',
+      step:'You’re done',
+      title:'Save your invitation',
+      text:'Download your RSVP card as an image and keep it for the wedding day.'
+    });
+    return;
+  }
+
+  if(!$('page-home') || !$('page-home').classList.contains('active')){
+    hideRsvpGuide();
+    return;
+  }
+
+  var guestNameValue = $('guestName').value.trim();
+  var guestPhoneValue = $('guestPhone').value.trim();
+
+  if(!guestNameValue){
+    showRsvpGuideStep({
+      key:'guest-name',
+      target:'#guestName',
+      step:'Step 1 of 3',
+      title:'Enter your name',
+      text:'Start by typing the name you would like shown on your RSVP.'
+    });
+    return;
+  }
+
+  if(!validatePhone(guestPhoneValue)){
+    showRsvpGuideStep({
+      key:'guest-phone',
+      target:'#guestPhone',
+      step:'Step 2 of 3',
+      title:'Enter your phone number',
+      text:'Please enter a valid phone number so we can identify your RSVP.'
+    });
+    return;
+  }
+
+  showRsvpGuideStep({
+    key:'rsvp-button',
+    target:'#rsvpBtn',
+    step:'Step 3 of 3',
+    title:'Get your invite',
+    text:'Your details are ready. Tap here to continue.'
+  });
+}
+function startRsvpGuide(){
+  if(guideStorageGet() || savedGuest) return;
+  rsvpGuideActive = true;
+  refreshRsvpGuide();
+}
+
+
 /* ============================================================
    Boot
    ============================================================ */
@@ -1366,6 +1761,38 @@ $('cashGiftPhone').addEventListener('input', function(){
   if(phone) saveGuest({ phone: phone });
 });
 initBackend();
+
+$('guideClose').addEventListener('click', dismissRsvpGuide);
+document.addEventListener('input', function(event){
+  if(event.target && event.target.matches('input')) scheduleRsvpGuideRefresh(80);
+});
+document.addEventListener('click', function(){
+  scheduleRsvpGuideRefresh(260);
+});
+window.addEventListener('resize', positionRsvpGuide);
+window.addEventListener('scroll', positionRsvpGuide, true);
+
+[
+  'modalGiftPrompt',
+  'modalCashGift',
+  'modalNoGift',
+  'modalCheckout',
+  'modalDeviceRecognition',
+  'page-home',
+  'page-gifts',
+  'page-invite'
+].forEach(function(id){
+  var element = $(id);
+  if(!element) return;
+  new MutationObserver(function(){ scheduleRsvpGuideRefresh(180); })
+    .observe(element, { attributes:true, attributeFilter:['class'] });
+});
+
+$('downloadJpgBtn').addEventListener('click', function(){
+  window.setTimeout(completeRsvpGuide, 600);
+});
+
+window.setTimeout(startRsvpGuide, 1100);
 </script>
 </body>
 </html>
