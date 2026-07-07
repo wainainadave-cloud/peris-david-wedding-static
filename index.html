@@ -13,7 +13,11 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Peris &amp; David — Wedding RSVP">
 <meta property="og:description" content="We would be honoured to celebrate with you on 5 August 2026 at Leilani Gardens, Kikuyu.">
-<meta property="og:image" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/hero.jpg">
+<meta property="og:image" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/hero.jpg?v=3">
+<meta property="og:image:secure_url" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/hero.jpg?v=3">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1023">
+<meta property="og:image:height" content="1536">
 <meta property="og:image:alt" content="Peris and David wedding invitation photo">
 <meta property="og:url" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/">
 <meta property="og:site_name" content="Peris &amp; David Wedding">
@@ -21,7 +25,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Peris &amp; David — Wedding RSVP">
 <meta name="twitter:description" content="RSVP for our wedding on 5 August 2026 at Leilani Gardens, Kikuyu.">
-<meta name="twitter:image" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/hero.jpg">
+<meta name="twitter:image" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/hero.jpg?v=3">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -191,16 +195,22 @@
   .status-tag.pending{background:rgba(201,154,46,.18);color:#8a6a1e}
 
 
-  .welcome-banner{position:fixed;top:64px;left:50%;transform:translateX(-50%);z-index:55;width:min(620px,calc(100vw - 32px));display:none;align-items:center;justify-content:space-between;gap:14px;background:rgba(255,255,255,.92);backdrop-filter:blur(18px) saturate(160%);border:1px solid rgba(107,24,48,.18);border-radius:18px;padding:13px 14px 13px 18px;box-shadow:0 16px 38px rgba(74,20,36,.17)}
-  .welcome-banner.show{display:flex;animation:fadeInUp .3s ease both}
-  .welcome-copy{min-width:0}
-  .welcome-copy b{display:block;color:var(--primary-dark);font-size:13.5px;margin-bottom:2px}
-  .welcome-copy span{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .welcome-actions{display:flex;align-items:center;gap:8px;flex:0 0 auto}
-  .welcome-action{border:none;border-radius:999px;padding:9px 12px;background:rgba(107,24,48,.1);color:var(--primary-dark);font-family:inherit;font-size:11.5px;font-weight:800;cursor:pointer}
-  .welcome-close{width:32px;height:32px;border:none;border-radius:999px;background:transparent;color:var(--muted);font-size:19px;cursor:pointer}
-  .api-note{display:none;max-width:1180px;margin:0 auto;padding:14px 24px;background:#fff5d9;color:#71550f;border-bottom:1px solid #efd68c;font-size:13px;line-height:1.5;position:relative;z-index:2}
-  .api-note.show{display:block}
+
+
+  .choice-stack{display:grid;gap:10px;margin-top:18px}
+  .choice-btn{width:100%;border-radius:16px;padding:15px 16px;justify-content:flex-start;text-align:left}
+  .choice-btn strong{display:block;font-size:14px}
+  .choice-btn span{display:block;font-size:11.5px;font-weight:500;opacity:.78;margin-top:3px}
+  .choice-btn.cash{background:linear-gradient(135deg,var(--primary-mid),var(--primary-deep));color:#fff;box-shadow:0 12px 26px rgba(107,24,48,.25)}
+  .choice-btn.registry{background:rgba(35,77,53,.12);color:var(--secondary-dark);border:1px solid rgba(35,77,53,.22)}
+  .choice-btn.skip{background:#ece8e9;color:#74676b;border:1px solid #ddd5d7;box-shadow:none}
+  .device-card{max-width:480px}
+  .device-identity{background:rgba(107,24,48,.08);border:1px solid rgba(107,24,48,.13);border-radius:14px;padding:14px;margin:14px 0 18px;color:var(--primary-dark);font-size:13.5px;line-height:1.6}
+  .device-identity b{display:block;font-size:15px}
+  .session-note{font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.5}
+  .cash-coming{background:rgba(35,77,53,.09);border:1px solid rgba(35,77,53,.16);border-radius:14px;padding:13px;font-size:12.5px;color:var(--secondary-dark);line-height:1.55;margin:12px 0 16px}
+  .gift-img-wrap{background:linear-gradient(145deg,rgba(107,24,48,.08),rgba(35,77,53,.08))}
+  .gift-img-wrap img.placeholder{object-fit:cover;transform:none!important}
 
   @media (max-width:760px){
     .hero{grid-template-columns:1fr;gap:18px;padding:60px 16px 70px;min-height:auto}
@@ -214,8 +224,6 @@
     .invite-inner{padding:38px 22px}
     .print-actions{grid-template-columns:1fr}
     .activity-widget{width:calc(100vw - 32px)}
-    .welcome-banner{top:58px;align-items:flex-start}
-    .welcome-actions{flex-direction:column;align-items:flex-end}
   }
   @media print{
     .conn-pill,.activity-widget,.modal-overlay{display:none!important}
@@ -230,21 +238,6 @@
 <div class="conn-pill" id="connPill">
   <span class="conn-dot pending" id="connDot"></span>
   <span id="connLabel">Connecting…</span>
-</div>
-
-<div class="welcome-banner" id="welcomeBanner" role="status" aria-live="polite">
-  <div class="welcome-copy">
-    <b id="welcomeTitle">Welcome back</b>
-    <span id="welcomeText">Your saved wedding details are ready.</span>
-  </div>
-  <div class="welcome-actions">
-    <button class="welcome-action" type="button" onclick="openSavedInvite()">View invite</button>
-    <button class="welcome-close" type="button" aria-label="Dismiss welcome message" onclick="dismissWelcome()">&times;</button>
-  </div>
-</div>
-
-<div class="api-note" id="apiNote">
-  Before publishing, replace <b>https://script.google.com/macros/s/AKfycbxKkdU2VPZMelO1fBDjeYBrj6dkvr39e0otjISuCsbAXWrkydEoBufcMbMTiViXVe5pbA/exec</b> in this file with the deployed Apps Script <b>/exec</b> URL, then replace the GitHub Pages placeholders in the Open Graph tags.
 </div>
 
 <!-- ============ HOME / RSVP PAGE ============ -->
@@ -334,15 +327,58 @@
   </div>
 </div>
 
-<!-- ============ MODAL: Gift prompt after RSVP ============ -->
+<!-- ============ MODAL: RSVP next step ============ -->
 <div class="modal-overlay" id="modalGiftPrompt">
   <div class="modal-card">
+    <button class="close-x" onclick="closeGiftPrompt()">&times;</button>
     <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="1.5"></rect><line x1="12" y1="9" x2="12" y2="21"></line><path d="M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2"></path></svg></div>
-    <h2>Thank you for RSVPing</h2>
-    <p id="giftPromptText">Before we prepare your invite, would you like to explore a gift for Peris &amp; David?</p>
+    <h2 id="giftPromptTitle">Thank you for RSVPing</h2>
+    <p id="giftPromptText">How would you like to continue?</p>
+
+    <div class="choice-stack" id="newGuestActions">
+      <button class="btn choice-btn cash" onclick="openCashGift()"><span><strong>Give a cash gift</strong>M-Pesa prompt will be connected through Daraja.</span></button>
+      <button class="btn choice-btn registry" onclick="goGifts()"><span><strong>Browse the gift registry</strong>Choose an item and contribute toward it.</span></button>
+      <button class="btn choice-btn skip" onclick="confirmNoGift()"><span><strong>No, just get my RSVP card</strong>Continue without choosing a gift.</span></button>
+    </div>
+
+    <div class="choice-stack" id="existingGuestActions" hidden>
+      <button class="btn choice-btn cash" onclick="openSavedInvite()"><span><strong>View or download RSVP card</strong>Your registration is already saved.</span></button>
+      <button class="btn choice-btn registry" onclick="showGiftUpdateChoices()"><span><strong>Update or add a gift</strong>Choose cash or browse the registry.</span></button>
+      <button class="btn choice-btn skip" onclick="ignoreDuplicateAndContinue()"><span><strong>Ignore and continue</strong>Continue using the details currently entered.</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: saved device recognition ============ -->
+<div class="modal-overlay" id="modalDeviceRecognition">
+  <div class="modal-card device-card">
+    <h2>This device has RSVP details</h2>
+    <p>We found details saved in this browser and have used them to refill the form.</p>
+    <div class="device-identity" id="deviceIdentity"><b>Guest</b><span>Phone number</span></div>
     <div class="btn-row">
-      <button class="btn btn-gold" onclick="goGifts()">Yes, show gifts</button>
-      <button class="btn btn-outline-green" onclick="confirmNoGift()">No, get invite</button>
+      <button class="btn btn-gold" onclick="continueWithSavedDevice()">Continue as saved</button>
+      <button class="btn btn-light" onclick="ignoreSavedDevice()">Ignore and continue</button>
+    </div>
+    <div class="session-note">This recognition only uses local browser storage on this device. It is not hardware fingerprinting and does not identify you on another phone or browser.</div>
+  </div>
+</div>
+
+<!-- ============ MODAL: cash gift placeholder ============ -->
+<div class="modal-overlay sheet-overlay" id="modalCashGift">
+  <div class="sheet-card">
+    <button class="close-x" onclick="closeCashGift()">&times;</button>
+    <div class="sheet-handle"></div>
+    <h2>Give a cash gift</h2>
+    <p>Enter the amount you would like to give. This draft will be remembered on this device.</p>
+    <div class="field">
+      <label>Cash gift amount (KSh)</label>
+      <input id="cashGiftAmount" type="number" min="1" inputmode="numeric" placeholder="e.g. 2,000">
+    </div>
+    <div class="cash-coming" id="cashGiftMessage">M-Pesa STK Push is not active yet. Once the Daraja connection is added, the payment prompt will open from this button.</div>
+    <button class="btn btn-gold" style="width:100%" onclick="previewCashGiftPrompt()">Continue to M-Pesa prompt</button>
+    <div class="btn-row" style="margin-top:12px">
+      <button class="btn btn-outline-green" onclick="cashToRegistry()">Browse registry</button>
+      <button class="btn btn-light" onclick="cashToInvite()">Get RSVP card</button>
     </div>
   </div>
 </div>
@@ -354,9 +390,10 @@
     <p style="margin-bottom:12px">That is completely okay. Your presence already means a lot.</p>
     <div class="info-box">A small gift is optional, but it would help Peris &amp; David begin their new home with a little more ease. Would you like a quick look before receiving your invite?</div>
     <div class="btn-row">
-      <button class="btn btn-gold" onclick="goGifts()">Take a quick look</button>
-      <button class="btn btn-outline-green" onclick="recordRsvpAndInvite()">I'll just attend</button>
+      <button class="btn btn-gold" onclick="openCashGiftFromNoGift()">Give cash instead</button>
+      <button class="btn btn-outline-green" onclick="goGifts()">Browse registry</button>
     </div>
+    <button class="btn btn-light" style="width:100%;margin-top:12px" onclick="recordRsvpAndInvite()">Confirm — just create my RSVP card</button>
   </div>
 </div>
 
@@ -414,7 +451,9 @@
    ============================================================ */
 const API_BASE_URL = 'https://script.google.com/macros/s/AKfycbxKkdU2VPZMelO1fBDjeYBrj6dkvr39e0otjISuCsbAXWrkydEoBufcMbMTiViXVe5pbA/exec';
 const HERO_IMAGE_URL = 'hero.jpg';
-const GUEST_STORAGE_KEY = 'perisDavidWeddingGuestV1';
+const GUEST_STORAGE_KEY = 'perisDavidWeddingGuestV2';
+const LEGACY_GUEST_STORAGE_KEY = 'perisDavidWeddingGuestV1';
+const DEVICE_STORAGE_KEY = 'perisDavidWeddingDeviceV1';
 
 /* ============================================================
    State
@@ -538,49 +577,103 @@ async function apiPost(action, payload){
 }
 
 /* ============================================================
-   Local guest memory / welcome-back banner
+   Local session resume and same-device recognition
    ============================================================ */
+var ignoreSavedForSession = false;
+var hasUnsavedProgress = false;
+
+function getOrCreateDeviceId(){
+  try {
+    var existing = localStorage.getItem(DEVICE_STORAGE_KEY);
+    if(existing) return existing;
+    var created = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'device-' + Date.now() + '-' + Math.random().toString(16).slice(2);
+    localStorage.setItem(DEVICE_STORAGE_KEY, created);
+    return created;
+  } catch(error){ return 'storage-unavailable'; }
+}
 function loadSavedGuest(){
   try {
     var raw = localStorage.getItem(GUEST_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : null;
+    if(!raw){
+      raw = localStorage.getItem(LEGACY_GUEST_STORAGE_KEY);
+      if(raw) localStorage.setItem(GUEST_STORAGE_KEY, raw);
+    }
+    if(!raw) return null;
+    var parsed = JSON.parse(raw);
+    return parsed && typeof parsed === 'object' ? parsed : null;
   } catch(error){
     console.warn('Could not read saved guest details.', error);
     return null;
   }
 }
-function saveGuest(details){
-  savedGuest = Object.assign({}, savedGuest || {}, details || {}, { savedAt: new Date().toISOString() });
+function saveGuest(patch){
+  savedGuest = Object.assign({}, savedGuest || {}, patch || {}, {
+    deviceId: getOrCreateDeviceId(),
+    lastSeenAt: new Date().toISOString()
+  });
   try { localStorage.setItem(GUEST_STORAGE_KEY, JSON.stringify(savedGuest)); }
-  catch(error){ console.warn('Could not save guest details locally.', error); }
-  hydrateGuestFields(savedGuest);
-  showWelcomeBanner(savedGuest);
+  catch(error){ console.warn('Could not save guest details.', error); }
+  return savedGuest;
 }
 function hydrateGuestFields(guest){
   if(!guest) return;
   if(guest.name){ $('guestName').value = guest.name; $('payName').value = guest.name; }
   if(guest.phone){ $('guestPhone').value = guest.phone; $('payPhone').value = guest.phone; }
+  if(guest.cashDraftAmount) $('cashGiftAmount').value = guest.cashDraftAmount;
 }
-function showWelcomeBanner(guest){
-  if(!guest || !guest.name) return;
-  $('welcomeTitle').textContent = 'Welcome back, ' + guest.name;
-  $('welcomeText').textContent = guest.giftName ? 'Your RSVP and gift contribution are saved on this device.' : 'Your RSVP details are saved on this device.';
-  $('welcomeBanner').classList.add('show');
+function showDeviceRecognition(guest){
+  if(!guest || !guest.name || !guest.phone || ignoreSavedForSession) return;
+  $('deviceIdentity').innerHTML = '<b>' + escapeHtml(guest.name) + '</b><span>' + escapeHtml(guest.phone) + '</span>';
+  $('modalDeviceRecognition').classList.add('show');
 }
-function dismissWelcome(){ $('welcomeBanner').classList.remove('show'); }
-function openSavedInvite(){
-  if(!savedGuest) return;
+function continueWithSavedDevice(){
+  $('modalDeviceRecognition').classList.remove('show');
   hydrateGuestFields(savedGuest);
-  if(savedGuest.giftName){
+}
+function ignoreSavedDevice(){
+  ignoreSavedForSession = true;
+  $('modalDeviceRecognition').classList.remove('show');
+  $('guestName').value = '';
+  $('guestPhone').value = '';
+  $('payName').value = '';
+  $('payPhone').value = '';
+  $('guestName').focus();
+}
+function openSavedInvite(){
+  $('modalDeviceRecognition').classList.remove('show');
+  $('modalGiftPrompt').classList.remove('show');
+  var source = (existingGuest && existingGuest.exists) ? existingGuest : savedGuest;
+  if(!source) return;
+  hydrateGuestFields(source);
+  saveGuest({ name: source.name || 'Guest', phone: source.phone || $('guestPhone').value, rsvpConfirmed: true, flowInProgress: false });
+  hasUnsavedProgress = false;
+  if(source.giftName){
     selectedGift = {
-      rowIndex: Number(savedGuest.giftRowIndex || 0),
-      name: savedGuest.giftName,
-      amount: Number(savedGuest.amount || 0),
-      maxAmt: null
+      rowIndex: Number(source.giftRowIndex || 0),
+      name: source.giftName,
+      amount: Number(source.amount || 0)
     };
   }
-  showInvite(Boolean(savedGuest.giftName));
+  showInvite(Boolean(source.giftName));
 }
+function saveDraftFromHome(){
+  var name = $('guestName').value.trim();
+  var phone = $('guestPhone').value.trim();
+  if(!name && !phone) return;
+  hasUnsavedProgress = true;
+  saveGuest({ name: name, phone: phone, flowInProgress: true });
+}
+function markFlowSaved(extra){
+  hasUnsavedProgress = false;
+  saveGuest(Object.assign({ flowInProgress: false, rsvpConfirmed: true }, extra || {}));
+}
+
+window.addEventListener('beforeunload', function(event){
+  if(!hasUnsavedProgress) return;
+  event.preventDefault();
+  event.returnValue = '';
+});
+
 function normalizeExistingGuest(result){
   if(result === true) return { exists: true };
   if(!result) return { exists: false };
@@ -616,8 +709,7 @@ async function initBackend(){
   if(!apiIsConfigured()){
     isBackendConnected = false;
     setConn('err', 'API URL required');
-    $('apiNote').classList.add('show');
-    $('giftGrid').innerHTML = '<div class="activity-empty">Add the deployed Apps Script /exec URL to API_BASE_URL before publishing.</div>';
+    $('giftGrid').innerHTML = '<div class="activity-empty">The registry connection is not configured.</div>';
     return;
   }
 
@@ -665,7 +757,7 @@ function renderGiftGrid(){
     var pct = gift.target > 0 ? Math.min(100, Math.round((gift.raised / gift.target) * 100)) : 0;
     var card = document.createElement('article');
     card.className = 'gift-card' + (gift.fullyFunded ? ' funded' : '');
-    var imageSrc = gift.imageUrl && gift.imageUrl.trim() ? gift.imageUrl : fallbackImageFor(gift.name);
+    var imageSrc = normalizeGiftImageUrl(gift.imageUrl, gift.name);
     var isCapped = gift.target > 0;
     var maxAmount = isCapped ? Math.max(0, gift.remaining) : null;
     var defaultAmount = isCapped ? (maxAmount > 0 ? Math.min(maxAmount, Math.max(500, Math.round(gift.target / 2))) : 0) : 1000;
@@ -673,7 +765,7 @@ function renderGiftGrid(){
 
     card.innerHTML =
       '<div class="gift-img-wrap">' +
-        (imageSrc ? '<img src="' + escapeAttr(imageSrc) + '" alt="' + escapeAttr(gift.name) + '" loading="lazy" crossorigin="anonymous">' : '') +
+        (imageSrc ? '<img src="' + escapeAttr(imageSrc) + '" alt="' + escapeAttr(gift.name) + '" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="handleGiftImageError(this)">' : '') +
         (gift.fullyFunded ? '<div class="funded-badge">&#10003; Fully funded</div>' : '') +
       '</div>' +
       '<div class="gift-body">' +
@@ -727,9 +819,44 @@ function renderGiftGrid(){
     });
   });
 }
-function fallbackImageFor(name){
-  var seed = String(name || 'gift').toLowerCase().replace(/[^a-z0-9]/g, '');
-  return 'https://picsum.photos/seed/' + (seed || 'gift') + '/700/500';
+function normalizeGiftImageUrl(rawUrl, giftName){
+  var value = String(rawUrl || '').trim();
+  if(!value) return 'gift-placeholder.svg';
+
+  try {
+    var driveFile = value.match(/drive\.google\.com\/file\/d\/([^/]+)/i);
+    var driveId = driveFile && driveFile[1];
+    if(!driveId){
+      var driveQuery = value.match(/[?&]id=([^&]+)/i);
+      driveId = driveQuery && driveQuery[1];
+    }
+    if(driveId) return 'https://lh3.googleusercontent.com/d/' + encodeURIComponent(driveId) + '=w1000';
+
+    if(/github\.com/i.test(value) && /\/blob\//i.test(value)){
+      return value.replace('https://github.com/', 'https://raw.githubusercontent.com/').replace('/blob/', '/');
+    }
+
+    if(/dropbox\.com/i.test(value)){
+      var url = new URL(value);
+      url.searchParams.delete('dl');
+      url.searchParams.set('raw', '1');
+      return url.toString();
+    }
+
+    if(/^https?:\/\//i.test(value)) return value;
+  } catch(error){
+    console.warn('Invalid image URL for ' + giftName, value, error);
+  }
+  return 'gift-placeholder.svg';
+}
+function fallbackImageFor(){ return 'gift-placeholder.svg'; }
+function handleGiftImageError(image){
+  if(!image || image.dataset.fallbackApplied === '1') return;
+  image.dataset.fallbackApplied = '1';
+  image.classList.add('placeholder');
+  image.removeAttribute('crossorigin');
+  image.removeAttribute('referrerpolicy');
+  image.src = 'gift-placeholder.svg';
 }
 
 /* ============================================================
@@ -742,6 +869,8 @@ async function openGiftPrompt(){
   var phoneOk = markField('guestPhone', 'err-guestPhone', Boolean(phone) && validatePhone(phone));
   if(!nameOk || !phoneOk) return;
 
+  saveGuest({ name: name, phone: phone, flowInProgress: true });
+  hasUnsavedProgress = true;
   var button = $('rsvpBtn');
   var originalHtml = button.innerHTML;
   button.disabled = true;
@@ -751,32 +880,78 @@ async function openGiftPrompt(){
   try {
     var result = await apiGet('checkExistingGuest', { phone: phone });
     var duplicate = normalizeExistingGuest(result);
-    if(duplicate.exists){
+    var sameIdentity = duplicate.exists && normalizeIdentity(duplicate.name) === normalizeIdentity(name);
+    if(duplicate.exists && sameIdentity){
       existingGuest = duplicate;
-      var rememberedName = duplicate.name || name;
-      $('guestName').value = rememberedName;
-      saveGuest({ name: rememberedName, phone: phone, rsvpConfirmed: true });
-      $('giftPromptText').textContent = 'Welcome back, ' + rememberedName + '. Your phone number is already on the guest list. You can view the registry or go straight to your invite.';
+      saveGuest({ name: duplicate.name || name, phone: phone, rsvpConfirmed: true, flowInProgress: false });
+      hasUnsavedProgress = false;
+      $('giftPromptTitle').textContent = 'This RSVP already exists';
+      $('giftPromptText').textContent = (duplicate.name || name) + ', this name and phone number are already registered. You can view the RSVP card or update the gift choice.';
+      $('newGuestActions').hidden = true;
+      $('existingGuestActions').hidden = false;
+    } else if(duplicate.exists){
+      existingGuest = duplicate;
+      $('giftPromptTitle').textContent = 'Phone number already registered';
+      $('giftPromptText').textContent = 'This phone number is already registered as ' + (duplicate.name || 'another guest') + '. Review the saved RSVP or ignore this warning and continue with the details entered.';
+      $('newGuestActions').hidden = true;
+      $('existingGuestActions').hidden = false;
     } else {
-      $('giftPromptText').textContent = 'Thank you, ' + name + '. Before we prepare your invite, would you like to explore a gift for Peris & David?';
+      prepareNewGuestChoices('Thank you, ' + name + '. Choose how you would like to continue.');
     }
     $('modalGiftPrompt').classList.add('show');
   } catch(error){
     console.warn('Duplicate check was unavailable; continuing with RSVP.', error);
-    $('giftPromptText').textContent = 'Thank you, ' + name + '. Before we prepare your invite, would you like to explore a gift for Peris & David?';
+    prepareNewGuestChoices('Thank you, ' + name + '. Choose how you would like to continue.');
     $('modalGiftPrompt').classList.add('show');
   } finally {
     button.disabled = false;
     button.innerHTML = originalHtml;
   }
 }
+function normalizeIdentity(value){ return String(value || '').trim().toLowerCase().replace(/\s+/g, ' '); }
+function prepareNewGuestChoices(message){
+  $('giftPromptTitle').textContent = 'Thank you for RSVPing';
+  $('giftPromptText').textContent = message || 'How would you like to continue?';
+  $('newGuestActions').hidden = false;
+  $('existingGuestActions').hidden = true;
+}
+function closeGiftPrompt(){ $('modalGiftPrompt').classList.remove('show'); }
+function showGiftUpdateChoices(){
+  prepareNewGuestChoices('Choose how you would like to update or add your gift.');
+}
+function ignoreDuplicateAndContinue(){
+  existingGuest = null;
+  prepareNewGuestChoices('Continuing with the details you entered. Choose the next step.');
+}
 function goGifts(){
   $('modalGiftPrompt').classList.remove('show');
   $('modalNoGift').classList.remove('show');
+  $('modalCashGift').classList.remove('show');
   $('payName').value = $('guestName').value;
   $('payPhone').value = $('guestPhone').value;
   showPage('gifts');
   if(isBackendConnected) renderGiftGrid();
+}
+function openCashGift(){
+  $('modalGiftPrompt').classList.remove('show');
+  $('modalNoGift').classList.remove('show');
+  hydrateGuestFields(savedGuest || { name: $('guestName').value, phone: $('guestPhone').value });
+  $('cashGiftMessage').textContent = 'M-Pesa STK Push is not active yet. No payment will be initiated until the Daraja connection is added.';
+  $('modalCashGift').classList.add('show');
+}
+function closeCashGift(){ $('modalCashGift').classList.remove('show'); }
+function openCashGiftFromNoGift(){ $('modalNoGift').classList.remove('show'); openCashGift(); }
+function cashToRegistry(){ closeCashGift(); goGifts(); }
+function cashToInvite(){ closeCashGift(); confirmNoGift(); }
+function previewCashGiftPrompt(){
+  var amount = Number($('cashGiftAmount').value || 0);
+  if(!amount || amount < 1){
+    $('cashGiftAmount').classList.add('invalid');
+    $('cashGiftAmount').focus();
+    return;
+  }
+  saveGuest({ cashDraftAmount: amount, name: $('guestName').value.trim(), phone: $('guestPhone').value.trim() });
+  $('cashGiftMessage').textContent = 'Cash gift draft saved: ' + fmt(amount) + '. Daraja is not connected yet, so no M-Pesa request has been sent.';
 }
 function confirmNoGift(){
   $('modalGiftPrompt').classList.remove('show');
@@ -788,7 +963,7 @@ async function recordRsvpAndInvite(){
   var phone = $('guestPhone').value.trim();
 
   if(existingGuest && existingGuest.exists){
-    saveGuest({ name: name, phone: phone, rsvpConfirmed: true });
+    markFlowSaved({ name: name, phone: phone });
     showInvite(false);
     return;
   }
@@ -796,7 +971,7 @@ async function recordRsvpAndInvite(){
   setConn('pending', 'Saving RSVP…');
   try {
     await apiPost('submitRSVPOnly', { name: name, phone: phone });
-    saveGuest({ name: name, phone: phone, rsvpConfirmed: true });
+    markFlowSaved({ name: name, phone: phone });
     isBackendConnected = true;
     setConn('ok', 'RSVP saved');
     refreshActivity();
@@ -866,7 +1041,7 @@ async function confirmContribution(){
       gift.remaining = Math.max(0, gift.target - gift.raised);
       gift.fullyFunded = gift.target > 0 && gift.remaining <= 0;
     }
-    saveGuest({
+    markFlowSaved({
       name: name,
       phone: phone,
       rsvpConfirmed: true,
@@ -894,6 +1069,8 @@ function showInvite(withGift){
   $('modalGiftPrompt').classList.remove('show');
   $('modalNoGift').classList.remove('show');
   $('modalCheckout').classList.remove('show');
+  $('modalCashGift').classList.remove('show');
+  $('modalDeviceRecognition').classList.remove('show');
   var name = ($('guestName').value || $('payName').value || 'Guest').trim();
   $('inviteName').textContent = name || 'Guest';
   if(withGift && selectedGift){
@@ -1001,10 +1178,18 @@ function applyHeroPhoto(){
    ============================================================ */
 applyHeroPhoto();
 savedGuest = loadSavedGuest();
+getOrCreateDeviceId();
 if(savedGuest){
   hydrateGuestFields(savedGuest);
-  showWelcomeBanner(savedGuest);
+  setTimeout(function(){ showDeviceRecognition(savedGuest); }, 350);
 }
+$('guestName').addEventListener('input', saveDraftFromHome);
+$('guestPhone').addEventListener('input', saveDraftFromHome);
+$('cashGiftAmount').addEventListener('input', function(){
+  this.classList.remove('invalid');
+  var amount = Number(this.value || 0);
+  if(amount > 0) saveGuest({ cashDraftAmount: amount });
+});
 initBackend();
 </script>
 </body>

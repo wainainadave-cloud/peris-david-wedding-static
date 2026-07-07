@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="500" viewBox="0 0 700 500" role="img" aria-labelledby="title desc">
+  <title id="title">Wedding gift placeholder</title>
+  <desc id="desc">A burgundy gift box with a gold ribbon on a soft cream background.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbf3ee"/>
+      <stop offset="1" stop-color="#ead9dc"/>
+    </linearGradient>
+    <linearGradient id="box" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8a2841"/>
+      <stop offset="1" stop-color="#4f1224"/>
+    </linearGradient>
+  </defs>
+  <rect width="700" height="500" fill="url(#bg)"/>
+  <circle cx="105" cy="90" r="74" fill="#6b1830" opacity=".08"/>
+  <circle cx="620" cy="420" r="110" fill="#234d35" opacity=".08"/>
+  <g transform="translate(185 105)">
+    <rect x="35" y="105" width="260" height="215" rx="18" fill="url(#box)"/>
+    <rect x="15" y="70" width="300" height="72" rx="18" fill="#6b1830"/>
+    <rect x="143" y="70" width="44" height="250" fill="#c9a45c"/>
+    <path d="M165 72C122 68 86 38 93 15c7-22 45-16 72 33 27-49 65-55 72-33 7 23-29 53-72 57Z" fill="none" stroke="#c9a45c" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="350" y="455" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#4f1224">A gift for our new home</text>
+</svg>
