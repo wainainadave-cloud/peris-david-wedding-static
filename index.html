@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peris &amp; David — Wedding RSVP &amp; Gift Registry</title>
+<meta name="description" content="RSVP for Peris and David’s wedding on 5 August 2026 at Leilani Gardens, Kikuyu, and explore their optional gift registry.">
+<link rel="canonical" href="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="hero.jpg">
+<meta name="theme-color" content="#6B1830">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Peris &amp; David — Wedding RSVP">
+<meta property="og:description" content="We would be honoured to celebrate with you on 5 August 2026 at Leilani Gardens, Kikuyu.">
+<meta property="og:image" content="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/hero.jpg">
+<meta property="og:image:alt" content="Peris and David wedding invitation photo">
+<meta property="og:url" content="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/">
+<meta property="og:site_name" content="Peris &amp; David Wedding">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Peris &amp; David — Wedding RSVP">
+<meta name="twitter:description" content="RSVP for our wedding on 5 August 2026 at Leilani Gardens, Kikuyu.">
+<meta name="twitter:image" content="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/hero.jpg">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#6B1830; --primary-mid:#8a2841; --primary-deep:#4f1224; --primary-dark:#2E0F1C;
+    --secondary:#234D35; --secondary-dark:#1F3826; --bg:#FAF3EE; --ink:#2E2126; --muted:#6B5A5F;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,sans-serif;background:var(--bg);color:var(--ink)}
+  input{font-family:Inter,sans-serif}
+  ::placeholder{color:#B79AA3}
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes scaleIn{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+  @keyframes sheetRise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes checkPop{0%{opacity:0;transform:scale(.4) rotate(-10deg)}60%{opacity:1;transform:scale(1.15) rotate(2deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
+  @keyframes blobDrift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-24px) scale(1.06)}100%{transform:translate(0,0) scale(1)}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.35}}
+
+  .page{display:none;min-height:100vh}
+  .page.active{display:block;animation:fadeInUp .4s ease both}
+
+  .blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
+  .blob1{top:-180px;left:-140px;width:440px;height:440px;background:var(--primary);filter:blur(110px);opacity:.28;animation:blobDrift 14s ease-in-out infinite}
+  .blob2{bottom:-200px;right:-160px;width:480px;height:480px;background:var(--secondary);filter:blur(120px);opacity:.24;animation:blobDrift 17s ease-in-out infinite reverse}
+
+  .conn-pill{position:fixed;top:14px;right:14px;z-index:60;display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border:1px solid rgba(107,24,48,.15);border-radius:999px;padding:8px 14px;font-size:12px;font-weight:700;color:var(--muted);box-shadow:0 8px 20px rgba(74,20,36,.1)}
+  .conn-dot{width:9px;height:9px;border-radius:50%;background:#9a9a9a;flex:0 0 auto}
+  .conn-dot.ok{background:#2e9e5b;box-shadow:0 0 0 3px rgba(46,158,91,.18)}
+  .conn-dot.err{background:#c94040;box-shadow:0 0 0 3px rgba(201,64,64,.18)}
+  .conn-dot.pending{background:#c99a2e;animation:pulseDot 1.1s ease-in-out infinite}
+
+  .hero{max-width:1180px;margin:0 auto;padding:88px 24px 80px;display:grid;grid-template-columns:1.05fr .95fr;gap:0;align-items:stretch;min-height:100vh;position:relative;z-index:1}
+  .hero-art{border-radius:28px 0 0 28px;min-height:600px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:40px;overflow:hidden;box-shadow:0 30px 70px rgba(74,20,36,.2);background-size:cover;background-position:center 25%}
+  .hero-art:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(46,33,38,0) 0%, rgba(46,33,38,.6) 100%)}
+  .hero-art .frame{position:absolute;inset:16px;border:1px solid rgba(255,255,255,.5);border-radius:20px;pointer-events:none}
+  .hero-quote{position:relative;font-family:'Bodoni Moda',serif;font-style:italic;font-size:26px;color:#F3E2E6;line-height:1.3;max-width:380px;margin-bottom:10px}
+  .hero-sub{position:relative;color:#fff;font-size:15.5px;line-height:1.6;max-width:380px;margin:0;opacity:.92}
+
+  .hero-form{background:rgba(255,255,255,.55);backdrop-filter:blur(24px) saturate(160%);border:1px solid rgba(255,255,255,.65);border-radius:0 28px 28px 0;padding:56px 48px;display:flex;flex-direction:column;justify-content:center;box-shadow:0 30px 80px rgba(74,20,36,.16)}
+  .eyebrow{letter-spacing:.2em;text-transform:uppercase;color:var(--primary);font-weight:700;font-size:12px}
+  .h1{font-family:'Bodoni Moda',serif;font-weight:600;font-size:54px;line-height:1;margin:14px 0 6px;color:var(--primary-dark)}
+  .h1 .amp{font-style:italic;color:var(--secondary);font-weight:500}
+  .lede{color:var(--muted);font-size:15px;line-height:1.65;margin:0 0 28px;max-width:420px}
+
+  .countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px}
+  .timebox{background:rgba(107,24,48,.08);backdrop-filter:blur(6px);border:1px solid rgba(107,24,48,.14);border-radius:14px;padding:14px 6px;text-align:center;overflow:hidden}
+  .timebox.g{background:rgba(35,77,53,.08);border-color:rgba(35,77,53,.14)}
+  .timebox .num{font-family:'Bodoni Moda',serif;font-size:29px;font-weight:700;color:var(--primary)}
+  .timebox.g .num{color:var(--secondary)}
+  .timebox .lbl{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#8A7378;margin-top:2px}
+
+  .field{margin-bottom:16px}
+  .field label{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px}
+  .field input{width:100%;padding:14px 16px;border-radius:12px;border:1px solid rgba(107,24,48,.2);background:rgba(255,255,255,.5);font-size:15px;color:var(--ink);transition:border-color .15s,box-shadow .15s;outline:none}
+  .field input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(107,24,48,.14)}
+  .field input.invalid{border-color:#c94040;box-shadow:0 0 0 3px rgba(201,64,64,.12)}
+  .field-error{display:none;color:#c94040;font-size:12.5px;margin-top:5px;font-weight:600}
+  .field-error.show{display:block}
+
+  .btn{border:none;border-radius:999px;padding:17px 26px;font-size:15.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:9px;justify-content:center;transition:transform .18s ease,box-shadow .18s ease;font-family:inherit}
+  .btn:active{transform:translateY(-1px) scale(.98)}
+  .btn-gold{background:linear-gradient(135deg,var(--primary-mid),var(--primary-deep));color:#fff;box-shadow:0 14px 30px rgba(107,24,48,.35)}
+  .btn-gold:hover{transform:translateY(-3px);box-shadow:0 20px 38px rgba(107,24,48,.45)}
+  .btn-light{background:rgba(255,255,255,.6);backdrop-filter:blur(10px);border:1px solid rgba(107,24,48,.2);color:var(--primary-dark)}
+  .btn-light:hover{background:rgba(255,255,255,.85)}
+  .btn-outline-green{background:rgba(35,77,53,.12);color:var(--secondary-dark);border:none}
+  .btn-outline-green:hover{background:rgba(35,77,53,.2)}
+  .btn:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
+  .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+  .gifts-wrap{max-width:1180px;margin:0 auto;padding:80px 24px 100px;position:relative;z-index:1}
+  .gifts-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:32px}
+  .gifts-eyebrow{letter-spacing:.2em;text-transform:uppercase;color:var(--primary);font-weight:700;font-size:12px;display:flex;align-items:center;gap:7px}
+  .gifts-h1{font-family:'Bodoni Moda',serif;font-weight:600;font-size:42px;margin:10px 0 0;color:var(--primary-dark)}
+  .gift-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+  .gift-card{background:rgba(255,255,255,.55);backdrop-filter:blur(20px) saturate(150%);border:1px solid rgba(255,255,255,.6);border-radius:22px;overflow:hidden;box-shadow:0 16px 36px rgba(74,20,36,.14);transition:transform .2s ease,box-shadow .2s ease;position:relative}
+  .gift-card:hover{transform:translateY(-5px);box-shadow:0 22px 44px rgba(74,20,36,.22)}
+  .gift-card.funded{outline:2px solid var(--secondary)}
+  .gift-img-wrap{overflow:hidden;height:170px;position:relative}
+  .gift-img-wrap img{width:100%;height:170px;object-fit:cover;display:block;transition:transform .35s ease}
+  .gift-card:hover .gift-img-wrap img{transform:scale(1.08)}
+  .funded-badge{position:absolute;top:10px;right:10px;background:rgba(35,77,53,.92);color:#fff;font-size:11px;font-weight:800;padding:5px 10px;border-radius:999px;letter-spacing:.02em;display:flex;align-items:center;gap:4px}
+  .gift-body{padding:18px}
+  .gift-body h3{margin:0 0 4px;font-family:'Bodoni Moda',serif;font-weight:600;font-size:22px;color:var(--primary-dark)}
+  .gift-desc{color:#6B5A5F;font-size:13px;line-height:1.55;margin:0 0 12px;min-height:40px}
+  .gift-progress-row{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+  .gift-progress-row b{color:var(--primary)}
+  .progress-track{height:7px;background:rgba(107,24,48,.12);border-radius:999px;overflow:hidden;margin-bottom:12px}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--secondary),var(--secondary-dark));border-radius:999px;transition:width .4s ease}
+  .gift-remaining{font-size:13px;font-weight:700;color:var(--secondary-dark);margin-bottom:12px}
+  .amount-row{display:flex;gap:8px;margin-bottom:6px}
+  .amount-row input{flex:1;min-width:0;padding:11px 10px;border-radius:10px;border:1px solid rgba(107,24,48,.2);background:rgba(255,255,255,.7);font-size:13px;color:var(--ink)}
+  .amount-row input.invalid{border-color:#c94040}
+  .amount-row input:disabled{opacity:.6;cursor:not-allowed}
+  .amount-currency{display:flex;align-items:center;color:var(--muted);font-size:13px;font-weight:600}
+  .amount-hint{font-size:11px;color:#9b8489;margin-bottom:10px}
+  .gift-btn{width:100%;background:linear-gradient(135deg,var(--primary-mid),var(--primary-deep));color:#fff;border:none;border-radius:999px;padding:12px;font-weight:600;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px;transition:transform .15s ease}
+  .gift-btn:hover{transform:translateY(-2px)}
+  .gift-btn:active{transform:scale(.97)}
+  .gift-btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+  .view-item-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;text-decoration:none;background:rgba(35,77,53,.1);color:var(--secondary-dark);border:1px solid rgba(35,77,53,.22);border-radius:999px;padding:9px;font-size:12px;font-weight:700;margin-bottom:10px;transition:background .15s ease}
+  .view-item-btn:hover{background:rgba(35,77,53,.18)}
+
+  .modal-overlay{position:fixed;inset:0;background:rgba(46,33,38,.45);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:40;padding:16px}
+  .modal-overlay.show{display:flex}
+  .modal-overlay.sheet-overlay{align-items:flex-end;padding:0 12px 12px}
+  .modal-card{animation:scaleIn .25s ease both;background:rgba(255,255,255,.92);backdrop-filter:blur(24px) saturate(160%);border:1px solid rgba(255,255,255,.7);border-radius:22px;padding:36px;max-width:440px;width:100%;box-shadow:0 30px 80px rgba(74,20,36,.3);text-align:left}
+  .sheet-card{animation:sheetRise .32s ease both;width:min(520px,100%);background:rgba(255,255,255,.92);backdrop-filter:blur(24px) saturate(160%);border:1px solid rgba(255,255,255,.7);border-radius:26px 26px 20px 20px;padding:26px;position:relative;box-shadow:0 -20px 70px rgba(74,20,36,.3);text-align:left}
+  .sheet-handle{width:48px;height:5px;background:rgba(107,24,48,.2);border-radius:999px;margin:0 auto 18px}
+  .close-x{position:absolute;right:20px;top:18px;width:34px;height:34px;border-radius:999px;border:none;background:rgba(107,24,48,.12);font-weight:700;color:var(--primary-dark);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+  .close-x:hover{background:rgba(107,24,48,.22)}
+  .modal-card h2, .sheet-card h2{font-family:'Bodoni Moda',serif;font-weight:600;font-size:27px;margin:0 0 10px;color:var(--primary-dark)}
+  .modal-card p, .sheet-card p{color:var(--muted);line-height:1.6;margin:0 0 20px}
+  .icon-circle{width:46px;height:46px;border-radius:999px;background:rgba(107,24,48,.12);color:var(--primary);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+  .info-box{background:rgba(35,77,53,.1);border-radius:14px;padding:14px;color:var(--secondary-dark);font-size:13.5px;line-height:1.55;margin-bottom:20px}
+  .pay-summary{background:rgba(107,24,48,.08);border-radius:14px;padding:14px;margin-bottom:16px}
+  .pay-summary b{color:var(--primary-dark)}
+  .pay-summary .amt{color:var(--primary);font-weight:800;font-size:17px}
+  .sheet-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .sheet-grid .field label{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:5px}
+  .sheet-grid .field input{padding:12px;border-radius:8px;font-size:13px}
+  .till-box{background:linear-gradient(135deg,rgba(107,24,48,.1),rgba(35,77,53,.1));border:1px dashed rgba(107,24,48,.3);border-radius:16px;padding:18px;text-align:center;margin:16px 0}
+  .till-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .till-number{font-family:'Bodoni Moda',serif;font-size:34px;font-weight:700;color:var(--primary-dark);margin:6px 0}
+  .till-hint{font-size:12.5px;color:var(--muted)}
+  .loading{display:none;margin-top:14px;text-align:center;color:var(--muted);gap:10px;align-items:center;justify-content:center}
+  .loading.show{display:flex}
+  .spinner{width:16px;height:16px;border-radius:50%;border:2px solid rgba(107,24,48,.25);border-top-color:var(--primary);animation:spin .7s linear infinite}
+  .toast{display:none;margin-top:14px;text-align:center}
+  .toast.show{display:block}
+  .toast .icon-circle{margin:0 auto 8px;background:rgba(35,77,53,.16);color:var(--secondary-dark);animation:checkPop .45s ease both}
+  .toast-msg{color:var(--secondary-dark);font-size:13px;font-weight:700}
+  .toast.error .toast-msg{color:#c94040}
+  .toast.error .icon-circle{background:rgba(201,64,64,.14);color:#c94040}
+
+  .invite-wrap{max-width:680px;margin:0 auto;padding:80px 24px 90px;position:relative;z-index:1}
+  .invite-outer{border-radius:28px;overflow:hidden;position:relative;box-shadow:0 34px 90px rgba(74,20,36,.28)}
+  .invite-bg{position:absolute;inset:0;background-size:cover;background-position:center 20%;filter:blur(2px);transform:scale(1.05)}
+  .invite-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(46,33,38,.35),rgba(46,33,38,.62))}
+  .invite-inner{position:relative;animation:scaleIn .4s ease both;background:rgba(255,255,255,.6);backdrop-filter:blur(24px) saturate(160%);border:1px solid rgba(255,255,255,.55);padding:56px 40px;text-align:center;margin:18px}
+  .invite-small{letter-spacing:.18em;text-transform:uppercase;font-size:11.5px;color:var(--primary);font-weight:700}
+  .invite-names{font-family:'Bodoni Moda',serif;font-weight:600;font-size:52px;margin:16px 0 0;color:var(--primary-dark);line-height:1}
+  .invite-amp{font-family:'Bodoni Moda',serif;font-style:italic;font-size:38px;color:var(--secondary);margin:2px 0}
+  .gold-line{width:60px;height:2px;background:var(--secondary);margin:26px auto}
+  .invite-body{color:#4A3E42;font-size:15px;line-height:1.7;max-width:440px;margin:0 auto}
+  .invite-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:28px 0}
+  .meta-box{background:rgba(255,255,255,.55);border:1px solid rgba(107,24,48,.15);border-radius:14px;padding:16px 8px}
+  .meta-box .ic{color:var(--primary);margin-bottom:4px}
+  .meta-box b{font-size:12.5px;color:var(--primary-dark)}
+  .meta-box span{font-size:12.5px;color:var(--muted)}
+  .print-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+
+  .activity-widget{position:fixed;bottom:16px;right:16px;z-index:50;width:300px;max-width:calc(100vw - 32px)}
+  .activity-toggle{background:rgba(255,255,255,.9);backdrop-filter:blur(14px);border:1px solid rgba(107,24,48,.18);border-radius:999px;padding:11px 18px;font-size:13px;font-weight:700;color:var(--primary-dark);cursor:pointer;box-shadow:0 12px 30px rgba(74,20,36,.18);display:flex;align-items:center;gap:8px;width:100%}
+  .activity-panel{display:none;margin-top:10px;background:rgba(255,255,255,.94);backdrop-filter:blur(18px) saturate(160%);border:1px solid rgba(255,255,255,.7);border-radius:18px;box-shadow:0 20px 50px rgba(74,20,36,.22);max-height:340px;overflow-y:auto;padding:8px}
+  .activity-panel.show{display:block;animation:scaleIn .2s ease both}
+  .activity-item{padding:10px 12px;border-bottom:1px solid rgba(107,24,48,.08);font-size:12.5px;line-height:1.5}
+  .activity-item:last-child{border-bottom:none}
+  .activity-item b{color:var(--primary-dark)}
+  .activity-item .meta{color:#9b8489;font-size:11px;margin-top:2px}
+  .activity-empty{padding:16px;text-align:center;color:var(--muted);font-size:12.5px}
+  .status-tag{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:middle}
+  .status-tag.confirmed{background:rgba(35,77,53,.15);color:var(--secondary-dark)}
+  .status-tag.pending{background:rgba(201,154,46,.18);color:#8a6a1e}
+
+
+  .welcome-banner{position:fixed;top:64px;left:50%;transform:translateX(-50%);z-index:55;width:min(620px,calc(100vw - 32px));display:none;align-items:center;justify-content:space-between;gap:14px;background:rgba(255,255,255,.92);backdrop-filter:blur(18px) saturate(160%);border:1px solid rgba(107,24,48,.18);border-radius:18px;padding:13px 14px 13px 18px;box-shadow:0 16px 38px rgba(74,20,36,.17)}
+  .welcome-banner.show{display:flex;animation:fadeInUp .3s ease both}
+  .welcome-copy{min-width:0}
+  .welcome-copy b{display:block;color:var(--primary-dark);font-size:13.5px;margin-bottom:2px}
+  .welcome-copy span{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .welcome-actions{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+  .welcome-action{border:none;border-radius:999px;padding:9px 12px;background:rgba(107,24,48,.1);color:var(--primary-dark);font-family:inherit;font-size:11.5px;font-weight:800;cursor:pointer}
+  .welcome-close{width:32px;height:32px;border:none;border-radius:999px;background:transparent;color:var(--muted);font-size:19px;cursor:pointer}
+  .api-note{display:none;max-width:1180px;margin:0 auto;padding:14px 24px;background:#fff5d9;color:#71550f;border-bottom:1px solid #efd68c;font-size:13px;line-height:1.5;position:relative;z-index:2}
+  .api-note.show{display:block}
+
+  @media (max-width:760px){
+    .hero{grid-template-columns:1fr;gap:18px;padding:60px 16px 70px;min-height:auto}
+    .hero-art{border-radius:24px;min-height:260px}
+    .hero-form{border-radius:24px;padding:32px 24px}
+    .h1{font-size:40px}
+    .countdown{gap:7px}
+    .timebox .num{font-size:22px}
+    .btn-row{grid-template-columns:1fr}
+    .invite-meta{grid-template-columns:1fr}
+    .invite-inner{padding:38px 22px}
+    .print-actions{grid-template-columns:1fr}
+    .activity-widget{width:calc(100vw - 32px)}
+    .welcome-banner{top:58px;align-items:flex-start}
+    .welcome-actions{flex-direction:column;align-items:flex-end}
+  }
+  @media print{
+    .conn-pill,.activity-widget,.modal-overlay{display:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+
+<div class="conn-pill" id="connPill">
+  <span class="conn-dot pending" id="connDot"></span>
+  <span id="connLabel">Connecting…</span>
+</div>
+
+<div class="welcome-banner" id="welcomeBanner" role="status" aria-live="polite">
+  <div class="welcome-copy">
+    <b id="welcomeTitle">Welcome back</b>
+    <span id="welcomeText">Your saved wedding details are ready.</span>
+  </div>
+  <div class="welcome-actions">
+    <button class="welcome-action" type="button" onclick="openSavedInvite()">View invite</button>
+    <button class="welcome-close" type="button" aria-label="Dismiss welcome message" onclick="dismissWelcome()">&times;</button>
+  </div>
+</div>
+
+<div class="api-note" id="apiNote">
+  Before publishing, replace <b>PASTE_YOUR_APPS_SCRIPT_EXEC_URL_HERE</b> in this file with the deployed Apps Script <b>/exec</b> URL, then replace the GitHub Pages placeholders in the Open Graph tags.
+</div>
+
+<!-- ============ HOME / RSVP PAGE ============ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-art" id="heroArt">
+      <div class="frame"></div>
+      <div class="hero-quote">&ldquo;We are glad you're here.&rdquo;</div>
+      <div class="hero-sub">We are looking forward to celebrating with you at Peris &amp; David's wedding.</div>
+    </div>
+    <div class="hero-form">
+      <div class="eyebrow">Wedding RSVP</div>
+      <h1 class="h1">Peris <span class="amp">&amp;</span> David</h1>
+      <p class="lede">Kindly confirm your attendance. Your invite card will be created for you immediately after RSVP.</p>
+
+      <div class="countdown">
+        <div class="timebox"><div class="num" id="cdDays">0</div><div class="lbl">Days</div></div>
+        <div class="timebox g"><div class="num" id="cdHours">0</div><div class="lbl">Hours</div></div>
+        <div class="timebox"><div class="num" id="cdMins">0</div><div class="lbl">Mins</div></div>
+        <div class="timebox g"><div class="num" id="cdSecs">0</div><div class="lbl">Secs</div></div>
+      </div>
+
+      <div class="field">
+        <label>Your Name</label>
+        <input id="guestName" placeholder="e.g. Mary Wanjiru" autocomplete="name">
+        <div class="field-error" id="err-guestName">Please enter your name.</div>
+      </div>
+      <div class="field">
+        <label>Phone Number</label>
+        <input id="guestPhone" placeholder="e.g. 07XX XXX XXX" autocomplete="tel" inputmode="tel">
+        <div class="field-error" id="err-guestPhone">Please enter a valid phone number.</div>
+      </div>
+      <button class="btn btn-gold" id="rsvpBtn" onclick="openGiftPrompt()">RSVP / Get Invite
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ GIFT REGISTRY PAGE ============ -->
+<div class="page" id="page-gifts">
+  <div class="gifts-wrap">
+    <div class="gifts-top">
+      <div>
+        <div class="gifts-eyebrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="1.5"></rect><line x1="12" y1="9" x2="12" y2="21"></line><path d="M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2"></path></svg>
+          Optional Gift Registry
+        </div>
+        <h1 class="gifts-h1">Choose a blessing</h1>
+      </div>
+      <button class="btn btn-light" onclick="confirmNoGift()">Skip gifts / Get invite</button>
+    </div>
+    <div class="gift-grid" id="giftGrid">
+      <div class="activity-empty">Loading gift registry…</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ INVITE PAGE ============ -->
+<div class="page" id="page-invite">
+  <div class="invite-wrap">
+    <div class="invite-outer" id="inviteCard">
+      <div class="invite-bg" id="inviteBg"></div>
+      <div class="invite-inner">
+        <div class="invite-small">You are warmly invited to celebrate</div>
+        <div class="invite-names">Peris</div>
+        <div class="invite-amp">&amp;</div>
+        <div class="invite-names">David</div>
+        <div class="invite-small" style="margin-top:16px">as they join together in marriage</div>
+        <div class="gold-line"></div>
+        <p class="invite-body">Dear <b style="color:var(--primary-dark)" id="inviteName">Guest</b>, thank you for confirming your attendance. We are grateful that you will share this beautiful day with us.</p>
+        <div class="invite-meta">
+          <div class="meta-box"><div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><line x1="16" y1="3" x2="16" y2="7"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div><b>Date</b><br><span>5th August 2026</span></div>
+          <div class="meta-box"><div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 16 14"></polyline></svg></div><b>Time</b><br><span>10:00 AM</span></div>
+          <div class="meta-box"><div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"></path><circle cx="12" cy="9" r="2.4"></circle></svg></div><b>Venue</b><br><span>Leilani Gardens, Kikuyu</span></div>
+        </div>
+        <p class="invite-body" id="giftThanks">We look forward to celebrating with you.</p>
+        <div class="gold-line"></div>
+        <div class="invite-small">Peris &amp; David</div>
+      </div>
+    </div>
+    <div class="print-actions">
+      <button class="btn btn-gold" id="downloadJpgBtn" onclick="downloadInviteJpg()">Download Invite (JPG)</button>
+      <button class="btn btn-light" onclick="goHome()">Back Home</button>
+    </div>
+    <div class="loading" id="jpgLoading" style="margin-top:10px"><span class="spinner"></span> Preparing your invite image…</div>
+  </div>
+</div>
+
+<!-- ============ MODAL: Gift prompt after RSVP ============ -->
+<div class="modal-overlay" id="modalGiftPrompt">
+  <div class="modal-card">
+    <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="1.5"></rect><line x1="12" y1="9" x2="12" y2="21"></line><path d="M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2"></path></svg></div>
+    <h2>Thank you for RSVPing</h2>
+    <p id="giftPromptText">Before we prepare your invite, would you like to explore a gift for Peris &amp; David?</p>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="goGifts()">Yes, show gifts</button>
+      <button class="btn btn-outline-green" onclick="confirmNoGift()">No, get invite</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: confirm skipping gift ============ -->
+<div class="modal-overlay" id="modalNoGift">
+  <div class="modal-card">
+    <h2>Just confirming</h2>
+    <p style="margin-bottom:12px">That is completely okay. Your presence already means a lot.</p>
+    <div class="info-box">A small gift is optional, but it would help Peris &amp; David begin their new home with a little more ease. Would you like a quick look before receiving your invite?</div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="goGifts()">Take a quick look</button>
+      <button class="btn btn-outline-green" onclick="recordRsvpAndInvite()">I'll just attend</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: Checkout / Till number ============ -->
+<div class="modal-overlay sheet-overlay" id="modalCheckout">
+  <div class="sheet-card">
+    <button class="close-x" onclick="closeCheckout()">&times;</button>
+    <div class="sheet-handle"></div>
+    <h2>Contribute to this gift</h2>
+    <p style="font-size:13.5px;margin-bottom:14px">You selected <b id="ckGiftName" style="color:var(--primary-dark)"></b>. Confirm your details, then send payment to the Till Number below.</p>
+    <div class="pay-summary">
+      <b id="ckGiftName2"></b><br>
+      <span class="amt" id="ckAmountDisplay">KSh 0</span> contribution
+    </div>
+    <div class="sheet-grid">
+      <div class="field"><label>Your Name</label><input id="payName"><div class="field-error" id="err-payName">Required</div></div>
+      <div class="field"><label>Phone Number</label><input id="payPhone"><div class="field-error" id="err-payPhone">Required</div></div>
+    </div>
+    <div class="field" style="margin-top:12px"><label>Note (optional)</label><input id="payNote" placeholder="Any message for Peris &amp; David"></div>
+
+    <div class="till-box">
+      <div class="till-label">M-Pesa Buy Goods / Till Number</div>
+      <div class="till-number" id="tillNumberDisplay">—</div>
+      <div class="till-hint">Go to M-Pesa &rarr; Lipa na M-Pesa &rarr; Buy Goods and Services &rarr; enter the Till Number above and the amount, then confirm below.</div>
+    </div>
+
+    <button class="btn btn-gold" style="width:100%" id="pledgeBtn" onclick="confirmContribution()">I've sent it — Confirm Contribution</button>
+    <div class="loading" id="ckLoading"><span class="spinner"></span> Recording your contribution…</div>
+    <div class="toast" id="ckSuccess">
+      <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 12.5 10 16.5 18 8"></polyline></svg></div>
+      <div class="toast-msg">Contribution recorded. Thank you — preparing your invite card…</div>
+    </div>
+    <div class="toast error" id="ckError">
+      <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="8" x2="12" y2="13"></line><circle cx="12" cy="16.2" r="0.4" fill="currentColor"></circle></svg></div>
+      <div class="toast-msg" id="ckErrorMsg">Something went wrong. Please try again.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Activity feed widget ============ -->
+<div class="activity-widget">
+  <button class="activity-toggle" onclick="toggleActivity()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 16 14"></polyline></svg>
+    <span id="activityToggleLabel">Recent activity</span>
+  </button>
+  <div class="activity-panel" id="activityPanel">
+    <div class="activity-empty" id="activityEmpty">No activity yet — be the first to RSVP!</div>
+    <div id="activityList"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   Static-site API configuration
+   ============================================================ */
+const API_BASE_URL = 'PASTE_YOUR_APPS_SCRIPT_EXEC_URL_HERE';
+const HERO_IMAGE_URL = 'hero.jpg';
+const GUEST_STORAGE_KEY = 'perisDavidWeddingGuestV1';
+
+/* ============================================================
+   State
+   ============================================================ */
+var GIFTS = [];
+var selectedGift = null;
+var TILL_NUMBER = '—';
+var isBackendConnected = false;
+var existingGuest = null;
+var savedGuest = null;
+var activityOpen = false;
+
+/* ============================================================
+   Small helpers
+   ============================================================ */
+function $(id){ return document.getElementById(id); }
+function fmt(n){ return 'KSh ' + Number(n || 0).toLocaleString(); }
+function showPage(id){
+  document.querySelectorAll('.page').forEach(function(page){ page.classList.remove('active'); });
+  $('page-' + id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function setConn(state, label){
+  var dot = $('connDot');
+  dot.classList.remove('ok', 'err', 'pending');
+  dot.classList.add(state);
+  $('connLabel').textContent = label;
+}
+function validatePhone(value){
+  var digits = String(value || '').replace(/\D/g, '');
+  return digits.length >= 9 && digits.length <= 15;
+}
+function markField(inputId, errorId, isValid){
+  var input = $(inputId);
+  var error = $(errorId);
+  if(isValid){
+    input.classList.remove('invalid');
+    if(error) error.classList.remove('show');
+  } else {
+    input.classList.add('invalid');
+    if(error) error.classList.add('show');
+  }
+  return isValid;
+}
+function clearFieldError(inputId, errorId){
+  $(inputId).addEventListener('input', function(){
+    $(inputId).classList.remove('invalid');
+    if(errorId && $(errorId)) $(errorId).classList.remove('show');
+  });
+}
+['guestName', 'guestPhone', 'payName', 'payPhone'].forEach(function(id){
+  clearFieldError(id, 'err-' + id);
+});
+function escapeHtml(value){
+  return String(value == null ? '' : value).replace(/[&<>"']/g, function(char){
+    return {'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[char];
+  });
+}
+function escapeAttr(value){ return escapeHtml(value); }
+function getErrorMessage(error, fallback){
+  if(error && error.message) return error.message;
+  return fallback || 'Something went wrong. Please try again.';
+}
+
+/* ============================================================
+   Apps Script JSON API client
+   ============================================================ */
+function apiIsConfigured(){
+  return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/i.test(API_BASE_URL.trim());
+}
+function unwrapApiPayload(payload){
+  if(payload && typeof payload === 'object'){
+    if(payload.ok === false || payload.success === false){
+      throw new Error(payload.error || payload.message || 'The server could not complete the request.');
+    }
+    if(Object.prototype.hasOwnProperty.call(payload, 'data')) return payload.data;
+    if(Object.prototype.hasOwnProperty.call(payload, 'result')) return payload.result;
+  }
+  return payload;
+}
+async function parseApiResponse(response){
+  var text = await response.text();
+  var payload;
+  try {
+    payload = text ? JSON.parse(text) : null;
+  } catch(parseError){
+    throw new Error('The server returned an invalid response. Confirm that API_BASE_URL points to the deployed /exec URL.');
+  }
+  if(!response.ok){
+    throw new Error((payload && (payload.error || payload.message)) || ('Request failed with status ' + response.status + '.'));
+  }
+  return unwrapApiPayload(payload);
+}
+async function apiGet(action, params){
+  if(!apiIsConfigured()) throw new Error('The Apps Script API URL has not been configured.');
+  var url = new URL(API_BASE_URL);
+  url.searchParams.set('action', action);
+  Object.entries(params || {}).forEach(function(entry){
+    var key = entry[0], value = entry[1];
+    if(value !== undefined && value !== null && value !== '') url.searchParams.set(key, String(value));
+  });
+  var response = await fetch(url.toString(), {
+    method: 'GET',
+    mode: 'cors',
+    redirect: 'follow',
+    cache: 'no-store'
+  });
+  return parseApiResponse(response);
+}
+async function apiPost(action, payload){
+  if(!apiIsConfigured()) throw new Error('The Apps Script API URL has not been configured.');
+  var response = await fetch(API_BASE_URL, {
+    method: 'POST',
+    mode: 'cors',
+    redirect: 'follow',
+    cache: 'no-store',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(Object.assign({ action: action }, payload || {}))
+  });
+  return parseApiResponse(response);
+}
+
+/* ============================================================
+   Local guest memory / welcome-back banner
+   ============================================================ */
+function loadSavedGuest(){
+  try {
+    var raw = localStorage.getItem(GUEST_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch(error){
+    console.warn('Could not read saved guest details.', error);
+    return null;
+  }
+}
+function saveGuest(details){
+  savedGuest = Object.assign({}, savedGuest || {}, details || {}, { savedAt: new Date().toISOString() });
+  try { localStorage.setItem(GUEST_STORAGE_KEY, JSON.stringify(savedGuest)); }
+  catch(error){ console.warn('Could not save guest details locally.', error); }
+  hydrateGuestFields(savedGuest);
+  showWelcomeBanner(savedGuest);
+}
+function hydrateGuestFields(guest){
+  if(!guest) return;
+  if(guest.name){ $('guestName').value = guest.name; $('payName').value = guest.name; }
+  if(guest.phone){ $('guestPhone').value = guest.phone; $('payPhone').value = guest.phone; }
+}
+function showWelcomeBanner(guest){
+  if(!guest || !guest.name) return;
+  $('welcomeTitle').textContent = 'Welcome back, ' + guest.name;
+  $('welcomeText').textContent = guest.giftName ? 'Your RSVP and gift contribution are saved on this device.' : 'Your RSVP details are saved on this device.';
+  $('welcomeBanner').classList.add('show');
+}
+function dismissWelcome(){ $('welcomeBanner').classList.remove('show'); }
+function openSavedInvite(){
+  if(!savedGuest) return;
+  hydrateGuestFields(savedGuest);
+  if(savedGuest.giftName){
+    selectedGift = {
+      rowIndex: Number(savedGuest.giftRowIndex || 0),
+      name: savedGuest.giftName,
+      amount: Number(savedGuest.amount || 0),
+      maxAmt: null
+    };
+  }
+  showInvite(Boolean(savedGuest.giftName));
+}
+function normalizeExistingGuest(result){
+  if(result === true) return { exists: true };
+  if(!result) return { exists: false };
+  if(typeof result !== 'object') return { exists: Boolean(result) };
+  var explicit = [result.exists, result.found, result.isExisting, result.alreadyRegistered, result.duplicate]
+    .find(function(value){ return typeof value === 'boolean'; });
+  var exists = typeof explicit === 'boolean' ? explicit : Boolean(result.name || result.phone || result.guest);
+  return Object.assign({ exists: exists }, result.guest && typeof result.guest === 'object' ? result.guest : {}, result);
+}
+
+/* ============================================================
+   Countdown timer
+   ============================================================ */
+function tickCountdown(){
+  var target = new Date('2026-08-05T10:00:00+03:00').getTime();
+  var diff = Math.max(0, target - Date.now());
+  var days = Math.floor(diff / 86400000); diff %= 86400000;
+  var hours = Math.floor(diff / 3600000); diff %= 3600000;
+  var mins = Math.floor(diff / 60000); diff %= 60000;
+  var secs = Math.floor(diff / 1000);
+  $('cdDays').textContent = days;
+  $('cdHours').textContent = hours;
+  $('cdMins').textContent = mins;
+  $('cdSecs').textContent = secs;
+}
+tickCountdown();
+setInterval(tickCountdown, 1000);
+
+/* ============================================================
+   Backend connectivity + data loading
+   ============================================================ */
+async function initBackend(){
+  if(!apiIsConfigured()){
+    isBackendConnected = false;
+    setConn('err', 'API URL required');
+    $('apiNote').classList.add('show');
+    $('giftGrid').innerHTML = '<div class="activity-empty">Add the deployed Apps Script /exec URL to API_BASE_URL before publishing.</div>';
+    return;
+  }
+
+  setConn('pending', 'Connecting…');
+  try {
+    var results = await Promise.all([
+      apiGet('getGiftRegistry'),
+      apiGet('getTillNumber'),
+      apiGet('getRecentActivity', { limit: 8 })
+    ]);
+    GIFTS = Array.isArray(results[0]) ? results[0] : [];
+    TILL_NUMBER = results[1] == null ? '—' : String(results[1]);
+    renderActivity(Array.isArray(results[2]) ? results[2] : []);
+    renderGiftGrid();
+    isBackendConnected = true;
+    setConn('ok', 'Connected to registry');
+  } catch(error){
+    isBackendConnected = false;
+    setConn('err', 'Registry unavailable');
+    $('giftGrid').innerHTML = '<div class="activity-empty">Could not load the gift registry. Please refresh the page.</div>';
+    console.error(error);
+  }
+}
+async function refreshActivity(){
+  if(!apiIsConfigured()) return;
+  try {
+    var items = await apiGet('getRecentActivity', { limit: 8 });
+    renderActivity(Array.isArray(items) ? items : []);
+  } catch(error){
+    console.error('Could not refresh activity.', error);
+  }
+}
+
+/* ============================================================
+   Gift grid rendering
+   ============================================================ */
+function renderGiftGrid(){
+  var grid = $('giftGrid');
+  if(!GIFTS.length){
+    grid.innerHTML = '<div class="activity-empty">No gifts have been added yet.</div>';
+    return;
+  }
+  grid.innerHTML = '';
+  GIFTS.forEach(function(gift){
+    var pct = gift.target > 0 ? Math.min(100, Math.round((gift.raised / gift.target) * 100)) : 0;
+    var card = document.createElement('article');
+    card.className = 'gift-card' + (gift.fullyFunded ? ' funded' : '');
+    var imageSrc = gift.imageUrl && gift.imageUrl.trim() ? gift.imageUrl : fallbackImageFor(gift.name);
+    var isCapped = gift.target > 0;
+    var maxAmount = isCapped ? Math.max(0, gift.remaining) : null;
+    var defaultAmount = isCapped ? (maxAmount > 0 ? Math.min(maxAmount, Math.max(500, Math.round(gift.target / 2))) : 0) : 1000;
+    var isFullyFunded = isCapped && maxAmount <= 0;
+
+    card.innerHTML =
+      '<div class="gift-img-wrap">' +
+        (imageSrc ? '<img src="' + escapeAttr(imageSrc) + '" alt="' + escapeAttr(gift.name) + '" loading="lazy" crossorigin="anonymous">' : '') +
+        (gift.fullyFunded ? '<div class="funded-badge">&#10003; Fully funded</div>' : '') +
+      '</div>' +
+      '<div class="gift-body">' +
+        '<h3>' + escapeHtml(gift.name) + '</h3>' +
+        '<p class="gift-desc">' + escapeHtml(gift.description || '') + '</p>' +
+        (isCapped ?
+          '<div class="gift-progress-row"><span>Raised</span><b>' + fmt(gift.raised) + ' / ' + fmt(gift.target) + '</b></div>' +
+          '<div class="progress-track"><div class="progress-fill" style="width:' + pct + '%"></div></div>' +
+          '<div class="gift-remaining">' + (maxAmount > 0 ? 'Remaining balance: ' + fmt(maxAmount) : 'Fully funded — thank you!') + '</div>'
+          : '<div class="gift-remaining">Give any amount you feel led to.</div>') +
+        '<div class="amount-row">' +
+          '<input type="number" min="1" ' + (isCapped ? 'max="' + maxAmount + '"' : '') + ' value="' + defaultAmount + '" data-gift="' + gift.rowIndex + '" class="gift-amount-input" ' + (isFullyFunded ? 'disabled' : '') + '>' +
+          '<span class="amount-currency">KSh</span>' +
+        '</div>' +
+        (isCapped && !isFullyFunded ? '<div class="amount-hint">Max ' + fmt(maxAmount) + ' — contributions are capped at the remaining balance.</div>' : '') +
+        (gift.shopUrl && gift.shopUrl.trim() ?
+          '<a class="view-item-btn" href="' + escapeAttr(gift.shopUrl.trim()) + '" target="_blank" rel="noopener noreferrer">View item on seller site ' +
+          '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>'
+          : '') +
+        '<button class="gift-btn" data-gift="' + gift.rowIndex + '" ' + (isFullyFunded ? 'disabled' : '') + '>' +
+          (isFullyFunded ? 'Fully funded' : 'Contribute to this <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>') +
+        '</button>' +
+      '</div>';
+    grid.appendChild(card);
+  });
+
+  grid.querySelectorAll('.gift-amount-input').forEach(function(input){
+    input.addEventListener('input', function(){
+      var max = input.getAttribute('max');
+      if(max && Number(input.value) > Number(max)) input.value = max;
+      input.classList.remove('invalid');
+    });
+  });
+
+  grid.querySelectorAll('.gift-btn:not(:disabled)').forEach(function(button){
+    button.addEventListener('click', function(){
+      var rowIndex = Number(button.getAttribute('data-gift'));
+      var amountInput = grid.querySelector('.gift-amount-input[data-gift="' + rowIndex + '"]');
+      var amount = Number(amountInput.value);
+      var max = amountInput.getAttribute('max');
+      if(!amount || amount <= 0){
+        amountInput.classList.add('invalid');
+        amountInput.focus();
+        return;
+      }
+      if(max && amount > Number(max)){
+        amount = Number(max);
+        amountInput.value = amount;
+      }
+      openCheckout(rowIndex, amount);
+    });
+  });
+}
+function fallbackImageFor(name){
+  var seed = String(name || 'gift').toLowerCase().replace(/[^a-z0-9]/g, '');
+  return 'https://picsum.photos/seed/' + (seed || 'gift') + '/700/500';
+}
+
+/* ============================================================
+   RSVP flow with duplicate-phone detection
+   ============================================================ */
+async function openGiftPrompt(){
+  var name = $('guestName').value.trim();
+  var phone = $('guestPhone').value.trim();
+  var nameOk = markField('guestName', 'err-guestName', Boolean(name));
+  var phoneOk = markField('guestPhone', 'err-guestPhone', Boolean(phone) && validatePhone(phone));
+  if(!nameOk || !phoneOk) return;
+
+  var button = $('rsvpBtn');
+  var originalHtml = button.innerHTML;
+  button.disabled = true;
+  button.textContent = 'Checking your RSVP…';
+  existingGuest = null;
+
+  try {
+    var result = await apiGet('checkExistingGuest', { phone: phone });
+    var duplicate = normalizeExistingGuest(result);
+    if(duplicate.exists){
+      existingGuest = duplicate;
+      var rememberedName = duplicate.name || name;
+      $('guestName').value = rememberedName;
+      saveGuest({ name: rememberedName, phone: phone, rsvpConfirmed: true });
+      $('giftPromptText').textContent = 'Welcome back, ' + rememberedName + '. Your phone number is already on the guest list. You can view the registry or go straight to your invite.';
+    } else {
+      $('giftPromptText').textContent = 'Thank you, ' + name + '. Before we prepare your invite, would you like to explore a gift for Peris & David?';
+    }
+    $('modalGiftPrompt').classList.add('show');
+  } catch(error){
+    console.warn('Duplicate check was unavailable; continuing with RSVP.', error);
+    $('giftPromptText').textContent = 'Thank you, ' + name + '. Before we prepare your invite, would you like to explore a gift for Peris & David?';
+    $('modalGiftPrompt').classList.add('show');
+  } finally {
+    button.disabled = false;
+    button.innerHTML = originalHtml;
+  }
+}
+function goGifts(){
+  $('modalGiftPrompt').classList.remove('show');
+  $('modalNoGift').classList.remove('show');
+  $('payName').value = $('guestName').value;
+  $('payPhone').value = $('guestPhone').value;
+  showPage('gifts');
+  if(isBackendConnected) renderGiftGrid();
+}
+function confirmNoGift(){
+  $('modalGiftPrompt').classList.remove('show');
+  $('modalNoGift').classList.add('show');
+}
+async function recordRsvpAndInvite(){
+  $('modalNoGift').classList.remove('show');
+  var name = $('guestName').value.trim() || 'Guest';
+  var phone = $('guestPhone').value.trim();
+
+  if(existingGuest && existingGuest.exists){
+    saveGuest({ name: name, phone: phone, rsvpConfirmed: true });
+    showInvite(false);
+    return;
+  }
+
+  setConn('pending', 'Saving RSVP…');
+  try {
+    await apiPost('submitRSVPOnly', { name: name, phone: phone });
+    saveGuest({ name: name, phone: phone, rsvpConfirmed: true });
+    isBackendConnected = true;
+    setConn('ok', 'RSVP saved');
+    refreshActivity();
+    showInvite(false);
+  } catch(error){
+    setConn('err', 'RSVP not saved');
+    console.error(error);
+    alert(getErrorMessage(error, 'We could not save your RSVP. Please check your connection and try again.'));
+  }
+}
+
+/* ============================================================
+   Checkout / contribution flow
+   ============================================================ */
+function openCheckout(rowIndex, amount){
+  var gift = GIFTS.find(function(item){ return Number(item.rowIndex) === Number(rowIndex); });
+  if(!gift) return;
+  var maxAmount = gift.target > 0 ? Math.max(0, gift.remaining) : null;
+  if(maxAmount !== null && amount > maxAmount) amount = maxAmount;
+  selectedGift = { rowIndex: rowIndex, name: gift.name, amount: amount, maxAmt: maxAmount };
+
+  $('ckGiftName').textContent = gift.name;
+  $('ckGiftName2').textContent = gift.name;
+  $('ckAmountDisplay').textContent = fmt(amount);
+  $('tillNumberDisplay').textContent = TILL_NUMBER || '—';
+  $('payName').value = $('guestName').value || $('payName').value;
+  $('payPhone').value = $('guestPhone').value || $('payPhone').value;
+  $('payNote').value = '';
+  $('ckLoading').classList.remove('show');
+  $('ckSuccess').classList.remove('show');
+  $('ckError').classList.remove('show');
+  $('pledgeBtn').disabled = false;
+  $('modalCheckout').classList.add('show');
+}
+function closeCheckout(){ $('modalCheckout').classList.remove('show'); }
+async function confirmContribution(){
+  var name = $('payName').value.trim();
+  var phone = $('payPhone').value.trim();
+  var nameOk = markField('payName', 'err-payName', Boolean(name));
+  var phoneOk = markField('payPhone', 'err-payPhone', Boolean(phone) && validatePhone(phone));
+  if(!nameOk || !phoneOk || !selectedGift) return;
+
+  $('pledgeBtn').disabled = true;
+  $('ckLoading').classList.add('show');
+  $('ckSuccess').classList.remove('show');
+  $('ckError').classList.remove('show');
+
+  var payload = {
+    name: name,
+    phone: phone,
+    giftRowIndex: selectedGift.rowIndex,
+    giftName: selectedGift.name,
+    amount: selectedGift.amount,
+    notes: $('payNote').value.trim()
+  };
+
+  try {
+    var result = await apiPost('submitContribution', payload);
+    result = result || {};
+    $('ckLoading').classList.remove('show');
+    $('ckSuccess').classList.add('show');
+    $('pledgeBtn').disabled = false;
+    if(typeof result.amount === 'number') selectedGift.amount = result.amount;
+    var gift = GIFTS.find(function(item){ return Number(item.rowIndex) === Number(selectedGift.rowIndex); });
+    if(gift && typeof result.newRaised === 'number'){
+      gift.raised = result.newRaised;
+      gift.remaining = Math.max(0, gift.target - gift.raised);
+      gift.fullyFunded = gift.target > 0 && gift.remaining <= 0;
+    }
+    saveGuest({
+      name: name,
+      phone: phone,
+      rsvpConfirmed: true,
+      giftRowIndex: selectedGift.rowIndex,
+      giftName: selectedGift.name,
+      amount: selectedGift.amount
+    });
+    setConn('ok', 'Contribution saved');
+    refreshActivity();
+    setTimeout(function(){ showInvite(true); }, 900);
+  } catch(error){
+    $('ckLoading').classList.remove('show');
+    $('ckErrorMsg').textContent = getErrorMessage(error, 'Something went wrong saving your contribution. Please try again.');
+    $('ckError').classList.add('show');
+    $('pledgeBtn').disabled = false;
+    setConn('err', 'Contribution not saved');
+    console.error(error);
+  }
+}
+
+/* ============================================================
+   Invite page
+   ============================================================ */
+function showInvite(withGift){
+  $('modalGiftPrompt').classList.remove('show');
+  $('modalNoGift').classList.remove('show');
+  $('modalCheckout').classList.remove('show');
+  var name = ($('guestName').value || $('payName').value || 'Guest').trim();
+  $('inviteName').textContent = name || 'Guest';
+  if(withGift && selectedGift){
+    $('giftThanks').innerHTML = 'Thank you for your thoughtful gift toward <b style="color:var(--secondary-dark)">' + escapeHtml(selectedGift.name) + '</b> — ' + fmt(selectedGift.amount) + '. Your love and support mean so much to us.';
+  } else {
+    $('giftThanks').textContent = 'We look forward to celebrating with you.';
+  }
+  showPage('invite');
+}
+function goHome(){ showPage('home'); }
+
+/* ============================================================
+   Download invite as JPG
+   ============================================================ */
+function downloadInviteJpg(){
+  var card = $('inviteCard');
+  var button = $('downloadJpgBtn');
+  var loading = $('jpgLoading');
+  if(!card || typeof html2canvas === 'undefined'){
+    alert('Sorry, the image generator did not load. Please check your connection and try again.');
+    return;
+  }
+  button.disabled = true;
+  loading.classList.add('show');
+
+  html2canvas(card, {
+    scale: 2,
+    useCORS: true,
+    allowTaint: false,
+    backgroundColor: '#FAF3EE'
+  }).then(function(canvas){
+    canvas.toBlob(function(blob){
+      if(!blob) throw new Error('Could not create invite image.');
+      var guestName = ($('inviteName').textContent || 'Guest').trim();
+      var safeName = guestName.replace(/[^a-zA-Z0-9 ]/g, '').trim().replace(/\s+/g, ' ') || 'Guest';
+      var filename = safeName + ' - Peris & David Wedding Invite.jpg';
+      var url = URL.createObjectURL(blob);
+      var anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = filename;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+      button.disabled = false;
+      loading.classList.remove('show');
+    }, 'image/jpeg', 0.95);
+  }).catch(function(error){
+    console.error(error);
+    button.disabled = false;
+    loading.classList.remove('show');
+    alert('Something went wrong creating your invite image. Please try again.');
+  });
+}
+
+/* ============================================================
+   Activity feed
+   ============================================================ */
+function toggleActivity(){
+  activityOpen = !activityOpen;
+  $('activityPanel').classList.toggle('show', activityOpen);
+}
+function renderActivity(items){
+  var list = $('activityList');
+  var empty = $('activityEmpty');
+  if(!items || !items.length){
+    empty.style.display = 'block';
+    list.innerHTML = '';
+    return;
+  }
+  empty.style.display = 'none';
+  list.innerHTML = items.map(function(item){
+    var when = timeAgo(item.timestamp);
+    var line;
+    if(item.type === 'RSVP'){
+      line = '<b>' + escapeHtml(item.name) + '</b> RSVPed to attend.';
+    } else {
+      line = '<b>' + escapeHtml(item.name) + '</b> contributed ' + fmt(item.amount) + ' toward ' + escapeHtml(item.giftName) +
+        '<span class="status-tag ' + (item.status === 'Confirmed' ? 'confirmed' : 'pending') + '">' + escapeHtml(item.status || '') + '</span>';
+    }
+    return '<div class="activity-item">' + line + '<div class="meta">' + when + '</div></div>';
+  }).join('');
+}
+function timeAgo(iso){
+  var then = new Date(iso).getTime();
+  if(isNaN(then)) return '';
+  var diffSec = Math.max(0, Math.round((Date.now() - then) / 1000));
+  if(diffSec < 60) return 'just now';
+  var mins = Math.floor(diffSec / 60); if(mins < 60) return mins + ' min ago';
+  var hours = Math.floor(mins / 60); if(hours < 24) return hours + ' hr ago';
+  var days = Math.floor(hours / 24); return days + ' day' + (days === 1 ? '' : 's') + ' ago';
+}
+setInterval(refreshActivity, 20000);
+
+/* ============================================================
+   Static hero + invite background photo
+   ============================================================ */
+function applyHeroPhoto(){
+  $('heroArt').style.backgroundImage = "linear-gradient(180deg, rgba(46,33,38,0) 0%, rgba(46,33,38,.6) 100%), url('" + HERO_IMAGE_URL + "')";
+  $('inviteBg').style.backgroundImage = "url('" + HERO_IMAGE_URL + "')";
+}
+
+/* ============================================================
+   Boot
+   ============================================================ */
+applyHeroPhoto();
+savedGuest = loadSavedGuest();
+if(savedGuest){
+  hydrateGuestFields(savedGuest);
+  showWelcomeBanner(savedGuest);
+}
+initBackend();
+</script>
+</body>
+</html>
