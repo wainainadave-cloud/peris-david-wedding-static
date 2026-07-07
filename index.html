@@ -198,9 +198,11 @@
 
 
   .choice-stack{display:grid;gap:10px;margin-top:18px}
-  .choice-btn{width:100%;border-radius:16px;padding:15px 16px;justify-content:flex-start;text-align:left}
-  .choice-btn strong{display:block;font-size:14px}
-  .choice-btn span{display:block;font-size:11.5px;font-weight:500;opacity:.78;margin-top:3px}
+  .choice-btn{width:100%;border-radius:16px;padding:15px 16px;justify-content:flex-start;text-align:left;display:flex;align-items:flex-start;gap:12px}
+  .choice-btn .choice-icon{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;background:rgba(255,255,255,.18)}
+  .choice-btn .choice-copy{display:block;min-width:0}
+  .choice-btn .choice-copy strong{display:block;font-size:14px}
+  .choice-btn .choice-copy span{display:block;font-size:11.5px;font-weight:500;opacity:.78;margin-top:3px}
   .choice-btn.cash{background:linear-gradient(135deg,var(--primary-mid),var(--primary-deep));color:#fff;box-shadow:0 12px 26px rgba(107,24,48,.25)}
   .choice-btn.registry{background:rgba(35,77,53,.12);color:var(--secondary-dark);border:1px solid rgba(35,77,53,.22)}
   .choice-btn.skip{background:#ece8e9;color:#74676b;border:1px solid #ddd5d7;box-shadow:none}
@@ -336,15 +338,18 @@
     <p id="giftPromptText">How would you like to continue?</p>
 
     <div class="choice-stack" id="newGuestActions">
-      <button class="btn choice-btn cash" onclick="openCashGift()"><span><strong>Give a cash gift</strong>M-Pesa prompt will be connected through Daraja.</span></button>
-      <button class="btn choice-btn registry" onclick="goGifts()"><span><strong>Browse the gift registry</strong>Choose an item and contribute toward it.</span></button>
-      <button class="btn choice-btn skip" onclick="confirmNoGift()"><span><strong>No, just get my RSVP card</strong>Continue without choosing a gift.</span></button>
-    </div>
-
-    <div class="choice-stack" id="existingGuestActions" hidden>
-      <button class="btn choice-btn cash" onclick="openSavedInvite()"><span><strong>View or download RSVP card</strong>Your registration is already saved.</span></button>
-      <button class="btn choice-btn registry" onclick="showGiftUpdateChoices()"><span><strong>Update or add a gift</strong>Choose cash or browse the registry.</span></button>
-      <button class="btn choice-btn skip" onclick="ignoreDuplicateAndContinue()"><span><strong>Ignore and continue</strong>Continue using the details currently entered.</span></button>
+      <button class="btn choice-btn cash" onclick="openCashGift()">
+        <span class="choice-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="2"></rect><circle cx="12" cy="12" r="2.8"></circle><path d="M6 10h.01M18 14h.01"></path></svg></span>
+        <span class="choice-copy"><strong>Give a cash gift</strong><span>M-Pesa prompt will be connected through Daraja.</span></span>
+      </button>
+      <button class="btn choice-btn registry" onclick="goGifts()">
+        <span class="choice-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="1.5"></rect><line x1="12" y1="9" x2="12" y2="21"></line><path d="M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2"></path></svg></span>
+        <span class="choice-copy"><strong>Browse the gift registry</strong><span>Choose an item and contribute toward it.</span></span>
+      </button>
+      <button class="btn choice-btn skip" onclick="confirmNoGift()">
+        <span class="choice-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h8"></path><path d="M12 8v8"></path><circle cx="12" cy="12" r="9"></circle></svg></span>
+        <span class="choice-copy"><strong>No, just get my RSVP card</strong><span>Continue without choosing a gift.</span></span>
+      </button>
     </div>
   </div>
 </div>
@@ -369,10 +374,15 @@
     <button class="close-x" onclick="closeCashGift()">&times;</button>
     <div class="sheet-handle"></div>
     <h2>Give a cash gift</h2>
-    <p>Enter the amount you would like to give. This draft will be remembered on this device.</p>
+    <p>Enter the amount you would like to give and confirm the phone number that should receive the future STK Push.</p>
     <div class="field">
       <label>Cash gift amount (KSh)</label>
       <input id="cashGiftAmount" type="number" min="1" inputmode="numeric" placeholder="e.g. 2,000">
+    </div>
+    <div class="field">
+      <label>Phone number for STK Push</label>
+      <input id="cashGiftPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="e.g. 07XX XXX XXX">
+      <div class="field-error" id="err-cashGiftPhone">Please confirm a valid phone number.</div>
     </div>
     <div class="cash-coming" id="cashGiftMessage">M-Pesa STK Push is not active yet. Once the Daraja connection is added, the payment prompt will open from this button.</div>
     <button class="btn btn-gold" style="width:100%" onclick="previewCashGiftPrompt()">Continue to M-Pesa prompt</button>
@@ -504,7 +514,7 @@ function clearFieldError(inputId, errorId){
     if(errorId && $(errorId)) $(errorId).classList.remove('show');
   });
 }
-['guestName', 'guestPhone', 'payName', 'payPhone'].forEach(function(id){
+['guestName', 'guestPhone', 'payName', 'payPhone', 'cashGiftPhone'].forEach(function(id){
   clearFieldError(id, 'err-' + id);
 });
 function escapeHtml(value){
@@ -885,16 +895,10 @@ async function openGiftPrompt(){
       existingGuest = duplicate;
       saveGuest({ name: duplicate.name || name, phone: phone, rsvpConfirmed: true, flowInProgress: false });
       hasUnsavedProgress = false;
-      $('giftPromptTitle').textContent = 'This RSVP already exists';
-      $('giftPromptText').textContent = (duplicate.name || name) + ', this name and phone number are already registered. You can view the RSVP card or update the gift choice.';
-      $('newGuestActions').hidden = true;
-      $('existingGuestActions').hidden = false;
+      prepareNewGuestChoices((duplicate.name || name) + ', this name and phone number are already registered. You can still give a cash gift, browse the registry, or just get your RSVP card.');
     } else if(duplicate.exists){
       existingGuest = duplicate;
-      $('giftPromptTitle').textContent = 'Phone number already registered';
-      $('giftPromptText').textContent = 'This phone number is already registered as ' + (duplicate.name || 'another guest') + '. Review the saved RSVP or ignore this warning and continue with the details entered.';
-      $('newGuestActions').hidden = true;
-      $('existingGuestActions').hidden = false;
+      prepareNewGuestChoices('This phone number is already registered as ' + (duplicate.name || 'another guest') + '. You can still give a cash gift, browse the registry, or just get the RSVP card.');
     } else {
       prepareNewGuestChoices('Thank you, ' + name + '. Choose how you would like to continue.');
     }
@@ -913,11 +917,11 @@ function prepareNewGuestChoices(message){
   $('giftPromptTitle').textContent = 'Thank you for RSVPing';
   $('giftPromptText').textContent = message || 'How would you like to continue?';
   $('newGuestActions').hidden = false;
-  $('existingGuestActions').hidden = true;
 }
+
 function closeGiftPrompt(){ $('modalGiftPrompt').classList.remove('show'); }
 function showGiftUpdateChoices(){
-  prepareNewGuestChoices('Choose how you would like to update or add your gift.');
+  prepareNewGuestChoices('Choose how you would like to continue.');
 }
 function ignoreDuplicateAndContinue(){
   existingGuest = null;
@@ -936,6 +940,9 @@ function openCashGift(){
   $('modalGiftPrompt').classList.remove('show');
   $('modalNoGift').classList.remove('show');
   hydrateGuestFields(savedGuest || { name: $('guestName').value, phone: $('guestPhone').value });
+  $('cashGiftPhone').value = ($('guestPhone').value || (savedGuest && savedGuest.phone) || '').trim();
+  $('cashGiftPhone').classList.remove('invalid');
+  if ($('err-cashGiftPhone')) $('err-cashGiftPhone').classList.remove('show');
   $('cashGiftMessage').textContent = 'M-Pesa STK Push is not active yet. No payment will be initiated until the Daraja connection is added.';
   $('modalCashGift').classList.add('show');
 }
@@ -945,13 +952,20 @@ function cashToRegistry(){ closeCashGift(); goGifts(); }
 function cashToInvite(){ closeCashGift(); confirmNoGift(); }
 function previewCashGiftPrompt(){
   var amount = Number($('cashGiftAmount').value || 0);
+  var phone = $('cashGiftPhone').value.trim();
   if(!amount || amount < 1){
     $('cashGiftAmount').classList.add('invalid');
     $('cashGiftAmount').focus();
     return;
   }
-  saveGuest({ cashDraftAmount: amount, name: $('guestName').value.trim(), phone: $('guestPhone').value.trim() });
-  $('cashGiftMessage').textContent = 'Cash gift draft saved: ' + fmt(amount) + '. Daraja is not connected yet, so no M-Pesa request has been sent.';
+  var phoneOk = markField('cashGiftPhone', 'err-cashGiftPhone', Boolean(phone) && validatePhone(phone));
+  if(!phoneOk){
+    $('cashGiftPhone').focus();
+    return;
+  }
+  $('guestPhone').value = phone;
+  saveGuest({ cashDraftAmount: amount, name: $('guestName').value.trim(), phone: phone });
+  $('cashGiftMessage').textContent = 'Cash gift draft saved: ' + fmt(amount) + ' for phone ' + phone + '. Daraja is not connected yet, so no M-Pesa request has been sent.';
 }
 function confirmNoGift(){
   $('modalGiftPrompt').classList.remove('show');
@@ -1189,6 +1203,12 @@ $('cashGiftAmount').addEventListener('input', function(){
   this.classList.remove('invalid');
   var amount = Number(this.value || 0);
   if(amount > 0) saveGuest({ cashDraftAmount: amount });
+});
+$('cashGiftPhone').addEventListener('input', function(){
+  this.classList.remove('invalid');
+  if ($('err-cashGiftPhone')) $('err-cashGiftPhone').classList.remove('show');
+  var phone = this.value.trim();
+  if(phone) saveGuest({ phone: phone });
 });
 initBackend();
 </script>
