@@ -3,42 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Peris &amp; David — Wedding RSVP, Gift Registry &amp; M-Pesa</title>
+<title>Peris &amp; David — Wedding RSVP &amp; Gift Registry</title>
 <meta name="description" content="RSVP for Peris and David’s wedding on 5 August 2026 at Leilani Gardens, Kikuyu, and explore their optional gift registry.">
 <link rel="canonical" href="https://wainainadave-cloud.github.io/peris-david-wedding-static/">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="hero.jpg">
 <meta name="theme-color" content="#6B1830">
 
-
-
-  
 <meta property="og:type" content="website">
-<meta property="og:title" content="Peris &amp; David&#39;s Wedding Guest Registration">
-<meta property="og:description" content="Kindly register below to receive your personal digital invitation.">
-<meta property="og:image"
-      content="https://wainainadave-cloud.github.io/peris-david-wedding-static/whatsapp-preview.png?v=14">
-
-<meta property="og:image:url"
-      content="https://wainainadave-cloud.github.io/peris-david-wedding-static/whatsapp-preview.png?v=14">
-
-<meta property="og:image:secure_url"
-      content="https://wainainadave-cloud.github.io/peris-david-wedding-static/whatsapp-preview.png?v=14">
-
-<meta name="twitter:image"
-      content="https://wainainadave-cloud.github.io/peris-david-wedding-static/whatsapp-preview.png?v=12">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1024">
+<meta property="og:title" content="Peris &amp; David — Wedding RSVP">
+<meta property="og:description" content="We would be honoured to celebrate with you on 5 August 2026 at Leilani Gardens, Kikuyu.">
+<meta property="og:image" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/hero.jpg?v=3">
+<meta property="og:image:secure_url" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/hero.jpg?v=3">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1023">
 <meta property="og:image:height" content="1536">
-<meta property="og:image:alt" content="Peris and David wedding guest registration">
+<meta property="og:image:alt" content="Peris and David wedding invitation photo">
 <meta property="og:url" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/">
 <meta property="og:site_name" content="Peris &amp; David Wedding">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Peris &amp; David&#39;s Wedding Guest Registration">
-<meta name="twitter:description" content="Kindly register below to receive your personal digital invitation.">
-<meta name="twitter:image" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/whatsapp-preview.png">
-<meta name="twitter:image:alt" content="Peris and David wedding guest registration">
+<meta name="twitter:title" content="Peris &amp; David — Wedding RSVP">
+<meta name="twitter:description" content="RSVP for our wedding on 5 August 2026 at Leilani Gardens, Kikuyu.">
+<meta name="twitter:image" content="https://wainainadave-cloud.github.io/peris-david-wedding-static/hero.jpg?v=3">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -244,162 +231,10 @@
     .conn-pill,.activity-widget,.modal-overlay{display:none!important}
   }
 
-  /* ============================================================
-     Animated RSVP guide
-     ============================================================ */
-  @keyframes guideFloat{
-    0%,100%{transform:translateY(0) rotate(-4deg)}
-    50%{transform:translateY(-9px) rotate(3deg)}
-  }
-  @keyframes guideTargetPulse{
-    0%,100%{box-shadow:0 0 0 4px rgba(107,24,48,.16),0 0 0 9px rgba(107,24,48,.06)}
-    50%{box-shadow:0 0 0 5px rgba(107,24,48,.30),0 0 0 13px rgba(107,24,48,.08)}
-  }
-  @keyframes guideBubbleIn{
-    from{opacity:0;transform:translateY(8px) scale(.96)}
-    to{opacity:1;transform:translateY(0) scale(1)}
-  }
-  .rsvp-guide{
-    position:fixed;
-    z-index:120;
-    width:min(300px,calc(100vw - 24px));
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:4px;
-    pointer-events:none;
-    opacity:0;
-    transform:translateY(8px);
-    transition:opacity .2s ease,transform .2s ease,left .28s ease,top .28s ease;
-  }
-  .rsvp-guide.show{opacity:1;transform:translateY(0)}
-  .rsvp-guide.below{flex-direction:column-reverse}
-  .guide-hand{
-    font-size:42px;
-    line-height:1;
-    filter:drop-shadow(0 8px 10px rgba(46,15,28,.22));
-    animation:guideFloat 1.05s ease-in-out infinite;
-    user-select:none;
-  }
-  .guide-bubble{
-    position:relative;
-    width:100%;
-    padding:14px 42px 14px 16px;
-    border:1px solid rgba(255,255,255,.75);
-    border-radius:17px;
-    background:rgba(255,255,255,.95);
-    backdrop-filter:blur(18px) saturate(160%);
-    box-shadow:0 16px 42px rgba(74,20,36,.24);
-    color:var(--ink);
-    animation:guideBubbleIn .25s ease both;
-    pointer-events:auto;
-  }
-  .guide-step{
-    display:block;
-    margin-bottom:4px;
-    color:var(--primary);
-    font-size:10px;
-    font-weight:800;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-  }
-  .guide-title{
-    display:block;
-    margin-bottom:3px;
-    color:var(--primary-dark);
-    font-family:'Bodoni Moda',serif;
-    font-size:18px;
-    line-height:1.15;
-  }
-  .guide-text{
-    display:block;
-    color:var(--muted);
-    font-size:12.5px;
-    line-height:1.45;
-  }
-  .guide-close{
-    position:absolute;
-    top:8px;
-    right:8px;
-    width:28px;
-    height:28px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border:0;
-    border-radius:999px;
-    background:rgba(107,24,48,.09);
-    color:var(--primary-dark);
-    font-size:18px;
-    cursor:pointer;
-  }
-  .guide-close:hover{background:rgba(107,24,48,.17)}
-  .guide-target-active{
-    animation:guideTargetPulse 1.35s ease-in-out infinite!important;
-    border-color:rgba(107,24,48,.55)!important;
-  }
-  @media (prefers-reduced-motion:reduce){
-    .guide-hand,.guide-target-active{animation:none!important}
-    .rsvp-guide{transition:none}
-  }
-
-
-  .guide-launcher{
-    position:fixed;
-    left:10px;
-    top:50%;
-    transform:translateY(-50%);
-    z-index:125;
-    width:54px;
-    min-height:72px;
-    padding:8px 6px;
-    border:1px solid rgba(255,255,255,.8);
-    border-radius:0 18px 18px 0;
-    background:rgba(255,255,255,.96);
-    backdrop-filter:blur(16px) saturate(160%);
-    box-shadow:0 14px 34px rgba(74,20,36,.24);
-    color:var(--primary-dark);
-    cursor:pointer;
-    display:none;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:3px;
-  }
-  .guide-launcher.show{display:flex}
-  .guide-launcher-hand{
-    font-size:31px;
-    line-height:1;
-    animation:guideFloat 1.05s ease-in-out infinite;
-  }
-  .guide-launcher-label{
-    font-size:9px;
-    line-height:1.1;
-    font-weight:800;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    writing-mode:vertical-rl;
-    transform:rotate(180deg);
-    color:var(--primary);
-  }
-  .rsvp-guide{
-    max-width:calc(100vw - 24px);
-  }
-  @media (max-width:520px){
-    .rsvp-guide{
-      width:calc(100vw - 20px);
-      max-width:calc(100vw - 20px);
-    }
-    .guide-bubble{
-      padding:12px 40px 12px 14px;
-    }
-    .guide-hand{font-size:36px}
-    .guide-launcher{
-      left:4px;
-      width:48px;
-      min-height:66px;
-    }
-    .guide-launcher-hand{font-size:27px}
+  /* Hand-guide removed */
+  #handGuide, #guideHand, #rsvpGuide, #tourHand, #coachHand, #guideOverlay,
+  .hand-guide, .guide-hand, .rsvp-guide, .tour-hand, .coach-hand, .guide-overlay, .guide-bubble {
+    display: none !important;
   }
 
 </style>
@@ -413,24 +248,6 @@
   <span class="conn-dot pending" id="connDot"></span>
   <span id="connLabel">Connecting…</span>
 </div>
-
-
-<!-- ============ Animated RSVP guide ============ -->
-<div class="rsvp-guide" id="rsvpGuide" hidden aria-live="polite">
-  <div class="guide-bubble">
-    <button class="guide-close" id="guideClose" type="button" aria-label="Dismiss guide">&times;</button>
-    <span class="guide-step" id="guideStep">Step 1</span>
-    <strong class="guide-title" id="guideTitle">Let’s begin</strong>
-    <span class="guide-text" id="guideText">Enter your name to start your RSVP.</span>
-  </div>
-  <div class="guide-hand" id="guideHand" aria-hidden="true">👇🏽</div>
-</div>
-
-
-<button class="guide-launcher" id="guideLauncher" type="button" aria-label="Open RSVP guide">
-  <span class="guide-launcher-hand" aria-hidden="true">👉🏽</span>
-  <span class="guide-launcher-label">Guide</span>
-</button>
 
 <!-- ============ HOME / RSVP PAGE ============ -->
 <div class="page active" id="page-home">
@@ -530,7 +347,7 @@
     <div class="choice-stack" id="newGuestActions">
       <button class="btn choice-btn cash" onclick="openCashGift()">
         <span class="choice-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="2"></rect><circle cx="12" cy="12" r="2.8"></circle><path d="M6 10h.01M18 14h.01"></path></svg></span>
-        <span class="choice-copy"><strong>Give a cash gift</strong><span>Receive a secure M-Pesa prompt on your phone.</span></span>
+        <span class="choice-copy"><strong>Give a cash gift</strong><span>M-Pesa prompt will be connected through Daraja.</span></span>
       </button>
       <button class="btn choice-btn registry" onclick="goGifts()">
         <span class="choice-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="1.5"></rect><line x1="12" y1="9" x2="12" y2="21"></line><path d="M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2"></path></svg></span>
@@ -558,13 +375,13 @@
   </div>
 </div>
 
-<!-- ============ MODAL: cash gift / M-Pesa STK Push ============ -->
+<!-- ============ MODAL: cash gift placeholder ============ -->
 <div class="modal-overlay sheet-overlay" id="modalCashGift">
   <div class="sheet-card">
     <button class="close-x" onclick="closeCashGift()">&times;</button>
     <div class="sheet-handle"></div>
     <h2>Give a cash gift</h2>
-    <p>Enter the amount you would like to give and confirm the Safaricom number that should receive the M-Pesa prompt.</p>
+    <p>Enter the amount you would like to give and confirm the phone number that should receive the future STK Push.</p>
     <div class="field">
       <label>Cash gift amount (KSh)</label>
       <input id="cashGiftAmount" type="number" min="1" inputmode="numeric" placeholder="e.g. 2,000">
@@ -572,19 +389,10 @@
     <div class="field">
       <label>Phone number for STK Push</label>
       <input id="cashGiftPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="e.g. 07XX XXX XXX">
-      <div class="field-error" id="err-cashGiftPhone">Please confirm a valid Safaricom phone number.</div>
+      <div class="field-error" id="err-cashGiftPhone">Please confirm a valid phone number.</div>
     </div>
-    <div class="cash-coming" id="cashGiftMessage">After you continue, check your phone and enter your M-Pesa PIN on the Safaricom prompt. Never enter your PIN on this website.</div>
-    <button class="btn btn-gold" id="cashGiftPayBtn" style="width:100%" onclick="previewCashGiftPrompt()">Send M-Pesa Prompt</button>
-    <div class="loading" id="cashGiftLoading"><span class="spinner"></span><span id="cashGiftLoadingText">Sending M-Pesa prompt…</span></div>
-    <div class="toast" id="cashGiftSuccess">
-      <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 12.5 10 16.5 18 8"></polyline></svg></div>
-      <div class="toast-msg" id="cashGiftSuccessMsg">Payment received. Thank you!</div>
-    </div>
-    <div class="toast error" id="cashGiftError">
-      <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="8" x2="12" y2="13"></line><circle cx="12" cy="16.2" r="0.4" fill="currentColor"></circle></svg></div>
-      <div class="toast-msg" id="cashGiftErrorMsg">The payment was not completed.</div>
-    </div>
+    <div class="cash-coming" id="cashGiftMessage">M-Pesa STK Push is not active yet. Once the Daraja connection is added, the payment prompt will open from this button.</div>
+    <button class="btn btn-gold" style="width:100%" onclick="previewCashGiftPrompt()">Continue to M-Pesa prompt</button>
     <div class="btn-row" style="margin-top:12px">
       <button class="btn btn-outline-green" onclick="cashToRegistry()">Browse registry</button>
       <button class="btn btn-light" onclick="cashToInvite()">Get RSVP card</button>
@@ -606,38 +414,38 @@
   </div>
 </div>
 
-<!-- ============ MODAL: Gift checkout / M-Pesa STK Push ============ -->
+<!-- ============ MODAL: Checkout / Till number ============ -->
 <div class="modal-overlay sheet-overlay" id="modalCheckout">
   <div class="sheet-card">
     <button class="close-x" onclick="closeCheckout()">&times;</button>
     <div class="sheet-handle"></div>
     <h2>Contribute to this gift</h2>
-    <p style="font-size:13.5px;margin-bottom:14px">You selected <b id="ckGiftName" style="color:var(--primary-dark)"></b>. Confirm your details and we will send an M-Pesa prompt to your phone.</p>
+    <p style="font-size:13.5px;margin-bottom:14px">You selected <b id="ckGiftName" style="color:var(--primary-dark)"></b>. Confirm your details, then send payment to the Till Number below.</p>
     <div class="pay-summary">
       <b id="ckGiftName2"></b><br>
       <span class="amt" id="ckAmountDisplay">KSh 0</span> contribution
     </div>
     <div class="sheet-grid">
-      <div class="field"><label>Your Name</label><input id="payName" autocomplete="name"><div class="field-error" id="err-payName">Required</div></div>
-      <div class="field"><label>Phone Number for STK Push</label><input id="payPhone" autocomplete="tel" inputmode="tel"><div class="field-error" id="err-payPhone">Enter a valid Safaricom number</div></div>
+      <div class="field"><label>Your Name</label><input id="payName"><div class="field-error" id="err-payName">Required</div></div>
+      <div class="field"><label>Phone Number</label><input id="payPhone"><div class="field-error" id="err-payPhone">Required</div></div>
     </div>
     <div class="field" style="margin-top:12px"><label>Note (optional)</label><input id="payNote" placeholder="Any message for Peris &amp; David"></div>
 
     <div class="till-box">
-      <div class="till-label">Secure M-Pesa payment</div>
-      <div class="till-number" style="font-size:24px">STK Push</div>
-      <div class="till-hint">Check your phone after tapping the button below. Enter your M-Pesa PIN only on the Safaricom prompt—not on this website.</div>
+      <div class="till-label">M-Pesa Buy Goods / Till Number</div>
+      <div class="till-number" id="tillNumberDisplay">—</div>
+      <div class="till-hint">Go to M-Pesa &rarr; Lipa na M-Pesa &rarr; Buy Goods and Services &rarr; enter the Till Number above and the amount, then confirm below.</div>
     </div>
 
-    <button class="btn btn-gold" style="width:100%" id="pledgeBtn" onclick="confirmContribution()">Send M-Pesa Prompt</button>
-    <div class="loading" id="ckLoading"><span class="spinner"></span><span id="ckLoadingText">Sending M-Pesa prompt…</span></div>
+    <button class="btn btn-gold" style="width:100%" id="pledgeBtn" onclick="confirmContribution()">I've sent it — Confirm Contribution</button>
+    <div class="loading" id="ckLoading"><span class="spinner"></span> Recording your contribution…</div>
     <div class="toast" id="ckSuccess">
       <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 12.5 10 16.5 18 8"></polyline></svg></div>
-      <div class="toast-msg" id="ckSuccessMsg">Payment received and contribution recorded. Preparing your invite card…</div>
+      <div class="toast-msg">Contribution recorded. Thank you — preparing your invite card…</div>
     </div>
     <div class="toast error" id="ckError">
       <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="8" x2="12" y2="13"></line><circle cx="12" cy="16.2" r="0.4" fill="currentColor"></circle></svg></div>
-      <div class="toast-msg" id="ckErrorMsg">The payment was not completed. Please try again.</div>
+      <div class="toast-msg" id="ckErrorMsg">Something went wrong. Please try again.</div>
     </div>
   </div>
 </div>
@@ -658,20 +466,7 @@
 /* ============================================================
    Static-site API configuration
    ============================================================ */
-const API_BASE_URL = 'https://script.google.com/macros/s/AKfycbzYwoRVKULvK21e_Nd0msPZcy4ZnZi_HtczX7gWgLUdamiezNAVVVd6Lb-5WowIRWOOvw/exec';
-
-/*
- * Remote Apps Script requests run only on the published GitHub Pages site.
- * This prevents ChatGPT/Preview from repeatedly asking for network access.
- * Add ?api=1 only when you deliberately want to test the live backend elsewhere.
- */
-const IS_PUBLISHED_SITE =
-  window.location.hostname === 'wainainadave-cloud.github.io';
-
-const ALLOW_REMOTE_API =
-  IS_PUBLISHED_SITE ||
-  new URLSearchParams(window.location.search).get('api') === '1';
-
+const API_BASE_URL = 'https://script.google.com/macros/s/AKfycbxKkdU2VPZMelO1fBDjeYBrj6dkvr39e0otjISuCsbAXWrkydEoBufcMbMTiViXVe5pbA/exec';
 const HERO_IMAGE_URL = 'hero.jpg';
 const GUEST_STORAGE_KEY = 'perisDavidWeddingGuestV2';
 const LEGACY_GUEST_STORAGE_KEY = 'perisDavidWeddingGuestV1';
@@ -682,6 +477,7 @@ const DEVICE_STORAGE_KEY = 'perisDavidWeddingDeviceV1';
    ============================================================ */
 var GIFTS = [];
 var selectedGift = null;
+var TILL_NUMBER = '—';
 var isBackendConnected = false;
 var existingGuest = null;
 var savedGuest = null;
@@ -743,8 +539,7 @@ function getErrorMessage(error, fallback){
    Apps Script JSON API client
    ============================================================ */
 function apiIsConfigured(){
-  return ALLOW_REMOTE_API &&
-    /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/i.test(API_BASE_URL.trim());
+  return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/i.test(API_BASE_URL.trim());
 }
 function unwrapApiPayload(payload){
   if(payload && typeof payload === 'object'){
@@ -796,49 +591,6 @@ async function apiPost(action, payload){
     body: JSON.stringify(Object.assign({ action: action }, payload || {}))
   });
   return parseApiResponse(response);
-}
-
-/* ============================================================
-   Daraja M-Pesa STK Push client
-   ============================================================ */
-async function startStkPushPayment(details){
-  var response = await apiPost('stkPush', {
-    name: details.name || 'Guest',
-    giftId: details.giftId || 'cash-gift',
-    phone: details.phone,
-    amount: details.amount
-  });
-  var payment = response && response.payment ? response.payment : response;
-  if(!payment || !payment.checkoutRequestId){
-    throw new Error('M-Pesa accepted no checkout reference. Please try again.');
-  }
-  return payment;
-}
-
-async function getMpesaPaymentStatus(checkoutRequestId){
-  var response = await apiGet('paymentStatus', {
-    checkoutRequestId: checkoutRequestId,
-    _: Date.now()
-  });
-  return response && response.payment ? response.payment : response;
-}
-
-async function waitForMpesaPayment(checkoutRequestId, maximumAttempts){
-  var attempts = Number(maximumAttempts || 40);
-  for(var attempt = 0; attempt < attempts; attempt++){
-    var payment = await getMpesaPaymentStatus(checkoutRequestId);
-    if(payment && (payment.status === 'PAID' || payment.status === 'FAILED')) return payment;
-    await new Promise(function(resolve){ window.setTimeout(resolve, 3000); });
-  }
-  return {
-    status: 'PENDING',
-    resultDesc: 'Payment confirmation is taking longer than expected. Check your M-Pesa messages before trying again.'
-  };
-}
-
-function mpesaFailureMessage(payment){
-  if(payment && payment.resultDesc) return payment.resultDesc;
-  return 'The M-Pesa payment was not completed. Please try again.';
 }
 
 /* ============================================================
@@ -973,18 +725,8 @@ setInterval(tickCountdown, 1000);
 async function initBackend(){
   if(!apiIsConfigured()){
     isBackendConnected = false;
-
-    if(!ALLOW_REMOTE_API){
-      setConn('ok', 'Preview mode');
-      $('giftGrid').innerHTML =
-        '<div class="activity-empty">Preview mode is active. The live registry and M-Pesa connection will load automatically on the published GitHub Pages site.</div>';
-      renderActivity([]);
-      return;
-    }
-
     setConn('err', 'API URL required');
-    $('giftGrid').innerHTML =
-      '<div class="activity-empty">The registry connection is not configured.</div>';
+    $('giftGrid').innerHTML = '<div class="activity-empty">The registry connection is not configured.</div>';
     return;
   }
 
@@ -992,10 +734,12 @@ async function initBackend(){
   try {
     var results = await Promise.all([
       apiGet('getGiftRegistry'),
+      apiGet('getTillNumber'),
       apiGet('getRecentActivity', { limit: 8 })
     ]);
     GIFTS = Array.isArray(results[0]) ? results[0] : [];
-    renderActivity(Array.isArray(results[1]) ? results[1] : []);
+    TILL_NUMBER = results[1] == null ? '—' : String(results[1]);
+    renderActivity(Array.isArray(results[2]) ? results[2] : []);
     renderGiftGrid();
     isBackendConnected = true;
     setConn('ok', 'Connected to registry');
@@ -1205,23 +949,17 @@ function openCashGift(){
   hydrateGuestFields(savedGuest || { name: $('guestName').value, phone: $('guestPhone').value });
   $('cashGiftPhone').value = ($('guestPhone').value || (savedGuest && savedGuest.phone) || '').trim();
   $('cashGiftPhone').classList.remove('invalid');
-  if($('err-cashGiftPhone')) $('err-cashGiftPhone').classList.remove('show');
-  $('cashGiftMessage').textContent = 'After you continue, check your phone and enter your M-Pesa PIN on the Safaricom prompt. Never enter your PIN on this website.';
-  $('cashGiftLoading').classList.remove('show');
-  $('cashGiftSuccess').classList.remove('show');
-  $('cashGiftError').classList.remove('show');
-  $('cashGiftPayBtn').disabled = false;
-  $('cashGiftPayBtn').textContent = 'Send M-Pesa Prompt';
+  if ($('err-cashGiftPhone')) $('err-cashGiftPhone').classList.remove('show');
+  $('cashGiftMessage').textContent = 'M-Pesa STK Push is not active yet. No payment will be initiated until the Daraja connection is added.';
   $('modalCashGift').classList.add('show');
 }
 function closeCashGift(){ $('modalCashGift').classList.remove('show'); }
 function openCashGiftFromNoGift(){ $('modalNoGift').classList.remove('show'); openCashGift(); }
 function cashToRegistry(){ closeCashGift(); goGifts(); }
 function cashToInvite(){ closeCashGift(); confirmNoGift(); }
-async function previewCashGiftPrompt(){
+function previewCashGiftPrompt(){
   var amount = Number($('cashGiftAmount').value || 0);
   var phone = $('cashGiftPhone').value.trim();
-  var name = $('guestName').value.trim() || (savedGuest && savedGuest.name) || 'Guest';
   if(!amount || amount < 1){
     $('cashGiftAmount').classList.add('invalid');
     $('cashGiftAmount').focus();
@@ -1232,73 +970,9 @@ async function previewCashGiftPrompt(){
     $('cashGiftPhone').focus();
     return;
   }
-
-  var button = $('cashGiftPayBtn');
-  button.disabled = true;
-  button.textContent = 'Sending prompt…';
-  $('cashGiftLoadingText').textContent = 'Sending M-Pesa prompt…';
-  $('cashGiftLoading').classList.add('show');
-  $('cashGiftSuccess').classList.remove('show');
-  $('cashGiftError').classList.remove('show');
-  $('cashGiftMessage').textContent = 'Contacting M-Pesa. Keep this page open.';
-  setConn('pending', 'Starting M-Pesa…');
-
   $('guestPhone').value = phone;
-  saveGuest({ cashDraftAmount: amount, name: name, phone: phone, flowInProgress: true });
-
-  try {
-    var request = await startStkPushPayment({
-      name: name,
-      giftId: 'cash-gift',
-      phone: phone,
-      amount: amount
-    });
-
-    $('cashGiftMessage').textContent = request.customerMessage || 'Check your phone and enter your M-Pesa PIN.';
-    $('cashGiftLoadingText').textContent = 'Waiting for M-Pesa confirmation…';
-    button.textContent = 'Waiting for payment…';
-
-    var payment = await waitForMpesaPayment(request.checkoutRequestId, 40);
-    if(!payment || payment.status !== 'PAID') throw new Error(mpesaFailureMessage(payment));
-
-    selectedGift = {
-      kind: 'cash',
-      name: 'cash gift',
-      amount: Number(payment.amount || amount),
-      receipt: payment.receipt || ''
-    };
-
-    try {
-      if(!(existingGuest && existingGuest.exists)) await apiPost('submitRSVPOnly', { name: name, phone: phone });
-    } catch(rsvpError){
-      console.warn('Cash payment succeeded, but RSVP activity could not be updated.', rsvpError);
-    }
-
-    markFlowSaved({
-      name: name,
-      phone: phone,
-      rsvpConfirmed: true,
-      cashGiftAmount: selectedGift.amount,
-      mpesaReceipt: selectedGift.receipt
-    });
-
-    $('cashGiftLoading').classList.remove('show');
-    $('cashGiftSuccessMsg').textContent = 'Payment received' + (selectedGift.receipt ? ' — receipt ' + selectedGift.receipt : '') + '. Thank you!';
-    $('cashGiftSuccess').classList.add('show');
-    button.textContent = 'Payment received ✓';
-    setConn('ok', 'M-Pesa payment received');
-    refreshActivity();
-    setTimeout(function(){ showInvite(true); }, 1100);
-  } catch(error){
-    $('cashGiftLoading').classList.remove('show');
-    $('cashGiftErrorMsg').textContent = getErrorMessage(error, 'The M-Pesa payment was not completed. Please try again.');
-    $('cashGiftError').classList.add('show');
-    $('cashGiftMessage').textContent = 'No gift has been recorded. You may safely try again.';
-    button.disabled = false;
-    button.textContent = 'Try M-Pesa Again';
-    setConn('err', 'M-Pesa not completed');
-    console.error(error);
-  }
+  saveGuest({ cashDraftAmount: amount, name: $('guestName').value.trim(), phone: phone });
+  $('cashGiftMessage').textContent = 'Cash gift draft saved: ' + fmt(amount) + ' for phone ' + phone + '. Daraja is not connected yet, so no M-Pesa request has been sent.';
 }
 function confirmNoGift(){
   $('modalGiftPrompt').classList.remove('show');
@@ -1338,20 +1012,19 @@ function openCheckout(rowIndex, amount){
   if(!gift) return;
   var maxAmount = gift.target > 0 ? Math.max(0, gift.remaining) : null;
   if(maxAmount !== null && amount > maxAmount) amount = maxAmount;
-  selectedGift = { rowIndex: rowIndex, name: gift.name, amount: amount, maxAmt: maxAmount, kind: 'registry' };
+  selectedGift = { rowIndex: rowIndex, name: gift.name, amount: amount, maxAmt: maxAmount };
 
   $('ckGiftName').textContent = gift.name;
   $('ckGiftName2').textContent = gift.name;
   $('ckAmountDisplay').textContent = fmt(amount);
+  $('tillNumberDisplay').textContent = TILL_NUMBER || '—';
   $('payName').value = $('guestName').value || $('payName').value;
   $('payPhone').value = $('guestPhone').value || $('payPhone').value;
   $('payNote').value = '';
-  $('ckLoadingText').textContent = 'Sending M-Pesa prompt…';
   $('ckLoading').classList.remove('show');
   $('ckSuccess').classList.remove('show');
   $('ckError').classList.remove('show');
   $('pledgeBtn').disabled = false;
-  $('pledgeBtn').textContent = 'Send M-Pesa Prompt';
   $('modalCheckout').classList.add('show');
 }
 function closeCheckout(){ $('modalCheckout').classList.remove('show'); }
@@ -1362,14 +1035,10 @@ async function confirmContribution(){
   var phoneOk = markField('payPhone', 'err-payPhone', Boolean(phone) && validatePhone(phone));
   if(!nameOk || !phoneOk || !selectedGift) return;
 
-  var button = $('pledgeBtn');
-  button.disabled = true;
-  button.textContent = 'Sending prompt…';
-  $('ckLoadingText').textContent = 'Sending M-Pesa prompt…';
+  $('pledgeBtn').disabled = true;
   $('ckLoading').classList.add('show');
   $('ckSuccess').classList.remove('show');
   $('ckError').classList.remove('show');
-  setConn('pending', 'Starting M-Pesa…');
 
   var payload = {
     name: name,
@@ -1381,62 +1050,35 @@ async function confirmContribution(){
   };
 
   try {
-    var request = await startStkPushPayment({
-      name: name,
-      giftId: 'gift-' + selectedGift.rowIndex,
-      phone: phone,
-      amount: selectedGift.amount
-    });
-
-    $('ckLoadingText').textContent = 'Waiting for M-Pesa confirmation…';
-    button.textContent = 'Waiting for payment…';
-
-    var payment = await waitForMpesaPayment(request.checkoutRequestId, 40);
-    if(!payment || payment.status !== 'PAID') throw new Error(mpesaFailureMessage(payment));
-
-    payload.mpesaReceipt = payment.receipt || '';
-    payload.checkoutRequestId = request.checkoutRequestId;
-    payload.paymentStatus = 'Confirmed';
-
-    $('ckLoadingText').textContent = 'Recording your contribution…';
     var result = await apiPost('submitContribution', payload);
     result = result || {};
-
     $('ckLoading').classList.remove('show');
-    $('ckSuccessMsg').textContent = 'Payment received' + (payment.receipt ? ' — receipt ' + payment.receipt : '') + '. Preparing your invite card…';
     $('ckSuccess').classList.add('show');
-    button.textContent = 'Payment received ✓';
-
+    $('pledgeBtn').disabled = false;
     if(typeof result.amount === 'number') selectedGift.amount = result.amount;
-    selectedGift.receipt = payment.receipt || '';
     var gift = GIFTS.find(function(item){ return Number(item.rowIndex) === Number(selectedGift.rowIndex); });
     if(gift && typeof result.newRaised === 'number'){
       gift.raised = result.newRaised;
       gift.remaining = Math.max(0, gift.target - gift.raised);
       gift.fullyFunded = gift.target > 0 && gift.remaining <= 0;
     }
-
-    $('guestName').value = name;
-    $('guestPhone').value = phone;
     markFlowSaved({
       name: name,
       phone: phone,
       rsvpConfirmed: true,
       giftRowIndex: selectedGift.rowIndex,
       giftName: selectedGift.name,
-      amount: selectedGift.amount,
-      mpesaReceipt: selectedGift.receipt
+      amount: selectedGift.amount
     });
-    setConn('ok', 'M-Pesa payment received');
+    setConn('ok', 'Contribution saved');
     refreshActivity();
-    setTimeout(function(){ showInvite(true); }, 1100);
+    setTimeout(function(){ showInvite(true); }, 900);
   } catch(error){
     $('ckLoading').classList.remove('show');
-    $('ckErrorMsg').textContent = getErrorMessage(error, 'The M-Pesa payment was not completed. No contribution has been recorded.');
+    $('ckErrorMsg').textContent = getErrorMessage(error, 'Something went wrong saving your contribution. Please try again.');
     $('ckError').classList.add('show');
-    button.disabled = false;
-    button.textContent = 'Try M-Pesa Again';
-    setConn('err', 'M-Pesa not completed');
+    $('pledgeBtn').disabled = false;
+    setConn('err', 'Contribution not saved');
     console.error(error);
   }
 }
@@ -1453,11 +1095,7 @@ function showInvite(withGift){
   var name = ($('guestName').value || $('payName').value || 'Guest').trim();
   $('inviteName').textContent = name || 'Guest';
   if(withGift && selectedGift){
-    if(selectedGift.kind === 'cash'){
-      $('giftThanks').innerHTML = 'Thank you for your generous cash gift of <b style="color:var(--secondary-dark)">' + fmt(selectedGift.amount) + '</b>' + (selectedGift.receipt ? ' (M-Pesa receipt ' + escapeHtml(selectedGift.receipt) + ')' : '') + '. Your love and support mean so much to us.';
-    } else {
-      $('giftThanks').innerHTML = 'Thank you for your thoughtful gift toward <b style="color:var(--secondary-dark)">' + escapeHtml(selectedGift.name) + '</b> — ' + fmt(selectedGift.amount) + (selectedGift.receipt ? ' (M-Pesa receipt ' + escapeHtml(selectedGift.receipt) + ')' : '') + '. Your love and support mean so much to us.';
-    }
+    $('giftThanks').innerHTML = 'Thank you for your thoughtful gift toward <b style="color:var(--secondary-dark)">' + escapeHtml(selectedGift.name) + '</b> — ' + fmt(selectedGift.amount) + '. Your love and support mean so much to us.';
   } else {
     $('giftThanks').textContent = 'We look forward to celebrating with you.';
   }
@@ -1556,335 +1194,6 @@ function applyHeroPhoto(){
   $('inviteBg').style.backgroundImage = "url('" + HERO_IMAGE_URL + "')";
 }
 
-
-/* ============================================================
-   Animated RSVP guide
-   ============================================================ */
-const RSVP_GUIDE_STORAGE_KEY = 'perisDavidWeddingRsvpGuideV1';
-var rsvpGuideActive = true;
-var rsvpGuideCollapsed = false;
-var rsvpGuideTarget = null;
-var rsvpGuideTimer = null;
-var rsvpGuideLastKey = '';
-
-function guideStorageGet(){
-  try { return localStorage.getItem(RSVP_GUIDE_STORAGE_KEY); }
-  catch(error){ return null; }
-}
-function guideStorageSet(value){
-  try { localStorage.setItem(RSVP_GUIDE_STORAGE_KEY, value); }
-  catch(error){}
-}
-function isElementVisible(element){
-  if(!element) return false;
-  var style = window.getComputedStyle(element);
-  var rect = element.getBoundingClientRect();
-  return style.display !== 'none' &&
-    style.visibility !== 'hidden' &&
-    rect.width > 0 &&
-    rect.height > 0;
-}
-function clearGuideTarget(){
-  if(rsvpGuideTarget) rsvpGuideTarget.classList.remove('guide-target-active');
-  rsvpGuideTarget = null;
-}
-function hideRsvpGuide(){
-  var guide = $('rsvpGuide');
-  if(!guide) return;
-  guide.classList.remove('show');
-  clearGuideTarget();
-  window.setTimeout(function(){
-    if(!guide.classList.contains('show')) guide.hidden = true;
-  }, 220);
-}
-function showGuideLauncher(){
-  var launcher = $('guideLauncher');
-  if(launcher) launcher.classList.add('show');
-}
-function hideGuideLauncher(){
-  var launcher = $('guideLauncher');
-  if(launcher) launcher.classList.remove('show');
-}
-function collapseRsvpGuide(){
-  rsvpGuideCollapsed = true;
-  guideStorageSet('collapsed');
-  hideRsvpGuide();
-  showGuideLauncher();
-}
-function expandRsvpGuide(){
-  rsvpGuideCollapsed = false;
-  guideStorageSet('expanded');
-  hideGuideLauncher();
-  scheduleRsvpGuideRefresh(20);
-}
-function dismissRsvpGuide(){
-  collapseRsvpGuide();
-}
-function completeRsvpGuide(){
-  collapseRsvpGuide();
-}
-function scheduleRsvpGuideRefresh(delay){
-  if(!rsvpGuideActive) return;
-  window.clearTimeout(rsvpGuideTimer);
-  rsvpGuideTimer = window.setTimeout(refreshRsvpGuide, typeof delay === 'number' ? delay : 120);
-}
-function positionRsvpGuide(){
-  if(!rsvpGuideActive || rsvpGuideCollapsed || !rsvpGuideTarget || !isElementVisible(rsvpGuideTarget)) return;
-  var guide = $('rsvpGuide');
-  if(!guide || guide.hidden) return;
-
-  var rect = rsvpGuideTarget.getBoundingClientRect();
-  var guideRect = guide.getBoundingClientRect();
-  var margin = 12;
-  var safeTop = 10;
-  var safeLeft = 10;
-  var maxLeft = Math.max(safeLeft, window.innerWidth - guideRect.width - safeLeft);
-  var maxTop = Math.max(safeTop, window.innerHeight - guideRect.height - safeTop);
-  var canPlaceAbove = rect.top >= guideRect.height + margin + safeTop;
-  var canPlaceBelow = (window.innerHeight - rect.bottom) >= guideRect.height + margin;
-
-  var top;
-  if(canPlaceAbove){
-    top = rect.top - guideRect.height - margin;
-  } else if(canPlaceBelow){
-    top = rect.bottom + margin;
-  } else {
-    top = Math.max(safeTop, Math.min(rect.top - (guideRect.height / 2), maxTop));
-  }
-
-  var left = rect.left + (rect.width / 2) - (guideRect.width / 2);
-  left = Math.max(safeLeft, Math.min(left, maxLeft));
-  top = Math.max(safeTop, Math.min(top, maxTop));
-
-  guide.classList.toggle('below', !canPlaceAbove);
-  $('guideHand').textContent = canPlaceAbove ? '👇🏽' : '👆🏽';
-  guide.style.left = Math.round(left) + 'px';
-  guide.style.top = Math.round(top) + 'px';
-}
-function showRsvpGuideStep(config){
-  var target = typeof config.target === 'string'
-    ? document.querySelector(config.target)
-    : config.target;
-
-  if(!isElementVisible(target)){
-    hideRsvpGuide();
-    return;
-  }
-
-  var key = config.key || config.target;
-  var guide = $('rsvpGuide');
-  if(!guide) return;
-
-  if(rsvpGuideTarget !== target){
-    clearGuideTarget();
-    rsvpGuideTarget = target;
-    rsvpGuideTarget.classList.add('guide-target-active');
-  }
-
-  $('guideStep').textContent = config.step || 'Next';
-  $('guideTitle').textContent = config.title || 'Continue';
-  $('guideText').textContent = config.text || '';
-
-  guide.hidden = false;
-  guide.classList.add('show');
-  rsvpGuideLastKey = key;
-
-  var rect = target.getBoundingClientRect();
-  if(rect.top < 6 || rect.bottom > window.innerHeight - 6){
-    target.scrollIntoView({ behavior:'smooth', block:'center' });
-    window.setTimeout(positionRsvpGuide, 380);
-  } else {
-    window.requestAnimationFrame(positionRsvpGuide);
-  }
-}
-function refreshRsvpGuide(){
-  if(!rsvpGuideActive) return;
-  if(rsvpGuideCollapsed){
-    hideRsvpGuide();
-    showGuideLauncher();
-    return;
-  }
-  hideGuideLauncher();
-
-  if($('modalDeviceRecognition') && $('modalDeviceRecognition').classList.contains('show')){
-    hideRsvpGuide();
-    return;
-  }
-
-  if($('modalCashGift') && $('modalCashGift').classList.contains('show')){
-    var cashAmount = Number($('cashGiftAmount').value || 0);
-    var cashPhone = $('cashGiftPhone').value.trim();
-
-    if(cashAmount < 1){
-      showRsvpGuideStep({
-        key:'cash-amount',
-        target:'#cashGiftAmount',
-        step:'Cash gift',
-        title:'Choose an amount',
-        text:'Enter the amount you would like to give.'
-      });
-      return;
-    }
-    if(!validatePhone(cashPhone)){
-      showRsvpGuideStep({
-        key:'cash-phone',
-        target:'#cashGiftPhone',
-        step:'M-Pesa number',
-        title:'Confirm your phone',
-        text:'Enter the Safaricom number that should receive the M-Pesa prompt.'
-      });
-      return;
-    }
-    showRsvpGuideStep({
-      key:'cash-pay',
-      target:'#cashGiftPayBtn',
-      step:'Send prompt',
-      title:'Continue to M-Pesa',
-      text:'Tap here, then enter your PIN only on the secure M-Pesa prompt on your phone.'
-    });
-    return;
-  }
-
-  if($('modalCheckout') && $('modalCheckout').classList.contains('show')){
-    var payName = $('payName').value.trim();
-    var payPhone = $('payPhone').value.trim();
-
-    if(!payName){
-      showRsvpGuideStep({
-        key:'checkout-name',
-        target:'#payName',
-        step:'Confirm details',
-        title:'Confirm your name',
-        text:'Check that your name is correct before continuing.'
-      });
-      return;
-    }
-    if(!validatePhone(payPhone)){
-      showRsvpGuideStep({
-        key:'checkout-phone',
-        target:'#payPhone',
-        step:'M-Pesa number',
-        title:'Confirm your phone',
-        text:'Use the Safaricom number that should receive the payment prompt.'
-      });
-      return;
-    }
-    showRsvpGuideStep({
-      key:'checkout-pay',
-      target:'#pledgeBtn',
-      step:'Make payment',
-      title:'Send the M-Pesa prompt',
-      text:'Tap here and complete the request on your phone.'
-    });
-    return;
-  }
-
-  if($('modalNoGift') && $('modalNoGift').classList.contains('show')){
-    showRsvpGuideStep({
-      key:'no-gift',
-      target:'#modalNoGift .modal-card > .btn-light',
-      step:'Final choice',
-      title:'Create your RSVP card',
-      text:'Tap here to confirm attendance without choosing a gift.'
-    });
-    return;
-  }
-
-  if($('modalGiftPrompt') && $('modalGiftPrompt').classList.contains('show')){
-    showRsvpGuideStep({
-      key:'choices',
-      target:'#newGuestActions',
-      step:'Choose the next step',
-      title:'How would you like to continue?',
-      text:'Choose a cash gift, browse the registry, or go directly to your RSVP card.'
-    });
-    return;
-  }
-
-  if($('page-gifts') && $('page-gifts').classList.contains('active')){
-    var giftButton = document.querySelector('.gift-btn:not(:disabled)');
-    if(giftButton){
-      showRsvpGuideStep({
-        key:'registry',
-        target:giftButton,
-        step:'Gift registry',
-        title:'Choose a gift',
-        text:'Adjust the amount above, then tap “Contribute to this”.'
-      });
-    } else {
-      showRsvpGuideStep({
-        key:'registry-loading',
-        target:'#giftGrid',
-        step:'Gift registry',
-        title:'Choose a gift',
-        text:'The registry is loading. Once the gifts appear, choose one and enter your contribution amount.'
-      });
-    }
-    return;
-  }
-
-  if($('page-invite') && $('page-invite').classList.contains('active')){
-    showRsvpGuideStep({
-      key:'download',
-      target:'#downloadJpgBtn',
-      step:'You’re done',
-      title:'Save your invitation',
-      text:'Download your RSVP card as an image and keep it for the wedding day.'
-    });
-    return;
-  }
-
-  if(!$('page-home') || !$('page-home').classList.contains('active')){
-    hideRsvpGuide();
-    return;
-  }
-
-  var guestNameValue = $('guestName').value.trim();
-  var guestPhoneValue = $('guestPhone').value.trim();
-
-  if(!guestNameValue){
-    showRsvpGuideStep({
-      key:'guest-name',
-      target:'#guestName',
-      step:'Step 1 of 3',
-      title:'Enter your name',
-      text:'Start by typing the name you would like shown on your RSVP.'
-    });
-    return;
-  }
-
-  if(!validatePhone(guestPhoneValue)){
-    showRsvpGuideStep({
-      key:'guest-phone',
-      target:'#guestPhone',
-      step:'Step 2 of 3',
-      title:'Enter your phone number',
-      text:'Please enter a valid phone number so we can identify your RSVP.'
-    });
-    return;
-  }
-
-  showRsvpGuideStep({
-    key:'rsvp-button',
-    target:'#rsvpBtn',
-    step:'Step 3 of 3',
-    title:'Get your invite',
-    text:'Your details are ready. Tap here to continue.'
-  });
-}
-function startRsvpGuide(){
-  rsvpGuideActive = true;
-  rsvpGuideCollapsed = guideStorageGet() === 'collapsed';
-  if(rsvpGuideCollapsed){
-    hideRsvpGuide();
-    showGuideLauncher();
-  } else {
-    hideGuideLauncher();
-    refreshRsvpGuide();
-  }
-}
-
-
 /* ============================================================
    Boot
    ============================================================ */
@@ -1909,43 +1218,6 @@ $('cashGiftPhone').addEventListener('input', function(){
   if(phone) saveGuest({ phone: phone });
 });
 initBackend();
-
-$('guideClose').addEventListener('click', collapseRsvpGuide);
-$('guideLauncher').addEventListener('click', expandRsvpGuide);
-document.addEventListener('input', function(event){
-  if(event.target && event.target.matches('input')) scheduleRsvpGuideRefresh(80);
-});
-document.addEventListener('click', function(event){
-  if(event.target && (event.target.closest('#guideClose') || event.target.closest('#guideLauncher'))) return;
-  scheduleRsvpGuideRefresh(260);
-});
-window.addEventListener('resize', positionRsvpGuide);
-window.addEventListener('scroll', positionRsvpGuide, true);
-
-[
-  'modalGiftPrompt',
-  'modalCashGift',
-  'modalNoGift',
-  'modalCheckout',
-  'modalDeviceRecognition',
-  'page-home',
-  'page-gifts',
-  'page-invite'
-].forEach(function(id){
-  var element = $(id);
-  if(!element) return;
-  new MutationObserver(function(){ scheduleRsvpGuideRefresh(180); })
-    .observe(element, { attributes:true, attributeFilter:['class'] });
-});
-
-$('downloadJpgBtn').addEventListener('click', function(){
-  window.setTimeout(function(){
-    if(rsvpGuideCollapsed) showGuideLauncher();
-    else scheduleRsvpGuideRefresh(120);
-  }, 600);
-});
-
-window.setTimeout(startRsvpGuide, 1100);
 </script>
 </body>
 </html>
