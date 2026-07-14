@@ -154,6 +154,8 @@
   .till-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
   .till-number{font-family:'Bodoni Moda',serif;font-size:34px;font-weight:700;color:var(--primary-dark);margin:6px 0}
   .till-hint{font-size:12.5px;color:var(--muted)}
+  .copy-status{font-size:12.5px;color:var(--secondary-dark);font-weight:700;text-align:center;margin-top:8px;min-height:18px}
+  .copy-status.error{color:#c94040}
   .loading{display:none;margin-top:14px;text-align:center;color:var(--muted);gap:10px;align-items:center;justify-content:center}
   .loading.show{display:flex}
   .spinner{width:16px;height:16px;border-radius:50%;border:2px solid rgba(107,24,48,.25);border-top-color:var(--primary);animation:spin .7s linear infinite}
@@ -381,7 +383,7 @@
     <button class="close-x" onclick="closeCashGift()">&times;</button>
     <div class="sheet-handle"></div>
     <h2>Give a cash gift</h2>
-    <p>Enter the amount you would like to give and confirm the phone number that should receive the future STK Push.</p>
+    <p>STK Push is currently unavailable. Enter your cash gift amount, then copy the Till Number and paste it in M-Pesa Buy Goods.</p>
     <div class="field">
       <label>Cash gift amount (KSh)</label>
       <input id="cashGiftAmount" type="number" min="1" inputmode="numeric" placeholder="e.g. 2,000">
@@ -391,8 +393,14 @@
       <input id="cashGiftPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="e.g. 07XX XXX XXX">
       <div class="field-error" id="err-cashGiftPhone">Please confirm a valid phone number.</div>
     </div>
-    <div class="cash-coming" id="cashGiftMessage">M-Pesa STK Push is not active yet. Once the Daraja connection is added, the payment prompt will open from this button.</div>
-    <button class="btn btn-gold" style="width:100%" onclick="previewCashGiftPrompt()">Continue to M-Pesa prompt</button>
+    <div class="cash-coming" id="cashGiftMessage">STK Push failed or is not connected yet. Copy the Till Number below, paste it in M-Pesa Buy Goods, and we will follow up to confirm the final payment.</div>
+    <div class="till-box">
+      <div class="till-label">M-Pesa Buy Goods / Till Number</div>
+      <div class="till-number" id="cashTillNumberDisplay">—</div>
+      <div class="till-hint">Copy this Till Number and paste it in M-Pesa: Lipa na M-Pesa → Buy Goods and Services.</div>
+    </div>
+    <button class="btn btn-gold" style="width:100%" id="cashCopyTillBtn" onclick="copyTillForCashGift()">Copy Till Number</button>
+    <div class="copy-status" id="cashCopyStatus"></div>
     <div class="btn-row" style="margin-top:12px">
       <button class="btn btn-outline-green" onclick="cashToRegistry()">Browse registry</button>
       <button class="btn btn-light" onclick="cashToInvite()">Get RSVP card</button>
@@ -437,6 +445,8 @@
       <div class="till-hint">Go to M-Pesa &rarr; Lipa na M-Pesa &rarr; Buy Goods and Services &rarr; enter the Till Number above and the amount, then confirm below.</div>
     </div>
 
+    <button class="btn btn-outline-green" style="width:100%;margin-bottom:10px" id="copyTillBtn" onclick="copyTillForRegistry()">Copy Till Number</button>
+    <div class="copy-status" id="copyTillStatus"></div>
     <button class="btn btn-gold" style="width:100%" id="pledgeBtn" onclick="confirmContribution()">I've sent it — Confirm Contribution</button>
     <div class="loading" id="ckLoading"><span class="spinner"></span> Recording your contribution…</div>
     <div class="toast" id="ckSuccess">
@@ -950,7 +960,10 @@ function openCashGift(){
   $('cashGiftPhone').value = ($('guestPhone').value || (savedGuest && savedGuest.phone) || '').trim();
   $('cashGiftPhone').classList.remove('invalid');
   if ($('err-cashGiftPhone')) $('err-cashGiftPhone').classList.remove('show');
-  $('cashGiftMessage').textContent = 'M-Pesa STK Push is not active yet. No payment will be initiated until the Daraja connection is added.';
+  $('cashTillNumberDisplay').textContent = TILL_NUMBER || '—';
+  $('cashCopyStatus').textContent = '';
+  $('cashCopyStatus').classList.remove('error');
+  $('cashGiftMessage').textContent = 'STK Push failed or is not connected yet. Copy the Till Number, paste it in M-Pesa Buy Goods, and we will follow up to confirm final payment.';
   $('modalCashGift').classList.add('show');
 }
 function closeCashGift(){ $('modalCashGift').classList.remove('show'); }
@@ -972,7 +985,96 @@ function previewCashGiftPrompt(){
   }
   $('guestPhone').value = phone;
   saveGuest({ cashDraftAmount: amount, name: $('guestName').value.trim(), phone: phone });
-  $('cashGiftMessage').textContent = 'Cash gift draft saved: ' + fmt(amount) + ' for phone ' + phone + '. Daraja is not connected yet, so no M-Pesa request has been sent.';
+  $('cashGiftMessage').textContent = 'Cash gift draft saved: ' + fmt(amount) + ' for phone ' + phone + '. Copy the Till Number and paste it in M-Pesa Buy Goods. We will follow up to confirm final payment.';
+}
+function copyTextToClipboard(text){
+  if(navigator.clipboard && window.isSecureContext){
+    return navigator.clipboard.writeText(text);
+  }
+  return new Promise(function(resolve, reject){
+    try {
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      var ok = document.execCommand('copy');
+      document.body.removeChild(textarea);
+      ok ? resolve() : reject(new Error('Copy command failed.'));
+    } catch(error){ reject(error); }
+  });
+}
+async function recordTillCopied(payload){
+  try {
+    await apiPost('recordTillCopied', payload);
+    refreshActivity();
+    return true;
+  } catch(error){
+    console.error('Could not record Till copied action.', error);
+    return false;
+  }
+}
+async function copyTillForCashGift(){
+  var amount = Number($('cashGiftAmount').value || 0);
+  var phone = $('cashGiftPhone').value.trim();
+  var name = $('guestName').value.trim() || 'Guest';
+
+  if(!amount || amount < 1){
+    $('cashGiftAmount').classList.add('invalid');
+    $('cashGiftAmount').focus();
+    return;
+  }
+  var phoneOk = markField('cashGiftPhone', 'err-cashGiftPhone', Boolean(phone) && validatePhone(phone));
+  if(!phoneOk){
+    $('cashGiftPhone').focus();
+    return;
+  }
+
+  var status = $('cashCopyStatus');
+  status.classList.remove('error');
+  status.textContent = 'Copying Till Number…';
+  try {
+    await copyTextToClipboard(TILL_NUMBER || '');
+    $('guestPhone').value = phone;
+    saveGuest({ cashDraftAmount: amount, name: name, phone: phone, tillCopied: true });
+    status.textContent = 'Till copied. Paste it in M-Pesa Buy Goods. We will follow up to confirm final payment.';
+    $('cashGiftMessage').textContent = 'Till Number copied for ' + fmt(amount) + '. Open M-Pesa, choose Buy Goods and Services, paste the Till Number, then pay.';
+    await recordTillCopied({
+      name: name,
+      phone: phone,
+      amount: amount,
+      giftName: 'Cash Gift',
+      source: 'cashGift',
+      notes: 'Till copied after STK Push failed/unavailable. Follow up for final payment.'
+    });
+  } catch(error){
+    status.classList.add('error');
+    status.textContent = 'Could not copy automatically. Long-press or select the Till Number and copy it manually.';
+  }
+}
+async function copyTillForRegistry(){
+  var name = $('payName').value.trim() || $('guestName').value.trim() || 'Guest';
+  var phone = $('payPhone').value.trim() || $('guestPhone').value.trim();
+  var status = $('copyTillStatus');
+  status.classList.remove('error');
+  status.textContent = 'Copying Till Number…';
+  try {
+    await copyTextToClipboard(TILL_NUMBER || '');
+    status.textContent = 'Till copied. Paste it in M-Pesa Buy Goods, pay the amount, then tap “I’ve sent it”.';
+    await recordTillCopied({
+      name: name,
+      phone: phone,
+      amount: selectedGift ? selectedGift.amount : 0,
+      giftName: selectedGift ? selectedGift.name : 'Gift Registry',
+      source: 'giftRegistry',
+      notes: 'Till copied for gift registry payment. Follow up for final payment.'
+    });
+  } catch(error){
+    status.classList.add('error');
+    status.textContent = 'Could not copy automatically. Long-press or select the Till Number and copy it manually.';
+  }
 }
 function confirmNoGift(){
   $('modalGiftPrompt').classList.remove('show');
@@ -1024,6 +1126,8 @@ function openCheckout(rowIndex, amount){
   $('ckLoading').classList.remove('show');
   $('ckSuccess').classList.remove('show');
   $('ckError').classList.remove('show');
+  $('copyTillStatus').textContent = '';
+  $('copyTillStatus').classList.remove('error');
   $('pledgeBtn').disabled = false;
   $('modalCheckout').classList.add('show');
 }
