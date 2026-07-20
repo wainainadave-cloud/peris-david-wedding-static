@@ -383,7 +383,7 @@
     <button class="close-x" onclick="closeCashGift()">&times;</button>
     <div class="sheet-handle"></div>
     <h2>Give a cash gift</h2>
-    <p>STK Push is currently unavailable. Enter your cash gift amount, then copy the Till Number and paste it in M-Pesa Buy Goods.</p>
+    <p>Enter your cash gift amount and the phone number to receive the M-Pesa prompt on. If the prompt doesn't arrive, copy the Till Number below and pay manually instead.</p>
     <div class="field">
       <label>Cash gift amount (KSh)</label>
       <input id="cashGiftAmount" type="number" min="1" inputmode="numeric" placeholder="e.g. 2,000">
@@ -393,13 +393,23 @@
       <input id="cashGiftPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="e.g. 07XX XXX XXX">
       <div class="field-error" id="err-cashGiftPhone">Please confirm a valid phone number.</div>
     </div>
-    <div class="cash-coming" id="cashGiftMessage">STK Push failed or is not connected yet. Copy the Till Number below, paste it in M-Pesa Buy Goods, and we will follow up to confirm the final payment.</div>
+    <button class="btn btn-gold" style="width:100%" id="cashStkBtn" onclick="startStkPush('cash')">Send M-Pesa prompt</button>
+    <div class="loading" id="cashStkLoading"><span class="spinner"></span> <span id="cashStkLoadingMsg">Sending the prompt…</span></div>
+    <div class="toast" id="cashStkSuccess">
+      <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 12.5 10 16.5 18 8"></polyline></svg></div>
+      <div class="toast-msg" id="cashStkSuccessMsg">Payment received. Thank you!</div>
+    </div>
+    <div class="toast error" id="cashStkError">
+      <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="8" x2="12" y2="13"></line><circle cx="12" cy="16.2" r="0.4" fill="currentColor"></circle></svg></div>
+      <div class="toast-msg" id="cashStkErrorMsg">Something went wrong. Please try again.</div>
+    </div>
+    <div class="cash-coming" id="cashGiftMessage">If the M-Pesa prompt doesn't come through within a minute, copy the Till Number below, paste it in M-Pesa Buy Goods, and we will follow up to confirm the final payment.</div>
     <div class="till-box">
       <div class="till-label">M-Pesa Buy Goods / Till Number</div>
       <div class="till-number" id="cashTillNumberDisplay">—</div>
       <div class="till-hint">Copy this Till Number and paste it in M-Pesa: Lipa na M-Pesa → Buy Goods and Services.</div>
     </div>
-    <button class="btn btn-gold" style="width:100%" id="cashCopyTillBtn" onclick="copyTillForCashGift()">Copy Till Number</button>
+    <button class="btn btn-outline-green" style="width:100%" id="cashCopyTillBtn" onclick="copyTillForCashGift()">Copy Till Number / fallback</button>
     <div class="copy-status" id="cashCopyStatus"></div>
     <div class="btn-row" style="margin-top:12px">
       <button class="btn btn-outline-green" onclick="cashToRegistry()">Browse registry</button>
@@ -439,15 +449,18 @@
     </div>
     <div class="field" style="margin-top:12px"><label>Note (optional)</label><input id="payNote" placeholder="Any message for Peris &amp; David"></div>
 
+    <button class="btn btn-gold" style="width:100%;margin-bottom:10px" id="ckStkBtn" onclick="startStkPush('registry')">Send M-Pesa prompt</button>
+    <div class="loading" id="ckStkLoading"><span class="spinner"></span> <span id="ckStkLoadingMsg">Sending the prompt…</span></div>
+
     <div class="till-box">
       <div class="till-label">M-Pesa Buy Goods / Till Number</div>
       <div class="till-number" id="tillNumberDisplay">—</div>
-      <div class="till-hint">Go to M-Pesa &rarr; Lipa na M-Pesa &rarr; Buy Goods and Services &rarr; enter the Till Number above and the amount, then confirm below.</div>
+      <div class="till-hint">If the prompt doesn't arrive, go to M-Pesa &rarr; Lipa na M-Pesa &rarr; Buy Goods and Services &rarr; enter the Till Number above and the amount, then confirm below.</div>
     </div>
 
-    <button class="btn btn-outline-green" style="width:100%;margin-bottom:10px" id="copyTillBtn" onclick="copyTillForRegistry()">Copy Till Number</button>
+    <button class="btn btn-outline-green" style="width:100%;margin-bottom:10px" id="copyTillBtn" onclick="copyTillForRegistry()">Copy Till Number / fallback</button>
     <div class="copy-status" id="copyTillStatus"></div>
-    <button class="btn btn-gold" style="width:100%" id="pledgeBtn" onclick="confirmContribution()">I've sent it — Confirm Contribution</button>
+    <button class="btn btn-light" style="width:100%" id="pledgeBtn" onclick="confirmContribution()">I've sent it manually — Confirm Contribution</button>
     <div class="loading" id="ckLoading"><span class="spinner"></span> Recording your contribution…</div>
     <div class="toast" id="ckSuccess">
       <div class="icon-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 12.5 10 16.5 18 8"></polyline></svg></div>
@@ -963,10 +976,15 @@ function openCashGift(){
   $('cashTillNumberDisplay').textContent = TILL_NUMBER || '—';
   $('cashCopyStatus').textContent = '';
   $('cashCopyStatus').classList.remove('error');
-  $('cashGiftMessage').textContent = 'STK Push failed or is not connected yet. Copy the Till Number, paste it in M-Pesa Buy Goods, and we will follow up to confirm final payment.';
+  $('cashGiftMessage').textContent = 'If the M-Pesa prompt doesn\'t come through within a minute, copy the Till Number below, paste it in M-Pesa Buy Goods, and we will follow up to confirm the final payment.';
+  stopStkPolling();
+  $('cashStkBtn').disabled = false;
+  $('cashStkLoading').classList.remove('show');
+  $('cashStkSuccess').classList.remove('show');
+  $('cashStkError').classList.remove('show');
   $('modalCashGift').classList.add('show');
 }
-function closeCashGift(){ $('modalCashGift').classList.remove('show'); }
+function closeCashGift(){ stopStkPolling(); $('modalCashGift').classList.remove('show'); }
 function openCashGiftFromNoGift(){ $('modalNoGift').classList.remove('show'); openCashGift(); }
 function cashToRegistry(){ closeCashGift(); goGifts(); }
 function cashToInvite(){ closeCashGift(); confirmNoGift(); }
@@ -985,7 +1003,7 @@ function previewCashGiftPrompt(){
   }
   $('guestPhone').value = phone;
   saveGuest({ cashDraftAmount: amount, name: $('guestName').value.trim(), phone: phone });
-  $('cashGiftMessage').textContent = 'Cash gift draft saved: ' + fmt(amount) + ' for phone ' + phone + '. Copy the Till Number and paste it in M-Pesa Buy Goods. We will follow up to confirm final payment.';
+  $('cashGiftMessage').textContent = 'Cash gift draft saved: ' + fmt(amount) + ' for phone ' + phone + '. STK Push will use this phone number. If the prompt does not come through, copy the Till Number and paste it in M-Pesa Buy Goods.';
 }
 function copyTextToClipboard(text){
   if(navigator.clipboard && window.isSecureContext){
@@ -1047,7 +1065,7 @@ async function copyTillForCashGift(){
       amount: amount,
       giftName: 'Cash Gift',
       source: 'cashGift',
-      notes: 'Till copied after STK Push failed/unavailable. Follow up for final payment.'
+      notes: 'Till copied as STK fallback. Follow up for final payment.'
     });
   } catch(error){
     status.classList.add('error');
@@ -1076,6 +1094,136 @@ async function copyTillForRegistry(){
     status.textContent = 'Could not copy automatically. Long-press or select the Till Number and copy it manually.';
   }
 }
+/* ============================================================
+   STK Push (M-Pesa Express) — real Daraja flow. The existing Copy Till
+   Number flow stays as a manual fallback if STK fails, times out, or the
+   guest's phone doesn't receive the prompt.
+   ============================================================ */
+var activeStk = null; // { checkoutRequestId, timer }
+
+function stkElements(kind){
+  return kind === 'cash'
+    ? { btn: $('cashStkBtn'), loading: $('cashStkLoading'), loadingMsg: $('cashStkLoadingMsg'), success: $('cashStkSuccess'), successMsg: $('cashStkSuccessMsg'), error: $('cashStkError'), errorMsg: $('cashStkErrorMsg') }
+    : { btn: $('ckStkBtn'), loading: $('ckStkLoading'), loadingMsg: $('ckStkLoadingMsg'), success: $('ckSuccess'), successMsg: null, error: $('ckError'), errorMsg: $('ckErrorMsg') };
+}
+function stopStkPolling(){
+  if(activeStk && activeStk.timer) clearTimeout(activeStk.timer);
+  activeStk = null;
+}
+async function startStkPush(kind){
+  stopStkPolling();
+  var els = stkElements(kind);
+  var name, phone, amount, giftRowIndex, giftName, notes;
+
+  if(kind === 'cash'){
+    name = ($('guestName').value || (savedGuest && savedGuest.name) || 'Guest').trim();
+    phone = $('cashGiftPhone').value.trim();
+    amount = Number($('cashGiftAmount').value || 0);
+    giftRowIndex = 0;
+    giftName = 'Cash Gift';
+    notes = '';
+    if(!amount || amount < 1){
+      $('cashGiftAmount').classList.add('invalid');
+      $('cashGiftAmount').focus();
+      return;
+    }
+    var cashPhoneOk = markField('cashGiftPhone', 'err-cashGiftPhone', Boolean(phone) && validatePhone(phone));
+    if(!cashPhoneOk){ $('cashGiftPhone').focus(); return; }
+    saveGuest({ cashDraftAmount: amount, name: name, phone: phone });
+  } else {
+    if(!selectedGift) return;
+    name = $('payName').value.trim();
+    phone = $('payPhone').value.trim();
+    amount = Number(selectedGift.amount || 0);
+    giftRowIndex = selectedGift.rowIndex;
+    giftName = selectedGift.name;
+    notes = $('payNote').value.trim();
+    var nameOk = markField('payName', 'err-payName', Boolean(name));
+    var phoneOk = markField('payPhone', 'err-payPhone', Boolean(phone) && validatePhone(phone));
+    if(!nameOk || !phoneOk) return;
+  }
+
+  els.btn.disabled = true;
+  els.loading.classList.add('show');
+  els.loadingMsg.textContent = 'Sending the prompt…';
+  els.success.classList.remove('show');
+  els.error.classList.remove('show');
+
+  try {
+    var result = await apiPost('initiateStkPush', {
+      name: name, phone: phone, amount: amount,
+      kind: kind, giftRowIndex: giftRowIndex, giftName: giftName, notes: notes
+    });
+    els.loadingMsg.textContent = result.customerMessage || 'Check your phone and enter your M-Pesa PIN.';
+    pollStkStatus(kind, result.checkoutRequestId, { name: name, phone: phone, amount: amount, giftRowIndex: giftRowIndex, giftName: giftName });
+  } catch(error){
+    els.loading.classList.remove('show');
+    els.btn.disabled = false;
+    els.errorMsg.textContent = getErrorMessage(error, 'Could not send the M-Pesa prompt. Please try again or use the Till Number below.');
+    els.error.classList.add('show');
+  }
+}
+function pollStkStatus(kind, checkoutRequestId, context){
+  var els = stkElements(kind);
+  var deadline = Date.now() + 120000; // give the guest up to 2 minutes to respond
+  activeStk = { checkoutRequestId: checkoutRequestId };
+
+  function finishError(message){
+    stopStkPolling();
+    els.loading.classList.remove('show');
+    els.btn.disabled = false;
+    els.errorMsg.textContent = message;
+    els.error.classList.add('show');
+  }
+  function finishSuccess(status){
+    stopStkPolling();
+    els.loading.classList.remove('show');
+    els.btn.disabled = false;
+    if(kind === 'cash'){
+      els.successMsg.textContent = 'Payment received' + (status.mpesaReceiptNumber ? ' (' + status.mpesaReceiptNumber + ')' : '') + '. Thank you!';
+      els.success.classList.add('show');
+      markFlowSaved({ name: context.name, phone: context.phone, cashGiftAmount: status.amount || context.amount, cashGiftConfirmed: true });
+      setTimeout(function(){ showInvite(false); }, 900);
+    } else {
+      if(typeof status.amount === 'number' && selectedGift) selectedGift.amount = status.amount;
+      var gift = GIFTS.find(function(item){ return Number(item.rowIndex) === Number(context.giftRowIndex); });
+      if(gift){
+        gift.raised = Math.min(gift.target || Infinity, (gift.raised || 0) + (status.amount || context.amount));
+        gift.remaining = Math.max(0, (gift.target || 0) - gift.raised);
+        gift.fullyFunded = gift.target > 0 && gift.remaining <= 0;
+      }
+      els.success.classList.add('show');
+      markFlowSaved({ name: context.name, phone: context.phone, rsvpConfirmed: true, giftRowIndex: context.giftRowIndex, giftName: context.giftName, amount: status.amount || context.amount });
+      refreshActivity();
+      setTimeout(function(){ showInvite(true); }, 900);
+    }
+  }
+
+  function tick(){
+    if(!activeStk || activeStk.checkoutRequestId !== checkoutRequestId) return; // superseded by a newer attempt
+    apiGet('checkStkStatus', { checkoutRequestId: checkoutRequestId }).then(function(status){
+      if(!activeStk || activeStk.checkoutRequestId !== checkoutRequestId) return;
+      if(status.status === 'Success'){
+        finishSuccess(status);
+      } else if(status.status === 'Failed'){
+        finishError((status.resultDesc ? status.resultDesc + ' ' : '') + 'You can try again or use the Till Number below.');
+      } else if(Date.now() > deadline){
+        finishError('We did not get a response in time. If you completed the payment on your phone it will still be recorded shortly — otherwise try again or use the Till Number below.');
+      } else {
+        activeStk.timer = setTimeout(tick, 4000);
+      }
+    }).catch(function(){
+      if(!activeStk || activeStk.checkoutRequestId !== checkoutRequestId) return;
+      if(Date.now() > deadline){
+        finishError('Could not confirm the payment status. Please try again or use the Till Number below.');
+      } else {
+        activeStk.timer = setTimeout(tick, 4000);
+      }
+    });
+  }
+  tick();
+}
+
 function confirmNoGift(){
   $('modalGiftPrompt').classList.remove('show');
   $('modalNoGift').classList.add('show');
@@ -1129,9 +1277,12 @@ function openCheckout(rowIndex, amount){
   $('copyTillStatus').textContent = '';
   $('copyTillStatus').classList.remove('error');
   $('pledgeBtn').disabled = false;
+  stopStkPolling();
+  $('ckStkBtn').disabled = false;
+  $('ckStkLoading').classList.remove('show');
   $('modalCheckout').classList.add('show');
 }
-function closeCheckout(){ $('modalCheckout').classList.remove('show'); }
+function closeCheckout(){ stopStkPolling(); $('modalCheckout').classList.remove('show'); }
 async function confirmContribution(){
   var name = $('payName').value.trim();
   var phone = $('payPhone').value.trim();
