@@ -132,11 +132,61 @@
   .view-item-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;text-decoration:none;background:rgba(35,77,53,.1);color:var(--secondary-dark);border:1px solid rgba(35,77,53,.22);border-radius:999px;padding:9px;font-size:12px;font-weight:700;margin-bottom:10px;transition:background .15s ease}
   .view-item-btn:hover{background:rgba(35,77,53,.18)}
 
-  .modal-overlay{position:fixed;inset:0;background:rgba(46,33,38,.45);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:40;padding:16px}
+  .modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(46,33,38,.45);
+    backdrop-filter:blur(6px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:40;
+    padding:16px;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+  }
   .modal-overlay.show{display:flex}
-  .modal-overlay.sheet-overlay{align-items:flex-end;padding:0 12px 12px}
-  .modal-card{animation:scaleIn .25s ease both;background:rgba(255,255,255,.92);backdrop-filter:blur(24px) saturate(160%);border:1px solid rgba(255,255,255,.7);border-radius:22px;padding:36px;max-width:440px;width:100%;box-shadow:0 30px 80px rgba(74,20,36,.3);text-align:left}
-  .sheet-card{animation:sheetRise .32s ease both;width:min(520px,100%);background:rgba(255,255,255,.92);backdrop-filter:blur(24px) saturate(160%);border:1px solid rgba(255,255,255,.7);border-radius:26px 26px 20px 20px;padding:26px;position:relative;box-shadow:0 -20px 70px rgba(74,20,36,.3);text-align:left}
+  .modal-overlay.sheet-overlay{
+    align-items:flex-end;
+    padding:12px;
+    padding-top:max(12px,env(safe-area-inset-top));
+    padding-bottom:max(12px,env(safe-area-inset-bottom));
+  }
+  .modal-card{
+    animation:scaleIn .25s ease both;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(24px) saturate(160%);
+    border:1px solid rgba(255,255,255,.7);
+    border-radius:22px;
+    padding:36px;
+    max-width:440px;
+    width:100%;
+    max-height:calc(100dvh - 32px);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+    box-shadow:0 30px 80px rgba(74,20,36,.3);
+    text-align:left;
+  }
+  .sheet-card{
+    animation:sheetRise .32s ease both;
+    width:min(520px,100%);
+    max-height:calc(100dvh - 24px);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-gutter:stable;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(24px) saturate(160%);
+    border:1px solid rgba(255,255,255,.7);
+    border-radius:26px 26px 20px 20px;
+    padding:26px;
+    padding-bottom:max(26px,env(safe-area-inset-bottom));
+    position:relative;
+    box-shadow:0 -20px 70px rgba(74,20,36,.3);
+    text-align:left;
+  }
   .sheet-handle{width:48px;height:5px;background:rgba(107,24,48,.2);border-radius:999px;margin:0 auto 18px}
   .close-x{position:absolute;right:20px;top:18px;width:34px;height:34px;border-radius:999px;border:none;background:rgba(107,24,48,.12);font-weight:700;color:var(--primary-dark);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
   .close-x:hover{background:rgba(107,24,48,.22)}
@@ -228,6 +278,43 @@
     .invite-inner{padding:38px 22px}
     .print-actions{grid-template-columns:1fr}
     .activity-widget{width:calc(100vw - 32px)}
+
+    .modal-overlay{padding:8px;align-items:flex-end}
+    .modal-overlay.sheet-overlay{
+      padding:8px;
+      padding-top:max(8px,env(safe-area-inset-top));
+      padding-bottom:max(8px,env(safe-area-inset-bottom));
+    }
+    .sheet-card{
+      width:100%;
+      max-height:calc(100dvh - 16px);
+      border-radius:22px 22px 14px 14px;
+      padding:18px 16px;
+      padding-bottom:max(18px,env(safe-area-inset-bottom));
+    }
+    .sheet-handle{margin-bottom:12px}
+    .sheet-card h2{font-size:24px;margin-bottom:7px;padding-right:42px}
+    .sheet-card p{font-size:13px;line-height:1.5;margin-bottom:14px}
+    .sheet-card .field{margin-bottom:12px}
+    .sheet-card .field input{padding:12px 13px}
+    .sheet-card .btn{padding:14px 18px;font-size:14px}
+    .sheet-card .till-box{padding:14px;margin:12px 0}
+    .sheet-card .till-number{font-size:29px;margin:4px 0}
+    .sheet-card .cash-coming{margin:10px 0 12px;padding:11px}
+    .sheet-card .loading,.sheet-card .toast{margin-top:10px}
+    .sheet-card .close-x{right:14px;top:13px}
+  }
+
+  @media (max-height:680px){
+    .sheet-card{
+      max-height:calc(100dvh - 12px);
+      padding-top:14px;
+    }
+    .sheet-card h2{font-size:22px}
+    .sheet-card p{margin-bottom:10px}
+    .sheet-card .field{margin-bottom:9px}
+    .sheet-card .till-box{margin:9px 0;padding:11px}
+    .sheet-card .cash-coming{margin:8px 0;padding:10px}
   }
   @media print{
     .conn-pill,.activity-widget,.modal-overlay{display:none!important}
