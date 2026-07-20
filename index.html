@@ -678,16 +678,23 @@ async function apiGet(action, params){
   if(!apiIsConfigured()) throw new Error('The Apps Script API URL has not been configured.');
   var url = new URL(API_BASE_URL);
   url.searchParams.set('action', action);
+
+  // Give every GET request a unique URL so the browser, GitHub Pages,
+  // proxies, and Apps Script do not reuse an older response.
+  url.searchParams.set('_refresh', String(Date.now()));
+
   Object.entries(params || {}).forEach(function(entry){
     var key = entry[0], value = entry[1];
     if(value !== undefined && value !== null && value !== '') url.searchParams.set(key, String(value));
   });
+
   var response = await fetch(url.toString(), {
     method: 'GET',
     mode: 'cors',
     redirect: 'follow',
     cache: 'no-store'
   });
+
   return parseApiResponse(response);
 }
 async function apiPost(action, payload){
@@ -701,6 +708,43 @@ async function apiPost(action, payload){
     body: JSON.stringify(Object.assign({ action: action }, payload || {}))
   });
   return parseApiResponse(response);
+}
+
+/**
+ * Always request the current manual fallback Till Number from Apps Script.
+ * Both payment cards call this immediately before opening.
+ */
+async function refreshTillNumber(){
+  try {
+    var latestTill = await apiGet('getTillNumber');
+
+    if(latestTill !== undefined && latestTill !== null && latestTill !== ''){
+      TILL_NUMBER = String(latestTill).trim();
+    }
+
+    if($('cashTillNumberDisplay')){
+      $('cashTillNumberDisplay').textContent = TILL_NUMBER || '—';
+    }
+
+    if($('tillNumberDisplay')){
+      $('tillNumberDisplay').textContent = TILL_NUMBER || '—';
+    }
+
+    return TILL_NUMBER;
+  } catch(error){
+    console.error('Could not refresh Till Number.', error);
+
+    // Retain the most recently loaded number if a refresh temporarily fails.
+    if($('cashTillNumberDisplay')){
+      $('cashTillNumberDisplay').textContent = TILL_NUMBER || '—';
+    }
+
+    if($('tillNumberDisplay')){
+      $('tillNumberDisplay').textContent = TILL_NUMBER || '—';
+    }
+
+    return TILL_NUMBER;
+  }
 }
 
 /* ============================================================
@@ -1053,9 +1097,14 @@ function goGifts(){
   showPage('gifts');
   if(isBackendConnected) renderGiftGrid();
 }
-function openCashGift(){
+async function openCashGift(){
   $('modalGiftPrompt').classList.remove('show');
   $('modalNoGift').classList.remove('show');
+
+  // Do not rely only on the number loaded when the page first opened.
+  $('cashTillNumberDisplay').textContent = 'Refreshing…';
+  await refreshTillNumber();
+
   hydrateGuestFields(savedGuest || { name: $('guestName').value, phone: $('guestPhone').value });
   $('cashGiftPhone').value = ($('guestPhone').value || (savedGuest && savedGuest.phone) || '').trim();
   $('cashGiftPhone').classList.remove('invalid');
@@ -1344,7 +1393,11 @@ async function recordRsvpAndInvite(){
 /* ============================================================
    Checkout / contribution flow
    ============================================================ */
-function openCheckout(rowIndex, amount){
+async function openCheckout(rowIndex, amount){
+  // Fetch the latest fallback Till before presenting the payment card.
+  $('tillNumberDisplay').textContent = 'Refreshing…';
+  await refreshTillNumber();
+
   var gift = GIFTS.find(function(item){ return Number(item.rowIndex) === Number(rowIndex); });
   if(!gift) return;
   var maxAmount = gift.target > 0 ? Math.max(0, gift.remaining) : null;
